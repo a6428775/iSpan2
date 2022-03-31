@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第一組線上訂餐平台</title><!-- STYLE CSS --><link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet"><link href="css/styles.css" rel="stylesheet"><!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --><!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+    <div id="page" class="hfeed site"><!-- start page wrapper -->
+
+    	<header id="masthead" class="site-header navbar-fixed-top">
+            <div class="header-navigation">
+                <div class="container-fluid">
+
+                    <div class="row">
+
+                        <div class="col col-md-2">
+                            <div class="site-branding navbar-brand">
+                                <a href="#"><img src="\images\Logo第一組.gif" alt="Food Recipe Web Template" title="Taplak"></a>
+                            </div><!-- end logo -->
+                        </div><!-- end col-md-3 -->
+
+                        <div class="col-12 col-md-8">
+                            <nav class="site-navigation navbar navbar-expand-lg navbar-light">
+
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">點餐</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                                <a class="dropdown-item" href="recipes.html">餐點目錄</a>
+                                                <a class="dropdown-item" href="recipe-single.html">餐點資訊</a>
+                                                <a class="dropdown-item" href="recipe-index.html">餐點關鍵字查詢</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="submit-recipe.html">新增餐單</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">最新消息</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                                <a class="dropdown-item" href="event.html">消息列表</a>
+                                                <a class="dropdown-item" href="event-single.html">最近活動</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">部落格</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                                                <a class="dropdown-item" href="blog.html">部落格目錄</a>
+                                                <a class="dropdown-item" href="blog-single.html">部落格文章</a>
+                                                <a class="dropdown-item" href="archive.html">部落格紀錄</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">資訊</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                                                <a class="dropdown-item" href="contact.html">聯繫我們</a>
+                                                <a class="dropdown-item" href="faq.html">常見問題</a>
+                                                <a class="dropdown-item" href="typography.html">Typography</a>
+                                                <a class="dropdown-item" href="my-account.html">我的帳號</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="login.html">登入</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="about.html">關於我們</a>
+                                        </li>
+                                    </ul>
+                                </div><!-- end navbar-collapse -->
+                            </nav><!-- end site-navigation -->
+                        </div><!-- end col-md-6 -->
+
+                        <div class="col-md-2">
+                            <nav class="social-navigation">
+                                <div class="social-container">
+                                    <ul class="social-menu">
+                                        <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    </ul>
+                                </div><!-- end social-container -->
+                                <div class="search-container">
+                                    <button type="button" class="buttonsearch" id="buttonsearch">
+                                        <i class="fas fa-search openclosesearch"></i><i class="fas fa-times openclosesearch" style="display:none"></i>
+                                    </button>
+                                </div><!-- end search-container -->
+                            </nav>
+                        </div><!-- end col-md-3 -->
+
+                    </div><!-- end row -->
+                    
+                </div><!-- end container-fluid -->
+            </div><!-- end header-navigation -->
+        </header><!-- end #masthead -->
+
+        <div class="container searchbardiv" id="formsearch">
+            <form role="search" method="get" id="searchform"  >
+                <div class="input-group">
+                    <input type="text" id="searchbox" class="form-control" name="s">
+                    <div class="input-group-btn">
+                        <button class="btn btn-search" id="searchsubmit" type="submit">
+                            <strong>搜尋</strong>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- end searchbardiv -->
+
+    	<!-- SLIDER SECTION -->
+        <div class="owl-carousel owl-theme">
+            <div class="item">
+                <img src="images/content/slide-13.png" alt="slide 1">
+                <div class="caption">
+                    <h2 class="animated bounce">Our 10 Most Popular Dishes</h2>
+                    <button class="btn btn-primary">立即探索</button>
+                </div>
+            </div><!-- end item -->
+            <div class="item">
+                <img src="images/content/slide-14.png" alt="slide 2">
+                <div class="caption">
+                    <h2 class="animated bounce">Best Of The Dishes 2022</h2>
+                    <button class="btn btn-primary">查看更多</button>
+                </div>
+            </div><!-- end item -->
+            <div class="item">
+                <img src="images/content/slide-15.png" alt="slide 3">
+                <div class="caption">
+                    <h2 class="animated bounce">Most Popular Dishes</h2>
+                    <button class="btn btn-primary">立即探索</button>
+                </div>
+            </div><!-- end item -->
+        </div><!-- end owl-carousel -->
+
+        <div class="choice-section">
+            <div class="container">
+                <div class="section-title">
+                    <h3>餐點推薦</h3></div><!-- end section-title --><div class="row"><div class="col-6 col-md-3"><div class="big-bone"><a href="#" class="figure-caption"><div class="caption-inner"><p>餐點</p><span>20 道推薦</span></div></a><figure><img src="images/content/food-l.png" alt="food l"></figure></div><div class="small-bone"><figure><img src="images/content/food-s.png" alt="food s"></figure><figure><img src="images/content/food-s2.png" alt="food s"></figure></div></div><!-- end col --><div class="col-6 col-md-3"><div class="big-bone"><a href="#" class="figure-caption"><div class="caption-inner"><p>飲品</p><span>16 道推薦</span></div></a><figure><img src="images/content/beverage-l.png" alt="beverage l"></figure></div><div class="small-bone"><figure><img src="images/content/beverage-s.png" alt="beverage s"></figure><figure><img src="images/content/beverage-s2.png" alt="beverage s"></figure></div></div><!-- end col --><div class="col-6 col-md-3"><div class="big-bone"><a href="#" class="figure-caption"><div class="caption-inner"><p>甜點</p><span>18 道推薦</span></div></a><figure><img src="images/content/dessert-l.png" alt="dessert l"></figure></div><div class="small-bone"><figure><img src="images/content/dessert-s.png" alt="dessert s"></figure><figure><img src="images/content/dessert-s2.png" alt="dessert s"></figure></div></div><!-- end col --><div class="col-6 col-md-3"><div class="big-bone"><a href="#" class="figure-caption"><div class="caption-inner"><p>素食</p><span>28 道推薦</span></div></a><figure><img src="images/content/pudding-l.png" alt="pudding l"></figure></div><div class="small-bone"><figure><img src="images/content/pudding-s.png" alt="pudding s"></figure><figure><img src="images/content/pudding-ss.png" alt="pudding s"></figure></div></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- end editor-section --><div class="features-section parallax-bg"><div class="container"><div class="section-title"><h3>Special Features</h3></div><!-- end section-title --><div class="row"><div class="col-md-4"><div class="inner"><span class="fitcon"><i class="fas fa-chart-line"></i></span><h4>Food Nutritions</h4><p>Eodem modo typi,qui nunc nobis videntur parum clari,fiant sollemnes in futurum.</p></div></div><!-- end col --><div class="col-md-4"><div class="inner"><span class="fitcon"><i class="far fa-clock"></i></span><h4>Cooking Period</h4><p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,vel illum dolore eu feugiat nulla facilisis.</p></div></div><!-- end col --><div class="col-md-4"><div class="inner"><span class="fitcon"><i class="fas fa-user-friends"></i></span><h4>Membership</h4><p>Ut wisi enim ad minim veniam,quis nostrud exerci tation coper suscipit lobortis nisl ut aliquip commodo consequat.</p></div></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- end features --><div class="recipes-section"><div class="container"><div class="section-title"><h3>特色菜品</h3></div><!-- end section-title --><div class="row"><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-1.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Salad Nicoise</a></h2><p><em>By Lina Sukowati</em></p><span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-2.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Grilled Beef Steak</a></h2><p><em>By Eka Nurwasilah</em></p><span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-3.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Tiger Prawns Roasted</a></h2><p><em>By Nurjanah</em></p><span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-4.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Korean Soup</a></h2><p><em>By Lina Sukowati</em></p><span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-5.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Roast Aubergine</a></h2><p><em>By Lina Sukowati</em></p><span><i class="fas fa-clock"></i>&nbsp;1 Hour</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-6.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Indian Mixed Rice</a></h2><p><em>By Eka Nurwasilah</em></p><span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-7.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Black Red Cake</a></h2><p><em>By Nurjanah</em></p><span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --><div class="col-6 col-md-3"><div class="recipe-thumb"><img src="images/content/thumb-8.png" alt="Recipe Image"><a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a href="#" class="view-recipe">VIEW RECIPE</a></div><div class="recipe-desc"><h2 class="recipe-title"><a href="#">Fresh Spaghetti with Tuna</a></h2><p><em>By Lina Sukowati</em></p><span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span></div><!-- end recipe-desc --></div><!-- end col --></div><!-- end row --><div class="row"><div class="centered"><a href="#" class="btn btn-line">VIEW ALL RECIPES</a></div><!-- end centered --></div><!-- end row --></div><!-- end container --></div><!-- end recipes --><div class="editor-section"><div class="container"><div class="section-title"><h3>BestDishes編輯</h3></div><!-- end section-title --><div class="row justify-content-center"><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-1.png" alt="Avatar"></figure><h4>Roberta Farina</h4><p>Executive Editor</p></div><!-- end author-col --></div><!-- end col --><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-2.png" alt="Avatar"></figure><h4>Nia Kurniasari</h4><p>Internet Marketer</p></div><!-- end author-col --></div><!-- end col --><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-3.png" alt="Avatar"></figure><h4>Rina Alexanderia</h4><p>Publisher</p></div><!-- end author-col --></div><!-- end col --><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-4.png" alt="Avatar"></figure><h4>Siti Julaiha</h4><p>System Administrator</p></div><!-- end author-col --></div><!-- end col --><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-5.png" alt="Avatar"></figure><h4>Laila Delova</h4><p>Graphic Designer</p></div><!-- end author-col --></div><!-- end col --><div class="col-6 col-md-2"><div class="author-col"><figure class="auth-ava"><img src="images/content/ava-1.png" alt="Avatar"></figure><h4>Fatur</h4><p>Web Developer</p></div><!-- end author-col --></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- end editor-section --><div class="event-section parallax-bg"><div class="container"><div class="section-title"><h3>即將舉行的活動</h3></div><!-- end section-title --><div class="row justify-content-md-center"><div class="col col-md-8"><div class="event-container"><h2>Housewife Cooking Competition</h2><p><i class="fas fa-calendar"></i>Saturday,January 20,2019<br><i class="fas fa-map-marker-alt"></i>Balai Sartini,Surakarta</p><a href="#" class="btn btn-primary">More Info</a></div><!-- end event-container --></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- event-section --><div class="blog-section"><div class="container"><div class="section-title"><h3>RECENT BLOG POST</h3></div><!-- end section-title --><div class="row"><div class="col-6 col-md-3 blog-list"><figure class="blog-thumb"><img src="images/content/blog-1.png" alt="blog"></figure><div class="entry-header"><h2 class="post-title entry-title"><a href="#">Claritas est etiam processus dynamicus,qui sequitur nembuz</a></h2></div><!-- end entry-header --><div class="post-meta"><div class="cat"><a href="#">Cooking Tips</a></div><time class="published" datetime="2019-03-03" title="March 3, 2019 - 21:12 pm">Mar 3,2019</time></div></div><!-- end col --><div class="col-6 col-md-3 blog-list"><figure class="blog-thumb"><img src="images/content/blog-2.png" alt="blog"></figure><div class="entry-header"><h2 class="post-title entry-title"><a href="#">Anteposuerit litterarum formas humanitatis per seacula</a></h2></div><!-- end entry-header --><div class="post-meta"><div class="cat"><a href="#">How to</a></div><time class="published" datetime="2019-03-03" title="March 3, 2019 - 21:12 pm">Mar 3,2019</time></div></div><!-- end col --><div class="col-6 col-md-3 blog-list"><figure class="blog-thumb"><img src="images/content/blog-3.png" alt="blog"></figure><div class="entry-header"><h2 class="post-title entry-title"><a href="#">Lorem ipsum dolor sit amet,consectetuer adipiscing elit</a></h2></div><!-- end entry-header --><div class="post-meta"><div class="cat"><a href="#">Cooking Tips</a></div><time class="published" datetime="2019-03-03" title="March 3, 2019 - 21:12 pm">Mar 3,2019</time></div></div><!-- end col --><div class="col-6 col-md-3 blog-list"><figure class="blog-thumb"><img src="images/content/blog-4.png" alt="blog"></figure><div class="entry-header"><h2 class="post-title entry-title"><a href="#">Mirum est notare quam littera gothica</a></h2></div><!-- end entry-header --><div class="post-meta"><div class="cat"><a href="#">Cooking Tips</a></div><time class="published" datetime="2019-03-03" title="March 3, 2019 - 21:12 pm">Mar 3,2019</time></div></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- end blog-section --><div class="footer-instagram"><div class="ig-btn"><a href="#" class="ig-follow"><i class="fab fa-instagram"></i>&nbsp;Follow Me on Instagram</a></div><!-- end ig-btn --><ul class="ig-feed"><li><a href="#"><img src="images/content/ig-1.png" alt="photo"></a></li><li><a href="#"><img src="images/content/ig-2.png" alt="photo"></a></li><li><a href="#"><img src="images/content/ig-3.png" alt="photo"></a></li><li><a href="#"><img src="images/content/ig-4.png" alt="photo"></a></li><li><a href="#"><img src="images/content/ig-5.png" alt="photo"></a></li><li><a href="#"><img src="images/content/ig-6.png" alt="photo"></a></li></ul></div><!-- end footer-instagram --><div class="footer-social"><div class="container"><a href="#"><i class="fab fa-facebook-square"></i>Facebook</a><a href="#"><i class="fab fa-twitter"></i>Twitter</a><a href="#"><i class="fab fa-pinterest"></i>Pinterest</a><a href="#"><i class="fab fa-instagram"></i>Instagram</a><a href="#"><i class="fab fa-linkedin"></i>Linkedin</a><a href="#"><i class="fab fa-youtube"></i>Youtube</a></div><!-- end container --></div><!-- footer-social --><div class="bottom"><div class="container"><div class="row"><div class="col-md-6"><div class="widget widget-about"><div class="widget-inner"><h3 class="widget-title">About Taplak</h3><p>Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus,qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica,quam nunc putamus parum claram,anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</p></div><!-- end widget-inner --></div><!-- end widget --></div><!-- end col --><div class="col-md-6"><div class="widget widget-subscribe"><div class="widget-inner"><h3 class="widget-title">Stay Updated</h3><span>Register your email address to get promos,product updates and other info.</span><div class="subscribe-form"><input type="email" name="EMAIL" placeholder="Your email address" required=""><input type="submit" value="Subscribe"></div><!-- end subscribe-form --></div><!-- end widget-inner --></div><!-- end widget --></div><!-- end col --></div><!-- end row --><div class="row no-gutters"><div class="col-md-6"><div class="copy"><p>&copy;2022 第一組點餐平台期末專題 製作 <i class="fas fa-globe-asia"></i>&nbsp第一組</p></div><!-- end copy --></div><!-- end col --><div class="col-md-6"><ul class="bottom-nav"><li><a href="\index.html">首頁</a></li><li><a href="/contact.html">聯繫我們</a></li><li><a href="#">隱私政策</a></li><li><a href="#">聲明條款及使用條約</a></li></ul></div><!-- end col --></div><!-- end row --></div><!-- end container --></div><!-- end bottom --></div><!-- end #page hfeed site --><!-- jQuery(necessary for Bootstrap's JavaScript plugins) --><script src="js/vendor/modernizr-3.7.1.min.js"></script><script src="js/vendor/jquery-3.4.1.min.js"></script><!-- Include all compiled plugins(below),or include individual files as needed --><script src="js/bootstrap.bundle.min.js"></script><script src="js/plugin.js"></script><script src="js/main.js"></script></body></html>

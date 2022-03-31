@@ -1,0 +1,10 @@
+server:
+   port: 8081
+   
+name: mary
+age: 18
+
+profiles:
+  username: louis
+  address: taiwan
+  phone: 0987654321   
