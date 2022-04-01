@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
+<link rel="stylesheet" href="/css/ordersystem.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -49,7 +49,7 @@
              		            "</tr>"+
              		          
                 		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
-                 		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+                 		   		"<td colspan='5' id = '變數'>餐點 : XXX     數量 :  X    價格 :  </br> 餐點 : XXX     數量 :  X    價格 :    </td>" +
 								"</tr>" ;
 
              		            
@@ -72,7 +72,7 @@
 	 function loadorder(oid){
 		   $.ajax({
 			     type:'post',
-			     //透過訂單id 查詢訂單詳細資訊
+			     //透過id 查詢產品
 			     url:'/Store/QueryInformationByOrderID.controller?oid='+ oid,
 			     dataType:'JSON',
 			     contentType:'application/json',
@@ -81,17 +81,18 @@
 			         var json = JSON.stringify(data, null, 4);
 			         console.log('success:' + json);
 			         var jsonArray = JSON.parse(json);
-
-	
+			          
 			         if(data==null){
 			         
-			         }
-			         
-			         $.each(jsonArray, function(i,n){
+			         }else{
 
-			         var tdd = "餐點 : " + n.productName + "     數量 :  " + n.number + "    價格 :  " + n.productPrice + "   </br>"
-			        	 $('#orderid'+oid).prepend(tdd);
-		        	 
+//			        	 $('#ProductName').attr({"value":jsonArray.productname});
+//			        	 $('#ProductCategory').attr({"value":jsonArray.productcategory});
+//			        	 $('#ProductUnitPrice').attr({"value":jsonArray.productunitprice});
+//			        	 $("#img-preview").attr({"src":jsonArray.preview});
+			         }
+			         $.each(data[0], function(i,n){
+							//console.log(n)
 			         });
 
 			     }
@@ -110,7 +111,7 @@
         <meta name="author" content="" />
         <title>後台管理</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/Backstage/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -251,9 +252,9 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/datatables-simple-demo.js"></script>
+        <script src="/js/datatables-simple-demo.js"></script>
     </body>
 </html>
