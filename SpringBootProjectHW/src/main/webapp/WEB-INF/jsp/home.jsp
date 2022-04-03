@@ -13,23 +13,40 @@
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<style type="text/css">
+
+.cartModal{position: fixed;
+			z-index: 10000}
+
+</style>
+
 </head>
 <body>
+
+	<div class="cartModal">
+		<%@ include file="shoppingcart.jsp" %>
+	</div>
+
 
 	<div id="page" class="hfeed site">
 		<!-- start page wrapper -->
 
 		<header id="masthead" class="site-header navbar-fixed-top">
+		
 			<div class="header-navigation">
+			
 				<div class="container-fluid">
 
 					<div class="row">
+					
 
 						<div class="col col-md-2">
 							<div class="site-branding navbar-brand">
@@ -58,41 +75,45 @@
 										<li class="nav-item active"><a class="nav-link"
 											href="index.html">Home <span class="sr-only">(current)</span></a>
 										</li>
-										<li class="nav-item"><a class="nav-link" href="about.html">關於我們</a>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="typography.html">最新消息</a>
-										</li>
-										<li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">餐點資訊</a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
-                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
-                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
-                                            </div>
-                                        </li>
-										<li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">店家資訊</a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
-                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
-                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
-                                            </div>
-                                        </li>
+										<li class="nav-item"><a class="nav-link"
+											href="about.html">關於我們</a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="typography.html">最新消息</a></li>
+										<li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#"
+											id="navbarDropdown1" role="button" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">餐點資訊</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+												<a class="dropdown-item" href="recipes.html">Recipe List</a>
+												<a class="dropdown-item" href="recipe-single.html">Recipe
+													Single</a> <a class="dropdown-item" href="recipe-index.html">Recipe
+													Index</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="submit-recipe.html">Submit
+													Recipe</a>
+											</div></li>
+										<li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#"
+											id="navbarDropdown1" role="button" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">店家資訊</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+												<a class="dropdown-item" href="recipes.html">Recipe List</a>
+												<a class="dropdown-item" href="recipe-single.html">Recipe
+													Single</a> <a class="dropdown-item" href="recipe-index.html">Recipe
+													Index</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="submit-recipe.html">Submit
+													Recipe</a>
+											</div></li>
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">服務資源</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="contact.html">聯絡我們</a> 
-												<a class="dropdown-item" href="faq.html">FAQ</a> 
+												<a class="dropdown-item" href="contact.html">聯絡我們</a> <a
+													class="dropdown-item" href="faq.html">FAQ</a>
 											</div></li>
-										
+
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
@@ -101,30 +122,34 @@
 												<a class="dropdown-item" href="login.html">登入</a>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item" href="#">註冊</a>
-											</div>
-										</li>
-										<li class="nav-item"><a class="nav-link">購物車</a></li>
+											</div></li>
+											<li class="nav-item"><a class="nav-link"></a></li>
+										
+
 									</ul>
-								<!-- end navbar-collapse -->
+									<!-- end navbar-collapse -->
 							</nav>
 							<!-- end site-navigation -->
+							
 						</div>
 						<!-- end col-md-8 -->
 
-						<!-- 刪除社群icon、搜尋icon-->	
-                            
+						<!-- 刪除社群icon、搜尋icon-->
+
 					</div>
 					<!-- end row -->
 
 				</div>
 				<!-- end container-fluid -->
 			</div>
+			
 			<!-- end header-navigation -->
 		</header>
+		
 		<!-- end #masthead -->
 
 		<!-- 刪除搜尋列 -->
-		
+
 		<!-- 幻燈片 輪播圖 SLIDER SECTION /////////////////////////////////////////////////////////////////////-->
 		<div class="owl-carousel owl-theme">
 			<div class="item">
@@ -450,8 +475,8 @@
 								<div class="col-md-6">
 									<div class="copy">
 										<p>
-											&copy; copyright 2022 by iii-Java-123-group1
-											<i class="fas fa-heart"></i>
+											&copy; copyright 2022 by iii-Java-123-group1 <i
+												class="fas fa-heart"></i>
 										</p>
 									</div>
 									<!-- end copy -->
@@ -488,7 +513,5 @@
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
-	<link rel='stylesheet'
-	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 </body>
 </html>

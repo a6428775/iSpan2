@@ -17,6 +17,11 @@
 </script>
 </head>
 <body>
+	<div class="container border shadow mt-5 w-50 p-5" >
+		<%@ include file="../shoppingcart.jsp" %>
+	</div>
+
+
 
 </body>
 </html>
