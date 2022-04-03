@@ -70,7 +70,9 @@ public class StoreRegisterController {
 		}	  
 		account.setUserAccount(user);
 		account.setUserPassword(encode);
-		account.setUserRole("USER");
+		
+		
+		account.setUserRole("STORE");
 			 
 		aService.createAccount(account);
 			 

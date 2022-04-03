@@ -51,7 +51,12 @@ public class Hellocontroller {
 	
 	@GetMapping("/test2")
 	public String processAction4() {
-		return "home";
+		return "memberCenter";
+	}
+	
+	@GetMapping("/test3")
+	public String processAction5() {
+		return "/save/welcome";
 	}
 	
 	//只搜尋某STOREID 的餐點

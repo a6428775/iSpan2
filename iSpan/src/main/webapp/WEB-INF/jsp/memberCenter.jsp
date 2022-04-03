@@ -79,7 +79,43 @@
 }
 .toTop-arrow:focus {outline: none;}
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
 
+	load();
+
+});
+
+
+
+function load(){
+	 $.ajax({
+     type:'post',
+     //透過id 查詢產品
+     url:'/userInformation.controller',
+     dataType:'JSON',
+     contentType:'application/json',
+     success: function(data){
+         
+         var json = JSON.stringify(data, null, 4);
+         console.log('success:' + json);
+         var jsonArray = JSON.parse(json);
+          
+         if(json==null){
+//             $('table').prepend('<tr><td colspan="2">No Result</td></tr>');
+         }else{
+             
+        	 $('#nickname').attr({"value":jsonArray.nickname});
+        	 $('#phone').attr({"value":jsonArray.phone});
+        	 $('#address').attr({"value":jsonArray.address});
+        	 $('#birthday').attr({"value":jsonArray.birthday});
+
+
+         }
+     }
+	   });
+}
+</script>
 <title>會員中心</title>
 </head>
 
@@ -234,35 +270,34 @@
 					<div id="p1">
 						<div class="main-box">
 							<h3 class="title">基本資料</h3>
-							<form:form id="form-userinfo"
-								action="/user1/membercenterupdate.controller"
-								modelAttribute="user1" method="post">
+							<form id="form-userinfo" >
+
 								<div class="mb-5">
-									<form:label path="nickname" class="form-label">暱稱</form:label>
-									<form:input path="nickname" type="text" class="form-control"
-										id="nickname" aria-describedby="nameHelp" value="${Nickname}" />
+									<label path="nickname" class="form-label">暱稱</label>
+									<input path="nickname" type="text" class="form-control"
+										id="nickname" aria-describedby="nameHelp" value="" />
 									<div id="nameHelp" class="form-text"></div>
 								</div>
 								<div class="mb-5">
-									<form:label path="phone" class="form-label">電話 (09xxxxxxxx)</form:label>
-									<form:input path="phone" type="text" class="form-control"
-										id="phone" value="${Phone}" />
+									<label path="phone" class="form-label">電話 (09xxxxxxxx)</label>
+									<input path="phone" type="text" class="form-control"
+										id="phone" value="" />
 								</div>
 								<div class="mb-5">
-									<form:label path="address" class="form-label">地址</form:label>
-									<form:input path="address" type="text" class="form-control"
-										id="address" value="${Address}" />
+									<label path="address" class="form-label">地址</label>
+									<input path="address" type="text" class="form-control"
+										id="address" value="" />
 								</div>
 								<div class="mb-5">
-									<form:label path="birthday" class="form-label">生日(19xx-xx-xx)</form:label>
-									<form:input path="birthday" type="text" class="form-control"
-										id="birthday" value="${Birthday}" />
+									<label path="birthday" class="form-label">生日(19xx-xx-xx)</label>
+									<input path="birthday" type="text" class="form-control"
+										id="birthday" value="" />
 								</div>
 								<div align="center">
-									<form:button value="submit" id="submit" class="btn btn-primary"
-										onclick="processFormData()">送出修改</form:button>
+									<button value="submit" id="submit" class="btn btn-primary"
+										onclick="processFormData()">送出修改</button>
 								</div>
-							</form:form>
+							</form>
 
 							<script type="text/javascript">
 								function processFormData() {
@@ -274,62 +309,50 @@
 									alert("您的基本資料已修改\n暱稱：" + nickname + "\n電話："
 											+ phone + "\n地址：" + address
 											+ "\n生日：" + birthday);
+
+
+									  var params = {
+										  	    
+									          "nickname":nickname,
+									          "birthday":birthday,
+									          "phone":phone,
+									          "address":address,
+
+									  }
+									  
+									  console.log("SUCCESS : ", JSON.stringify(params));
+									  $.ajax({
+										   type:'post',
+										   url:'/user1/membercenterupdate.controller',
+										   dataType:'JSON',
+										   contentType:'application/json',
+										   data: JSON.stringify(params),
+										   success: function(data) {
+										      var json = JSON.stringify(data);
+										      
+										      console.log("SUCCESS : ", json);
+//										      $('#feedback').html("新增成功");
+										      
+										      var parsedObjinArray = JSON.parse(json);
+										      $.each(parsedObjinArray, function(index, value) {
+										          console.log(value);
+										      });
+										   },
+										   error: function() {
+										      console.log("error");
+									      }
+									  });
+
+/////////////////////////////////////////
+
+									
 								}
 							</script>
 
 						</div>
 					</div>
-					<div id="p2">
-						<div class="main-box">
-							<h3 class="title">修改密碼</h3>
-							<form:form id="form-userinfo"
-								action="/user1/membercenterupdatepwd.controller"
-								modelAttribute="user1" method="post">
 
-								<div class="mb-5">
-									<form:label path="userpassword" class="form-label">新密碼</form:label>
-									<form:input path="userpassword" type="password"
-										class="form-control" id="userpassword" required="true" placeholder=""
-										onkeyup="KeyUp()" />
-								</div>
-								<div class="mb-5">
-									<label for="userpassword-new" class="form-label">請再次輸入新密碼</label>
-									<input type="password" class="form-control" placeholder=""
-										id="userpassword-new" required="true" onkeyup="KeyUp()" /> 
-										<span id="different-pwd"></span>
-								</div>
-								<div align="center">
-									<form:button type="submit" id="submit" class="btn btn-primary"
-										onclick="processFormDataPwd()">送出修改</form:button>
-								</div>
-							</form:form>
-							<script type="text/javascript">
-								function processFormDataPwd() {
-									alert("您的密碼已修改！");
-								}
-							</script>
-
-							<script>
-								function KeyUp() {
-									var a = $('#userpassword').val();
-									// alert(a); 
-									var b = $('#userpassword-new').val();
-									// alert(b); 
-									if (a == b) {
-										$('#submit').removeAttr('disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "";
-									} else {
-										$('#submit').attr('disabled',
-												'disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
-									}
-								}
-							</script>
-
-						</div>
-					</div>
+					</div>  -->
 					<div id="p3">
 						<div class="main-box">
 							<h3 class="title">

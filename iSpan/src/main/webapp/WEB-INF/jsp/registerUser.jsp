@@ -127,52 +127,48 @@
 		<!-- ====================================================自由發揮區==================================================== -->
 
 
+
+
 		<div class="container">
 			<div class="row">
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3 align="center">註冊</h3>
-					<form:form action="/createuser1.controller" method="post" modelAttribute="user1">
+					<form action="/createuser1.controller" method="post" >
+
+
 						<div class="mb-3">
-							<form:label path="useremailaddress" class="form-label">帳號(請輸入正確信箱)：</form:label>
-							<form:input class="form-control" type="text" path="useremailaddress"
-								id="useremailaddress" placeholder="" required="true" />
+							<label path="useremailaddress" class="form-label">帳號(請輸入正確信箱)：</label>
+							<input class="form-control" type="text" path="useremailaddress"
+								id="useremailaddress" name="useremailaddress" placeholder="" required="true" />
 						</div>
 						<div class="mb-3">
-							<form:label path="userpassword" class="form-label">密碼：</form:label>
-							<form:input class="form-control" type="password" path="userpassword"
-								id="userpassword" placeholder="" required="true" onkeyup="KeyUp()" />
+							<label path="userpassword" class="form-label">密碼：</label>
+							<input class="form-control" type="password" path="userpassword"
+								id="userpassword" name="userpassword" placeholder="" required="true" onkeyup="KeyUp()" />
 						</div>
 						<div class="mb-3">
 							<label path="password1" class="form-label">請再次輸入密碼：</label> <input
 								class="form-control" type="password" path="password1"
 								id="password1" placeholder="" required="true" onkeyup="KeyUp()" />
 						</div>
+
 						<div class="mb-3">
-							<form:label path="nickname" class="form-label">姓名：</form:label>
-							<form:input class="form-control" type="text" path="nickname"
-								id="nickname" placeholder="" required="true" />
+							<label path="password1" class="form-label">請選擇註冊身分：</label> 
+								<select id="userrole" name="userrole">
+
+								    <option>USER</option>
+								    <option>STORE</option>
+								</select>
 						</div>
-						<div class="mb-3">
-							<form:label path="phone" class="form-label">電話：</form:label>
-							<form:input class="form-control" type="text" path="phone"
-								id="phone" placeholder="" required="true" />
-						</div>
-						<div class="mb-3">
-							<form:label path="address" class="form-label">地址：</form:label>
-							<form:input class="form-control" type="text" path="address"
-								id="address" placeholder="" required="true" />
-						</div>
-						<div class="mb-3">
-							<form:label path="birthday" class="form-label">生日：</form:label>
-							<form:input class="form-control" type="text" path="birthday"
-								id="birthday" placeholder="" required="true" />
-						</div>
+
 						<span id="different-pwd"></span>
 						<div align="center">
-							<form:button class="btn btn-primary" id="submit" value="Submit">送出</form:button>
+							<button class="btn btn-primary" id="submit" value="Submit">送出</button>
 							<span style="margin: auto;">${errors.account}</span>
 						</div>
-					</form:form>
+
+
+					</form>
 				</div>
 			</div>
 		</div>
@@ -191,6 +187,8 @@
 				}
 			}
 		</script>
+
+
 
 
 

@@ -82,11 +82,52 @@ public class OrderController {
 		return page.getContent();
 	}
         
-	//商家資訊修改 
+	//商家資訊修改網頁
 	@GetMapping("/updateStore.controller")
 	public String processUpdateStoreActiong() {
 		return "/Order/updateStore";
 	}
+	
+	//接收資料更新商家資訊
+	@PostMapping("/updateStore2.controller")
+	public Store processProductupdateAction(@RequestBody Store store) {
+		
+		
+		//取得登入廠商的ID 才能新增廠申自己的餐點進資料庫  還沒寫防呆
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+        
+
+        
+        Optional<Store> op1 = s.findByAccount(username);
+        
+  //      Integer ss = op1.get().getStoreID();
+        
+        if ( op1.isEmpty() ) {
+        	
+        	store.setStoreAccount(username);
+        	
+        }else {
+        	
+        	 Integer ss = op1.get().getStoreID();
+        	 store.setStoreID(ss);
+        	 store.setStoreAccount(op1.get().getStoreAccount());
+        	
+        }
+      
+        
+ //       store.setStorePassword(op1.get().getStorePassword());
+		//取得登產品ID 透過ID 更新資料
+
+		
+
+		return sService.update(store);
+	}	
+	
+	
+	
+	
+	
 	
 	@PostMapping("/storeupdateInformation.controller")
 	@ResponseBody
@@ -120,4 +161,13 @@ public class OrderController {
 		return  o.findByOrderId(oid);
 	}
 
+	
+	@PostMapping("/createStore.controller")
+	public Store processCreateStoreAction2(@RequestBody Store store) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        store.setStoreAccount(username);
+        
+        return sService.createAccount(store);
+	}
 }
+

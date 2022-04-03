@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Entity @Table(name = "User1")
 @Component
 public class User1 {
+	
 	@Id @Column(name = "USERID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userid;
@@ -46,11 +47,11 @@ public class User1 {
 		
 	}
 	
-	public User1 (String useremailaddress, String userpassword ) {
-		
-	}
-
-	public User1 (String useremailaddress, String userpassword, String nickname, String birthday, String phone ,String address) {
+//	public User1 (String useremailaddress, String userpassword ) {
+//		
+//	}
+//
+	public User1 (String useremailaddress, String nickname, String birthday, String phone ,String address) {
 		
 	}
 
@@ -101,5 +102,6 @@ public class User1 {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
+
 }

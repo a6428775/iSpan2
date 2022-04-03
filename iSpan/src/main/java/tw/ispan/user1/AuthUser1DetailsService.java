@@ -27,7 +27,7 @@ public class AuthUser1DetailsService implements UserDetailsService {
         return User.withUsername(account.getUserAccount())
         		   .password(account.getUserPassword())
                    //建立 與資料庫對應的 權限
-                   .roles("USER").build();
+                   .roles(account.getUserRole()).build();
         
         
 	}
