@@ -12,18 +12,25 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="/css/front/styles.css" rel="stylesheet">
 <style type="text/css">
 .rt-text-note {
 	color: #8d8d8d;
-	padding-top: 30px;}
+	padding-top: 30px;
+}
+
 .btn-re {
-	text-align: center;}
+	text-align: center;
+}
+
 .btn-1 {
-	float: right;}
+	float: right;
+}
+
 .loginerror {
 	color: #f00;
-	text-align: center;}
+	text-align: center;
+}
 </style>
 <title>使用者登入</title>
 </head>
@@ -109,9 +116,10 @@
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">會員中心</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="/user1/membercenter.controller">登入</a>
+												<a class="dropdown-item"
+													href="/Account/membercenter.controller">登入</a>
 												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
+												<a class="dropdown-item" href="/createaccountmain.controller">註冊</a>
 											</div></li>
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
@@ -145,9 +153,9 @@
 
 					<form action="/login/page" method="post">
 						<div class="mb-3">
-							<label for="useremailaddress" class="form-label">帳號：</label> <input
-								class="form-control" type="text" name="username" id="useremailaddress"
-								placeholder="請輸入使用者名稱" value="@gmail.com"/>
+							<label for="useraccount" class="form-label">帳號：</label> <input
+								class="form-control" type="text" name="username"
+								id="useraccount" placeholder="請輸入使用者名稱" value="@gmail.com" />
 						</div>
 						<div class="mb-3">
 							<label for="userpassword" class="form-label">密碼：</label> <input
@@ -157,12 +165,12 @@
 						<!-- <a href="" class="btn-1" >忘記密碼？</a> -->
 
 						<div class="mb-3 form-check">
-							<label>
-								<input type="checkbox" class="form-check-input" name="rememberMe-key">記住我 
+							<label> <input type="checkbox" class="form-check-input"
+								name="rememberMe-key">記住我
 							</label>
-															
+
 							<div class="loginerror">
-							<!-- ===============================查無帳號=============================== -->
+								<!-- ===============================查無帳號=============================== -->
 								<script>
 									var getUrlString = location.href;
 									var url = new URL(getUrlString);
@@ -216,14 +224,14 @@
 
 	</div>
 	<!-- end #page hfeed site -->
-	
+
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
-	
+	<script src="/js/front/modernizr-3.7.1.min.js"></script>
+	<script src="/js/front/jquery-3.4.1.min.js"></script>
+
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/front/bootstrap.bundle.min.js"></script>
+	<script src="/js/front/plugin.js"></script>
+	<script src="/js/front/main.js"></script>
 </body>
 </html>

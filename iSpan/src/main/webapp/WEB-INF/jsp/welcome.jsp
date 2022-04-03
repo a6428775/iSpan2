@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/ordersystem.css">
+<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
+ 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -17,7 +18,7 @@
     function loadPage(indexPage){
         $.ajax({
             type:'post',
-            url:'/product/queryByPage/' + indexPage,
+            url:'/Store/QueryAllByStoreID.controller',
             dataType:'JSON',
             contentType:'application/json',
             success: function(data){
@@ -25,32 +26,40 @@
                 console.log(data);
                 //顯示之前把Table標籤資料清空
                 //清空這段<table id="showorder" border="1"></table>
-				$('#showorder').empty("");
-
+                $('#showorder').empty("");
+                
                 
                 if(data==null){
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle' align='center'> <th>productid</th> <th>productname</th> <th>productcategory</th> <th>productunitprice</th> <th>storeid</th> </tr>");
-		
+             	   table.append("<tr id='ptitle'> <th>OrderID</th> <th>StoreID</th> <th>UserID</th> <th>OrderDate</th> <th>OrderStatus</th>  </tr>");
+
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
              		   var tr = 
-                 		   		"<tr align='center'>" + 
-             		   			"<td>" + n.productid + "</td>" +
-             		            "<td>" + n.productname + "</td>" + 
-             		            "<td>" + n.productcategory + "</td>" +
-             		            "<td>" + n.productunitprice + "</td>" + 
-             		            "<td>" + n.storeid + "</td>" +
+                 		   		"<tr align='center' >" + 
+                 		   		"<td>" + n.orderid + "</td>" +
+             		            "<td>" + n.storeid + "</td>" + 
+             		            "<td>" + n.userid + "</td>" +
+             		            "<td>" + n.orderdate + "</td>" + 
+             		            "<td>" + n.orderstatus + "</td>" +
              		            "</tr>";
+             		          
+        //        		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
+       //          		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+		//						"</tr>" ;
 
-             		   table.append(tr);
-             	
-                    });       
+             		            
+					   table.append(tr);
+								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
+			   		//			loadorder(n.orderid);
+			   				
+                    });           	   
                 }
             }
         });
+        //load 訂單詳細資訊的 function
      }
     function change(page){
      	indexPage = page;
@@ -95,7 +104,7 @@ function loadstore(){
         <meta name="author" content="" />
         <title>後台管理</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/styles.css" rel="stylesheet" />
+        <link href="/css/Backstage/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -271,10 +280,10 @@ function loadstore(){
                 </footer>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/js/Backstage/scripts.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
-        <script src="/js/datatables-simple-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/js/Backstage/datatables-simple-demo.js"></script>
     </body>
 </html>

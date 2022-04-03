@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="/css/front/styles.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -30,7 +29,6 @@
 				<div class="container-fluid">
 
 					<div class="row">
-
 						<div class="col col-md-2">
 							<div class="site-branding navbar-brand">
 								<!-- 左上logo圖片////////////////////////////////////////////////////////////////////////// -->
@@ -56,7 +54,7 @@
 									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/home.controller">Home <span class="sr-only">(current)</span></a>
+											href="/home.controller">Home<span class="sr-only"></span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link" href="about.html">關於我們</a>
 										</li>
@@ -98,12 +96,12 @@
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">會員中心</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="/user1/membercenter.controller">登入</a>
+												<a class="dropdown-item" href="login.html">登入</a>
 												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
+												<a class="dropdown-item" href="#">註冊</a>
 											</div>
 										</li> -->
-										<li class="nav-item"><a class="nav-link" href="/user1/membercenter.controller">會員中心</a></li>
+										<li class="nav-item"><a class="nav-link" href="/Account/User1/membercenter.controller">會員中心</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html">購物車</a></li>
 									</ul>
 								</div>
@@ -483,12 +481,12 @@
 	<!-- end #page hfeed site -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+	<script src="/js/front/modernizr-3.7.1.min.js"></script>
+	<script src="/js/front/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/front/bootstrap.bundle.min.js"></script>
+	<script src="/js/front/plugin.js"></script>
+	<script src="/js/front/main.js"></script>
 </body>
 </html>

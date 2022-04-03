@@ -43,13 +43,7 @@ public class Store {
 	
 	@Column(name = "STOREPASSWORD")
 	private String storePassword;
-	
-	public Store() {
-	}
-	
-	public Store(String account, String storePassword) {
-	}	
-	
+
 	public int getStoreID() {
 		return storeID;
 	}

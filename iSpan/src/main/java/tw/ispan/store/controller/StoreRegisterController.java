@@ -35,6 +35,8 @@ public class StoreRegisterController {
 	
 	@Autowired
 	private StoreRepository srp;
+
+	
 	
 	@RequestMapping(path = "/register2.controller", method = RequestMethod.POST)
 	public String processMainAction(@RequestParam("account") String user, @RequestParam("password") String pwd, Model m) {
@@ -57,20 +59,28 @@ public class StoreRegisterController {
 		
 		Store store = new Store();
 		
-		String encode = new BCryptPasswordEncoder().encode(pwd);
 		
-		Optional<Store> op1 = srp.findByAccount(user);
+		String encode = new BCryptPasswordEncoder().encode(pwd);
 
-		if(op1.isPresent()) {
-				errors.put("account", "Account already exists");	
+
+		
+		 Optional<Store> op1 = srp.findByAccount(user);
+
+		 if(op1.isPresent()) {
+			 
+				errors.put("account", "Account already exists");
+				
 				return "register";
-		}	  
-		store.setStoreAccount(user);
-		store.setStorePassword(encode);
+		 }	 
 			 
-		sService.createAccount(store);
+		 	store.setStoreAccount(user);
+		 	store.setStorePassword(encode);
 			 
-		return "login";
+			 sService.createAccount(store);
+			 
+			 return "login";
+			
+	
 	
 //		errors.put("account", "Account already exists");
 //		return "register";

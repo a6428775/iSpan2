@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +13,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="/css/front/styles.css" rel="stylesheet">
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -39,7 +38,18 @@
 .main-box {
 	margin: 0 0 30px 100px;
 	width: 800px;
-	height: 700px;
+	height: 830px;
+	padding: 100px;
+	box-shadow: 5px 5px 10px #999;
+	border: 1px solid #fff;
+	text-align: center;
+	font-size: 1.3em;
+}
+
+.main-box1 {
+	margin: 0 0 30px 100px;
+	width: 800px;
+	height: 500px;
 	padding: 100px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff;
@@ -172,7 +182,7 @@
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
 
-										<li class="nav-item"><label class="nav-link">登入帳號：${Useremailaddress}</label>
+										<li class="nav-item"><label class="nav-link">登入帳號：${Useraccount}</label>
 										</li>
 										<li class="nav-item"><a class="nav-link" href="/logout">登出</a>
 										</li>
@@ -212,14 +222,13 @@
 
 				<div class="list-group">
 					<a href="#p1" class="list-group-item list-group-item-action">基本資料</a>
-					<a href="#p2" class="list-group-item list-group-item-action"
-						aria-current="true">帳號管理</a> <a href="#p3"
-						class="list-group-item list-group-item-action">歷史訂單</a>
+					<a href="#p2" class="list-group-item list-group-item-action">帳號管理</a> 
+					<a href="#p3" class="list-group-item list-group-item-action">歷史訂單</a>
 					<!-- <a href="#" class="list-group-item list-group-item-action">A fourth link item</a> -->
 					<!-- <a class="list-group-item list-group-item-action disabled">A disabled link item</a> -->
 				</div>
 				<div class="list-group">
-					<a href="/admin/membercenter.controller" class="list-group-item list-group-item-action">後臺管理(權限)</a>
+					<a href="/store/membercenter.controller" class="list-group-item list-group-item-action">後臺管理(權限)</a>
 				</div>
 				
 				
@@ -234,42 +243,44 @@
 					<div id="p1">
 						<div class="main-box">
 							<h3 class="title">基本資料</h3>
-							<form:form id="form-userinfo"
-								action="/user1/membercenterupdate.controller"
-								modelAttribute="user1" method="post">
+							<form id="form-userinfo" action="/Account/User1/membercenterupdate.controller" method="post">
 								<div class="mb-5">
-									<form:label path="nickname" class="form-label">暱稱</form:label>
-									<form:input path="nickname" type="text" class="form-control"
-										id="nickname" aria-describedby="nameHelp" value="${Nickname}" />
-									<div id="nameHelp" class="form-text"></div>
+									<label class="form-label">帳號：</label>
+									<input name="Useremailaddress" type="text" class="form-control"
+										id="Useremailaddress" value="${Useraccount}" disabled />
 								</div>
 								<div class="mb-5">
-									<form:label path="phone" class="form-label">電話 (09xxxxxxxx)</form:label>
-									<form:input path="phone" type="text" class="form-control"
-										id="phone" value="${Phone}" />
+									<label class="form-label">暱稱</label>
+									<input name="Nickname" type="text" class="form-control"
+										id="Nickname" value="${Nickname}" />
 								</div>
 								<div class="mb-5">
-									<form:label path="address" class="form-label">地址</form:label>
-									<form:input path="address" type="text" class="form-control"
-										id="address" value="${Address}" />
+									<label class="form-label">電話 (09xxxxxxxx)</label>
+									<input name="Phone" type="text" class="form-control"
+										id="Phone" value="${Phone}" />
 								</div>
 								<div class="mb-5">
-									<form:label path="birthday" class="form-label">生日(19xx-xx-xx)</form:label>
-									<form:input path="birthday" type="text" class="form-control"
-										id="birthday" value="${Birthday}" />
+									<label class="form-label">地址</label>
+									<input name="Address" type="text" class="form-control"
+										id="Address" value="${Address}" />
+								</div>
+								<div class="mb-5">
+									<label class="form-label">生日(19xx-xx-xx)</label>
+									<input name="Birthday" type="text" class="form-control"
+										id="Birthday" value="${Birthday}" />
 								</div>
 								<div align="center">
-									<form:button value="submit" id="submit" class="btn btn-primary"
-										onclick="processFormData()">送出修改</form:button>
+									<button value="submit" id="submit" class="btn btn-primary" 
+										onclick="processFormData()">送出修改</button>
 								</div>
-							</form:form>
+							</form>
 
 							<script type="text/javascript">
 								function processFormData() {
-									var nickname = $('#nickname').val();
-									var phone = $('#phone').val();
-									var address = $('#address').val();
-									var birthday = $('#birthday').val();
+									var nickname = $('#Nickname').val();
+									var phone = $('#Phone').val();
+									var address = $('#Address').val();
+									var birthday = $('#Birthday').val();
 
 									alert("您的基本資料已修改\n暱稱：" + nickname + "\n電話："
 											+ phone + "\n地址：" + address
@@ -280,29 +291,27 @@
 						</div>
 					</div>
 					<div id="p2">
-						<div class="main-box">
+						<div class="main-box1">
 							<h3 class="title">修改密碼</h3>
-							<form:form id="form-userinfo"
-								action="/user1/membercenterupdatepwd.controller"
-								modelAttribute="user1" method="post">
+							<form id="form-userinfo" action="/Account/User1/membercenterupdatepwd.controller"method="post">
 
 								<div class="mb-5">
-									<form:label path="userpassword" class="form-label">新密碼</form:label>
-									<form:input path="userpassword" type="password"
-										class="form-control" id="userpassword" required="true" placeholder=""
-										onkeyup="KeyUp()" />
+									<label class="form-label">新密碼</label>
+									<input name="userpassword" type="password" class="form-control" id="userpassword" required 
+											placeholder="請輸入新密碼" onkeyup="KeyUp()" />
 								</div>
 								<div class="mb-5">
 									<label for="userpassword-new" class="form-label">請再次輸入新密碼</label>
-									<input type="password" class="form-control" placeholder=""
-										id="userpassword-new" required="true" onkeyup="KeyUp()" /> 
+									<input name="userpassword-new"  type="password" class="form-control" id="userpassword-new" required 
+											placeholder="再次輸入新密碼" onkeyup="KeyUp()" /> 
 										<span id="different-pwd"></span>
 								</div>
 								<div align="center">
-									<form:button type="submit" id="submit" class="btn btn-primary"
-										onclick="processFormDataPwd()">送出修改</form:button>
+									<button type="submit" id="submit1" class="btn btn-primary" disabled
+										onclick="processFormDataPwd()">送出修改</button>
 								</div>
-							</form:form>
+							</form>
+							
 							<script type="text/javascript">
 								function processFormDataPwd() {
 									alert("您的密碼已修改！");
@@ -315,15 +324,12 @@
 									// alert(a); 
 									var b = $('#userpassword-new').val();
 									// alert(b); 
-									if (a == b) {
-										$('#submit').removeAttr('disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "";
+									if (a == b && a !="") {
+										$('#submit1').removeAttr('disabled');
+										document.getElementById("different-pwd").innerHTML = "";
 									} else {
-										$('#submit').attr('disabled',
-												'disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
+										$('#submit1').attr('disabled','disabled');
+										document.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
 									}
 								}
 							</script>
@@ -333,7 +339,7 @@
 					<div id="p3">
 						<div class="main-box">
 							<h3 class="title">
-								<a href="/users/orders/ordersList.controller">歷史訂單 </a>
+								<a href="#">歷史訂單 </a>
 							</h3>
 						</div>
 					</div>
@@ -342,7 +348,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
+	
 	<!-- =================回到頂端=================== -->
 	
 	<button type="button" id="BackTop" class="toTop-arrow"></button>
@@ -361,7 +367,7 @@
 	});
 	</script>
 
-	<!-- ====================================================自由發揮區==================================================== -->
+	<!-- ==================================================================================================================== -->
 
 
 	<div class="bottom">
@@ -397,13 +403,13 @@
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+	<script src="/js/front/modernizr-3.7.1.min.js"></script>
+	<script src="/js/front/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/front/bootstrap.bundle.min.js"></script>
+	<script src="/js/front/plugin.js"></script>
+	<script src="/js/front/main.js"></script>
 
 </body>
 </html>

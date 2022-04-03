@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="/css/front/styles.css" rel="stylesheet">
 <style type="text/css">
 </style>
 <title>使用者登入</title>
@@ -131,7 +131,7 @@
 			<div class="row">
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3>註冊成功，返回登入頁面以登入!</h3>
-					<a href="/user1/membercenter.controller">登入</a>
+					<a href="/Account/membercenter.controller">登入</a>
 				</div>
 			</div>
 		</div>
@@ -175,12 +175,12 @@
 	<!-- end #page hfeed site -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+	<script src="/js/front/modernizr-3.7.1.min.js"></script>
+	<script src="/js/front/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/front/bootstrap.bundle.min.js"></script>
+	<script src="/js/front/plugin.js"></script>
+	<script src="/js/front/main.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,11 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- STYLE CSS -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
+<link href="/css/front/styles.css" rel="stylesheet">
 <style type="text/css">
 </style>
 <title>註冊</title>
@@ -100,7 +99,7 @@
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
 												<a class="dropdown-item" href="/login/page">登入</a>
 												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="/user1main.controller">註冊</a>
+												<a class="dropdown-item" href="/createaccountmain.controller">註冊</a>
 											</div></li>
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
@@ -131,53 +130,47 @@
 			<div class="row">
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3 align="center">註冊</h3>
-					<form:form action="/createuser1.controller" method="post" modelAttribute="user1">
+					<form action="/createaccount.controller" method="post" >
+
 						<div class="mb-3">
-							<form:label path="useremailaddress" class="form-label">帳號(請輸入正確信箱)：</form:label>
-							<form:input class="form-control" type="text" path="useremailaddress"
-								id="useremailaddress" placeholder="" required="true" />
+						<label class="form-label" >選擇註冊身分：</label>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name=userrole id="flexRadioDefault1" checked value="user"/> 
+								<label class="form-check-label" for="flexRadioDefault1">買家</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="userrole" id="flexRadioDefault2" value="store"/>
+								<label class="form-check-label" for="flexRadioDefault2">賣家</label>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label">帳號(請輸入正確信箱)：</label>
+							<input class="form-control" type="text" name="useraccount" id="useraccount" placeholder="" required />
 						</div>
 						<div class="mb-3">
-							<form:label path="userpassword" class="form-label">密碼：</form:label>
-							<form:input class="form-control" type="password" path="userpassword"
-								id="userpassword" placeholder="" required="true" onkeyup="KeyUp()" />
+							<label class="form-label">密碼：</label>
+							<input class="form-control" type="password" name="userpassword" id="userpassword" placeholder="" required onkeyup="KeyUp()" />
 						</div>
+
 						<div class="mb-3">
-							<label path="password1" class="form-label">請再次輸入密碼：</label> <input
-								class="form-control" type="password" path="password1"
-								id="password1" placeholder="" required="true" onkeyup="KeyUp()" />
+							<label class="form-label">請再次輸入密碼：</label> 
+							<input class="form-control" type="password" id="password1" placeholder="" required onkeyup="KeyUp()" />
 						</div>
-						<div class="mb-3">
-							<form:label path="nickname" class="form-label">姓名：</form:label>
-							<form:input class="form-control" type="text" path="nickname"
-								id="nickname" placeholder="" required="true" />
-						</div>
-						<div class="mb-3">
-							<form:label path="phone" class="form-label">電話：</form:label>
-							<form:input class="form-control" type="text" path="phone"
-								id="phone" placeholder="" required="true" />
-						</div>
-						<div class="mb-3">
-							<form:label path="address" class="form-label">地址：</form:label>
-							<form:input class="form-control" type="text" path="address"
-								id="address" placeholder="" required="true" />
-						</div>
-						<div class="mb-3">
-							<form:label path="birthday" class="form-label">生日：</form:label>
-							<form:input class="form-control" type="text" path="birthday"
-								id="birthday" placeholder="" required="true" />
-						</div>
+
 						<span id="different-pwd"></span>
+
 						<div align="center">
-							<form:button class="btn btn-primary" id="submit" value="Submit">送出</form:button>
+							<button class="btn btn-primary" id="submit" value="Submit">送出</button>
 							<span style="margin: auto;">${errors.account}</span>
 						</div>
-					</form:form>
+					</form>
 				</div>
 			</div>
 		</div>
 		<script>
 			function KeyUp() {
+				var userrole = $('input[name=userrole]:checked').val()
 				var a = $('#userpassword').val();
 				// alert(a); 
 				var b = $('#password1').val();
@@ -231,12 +224,12 @@
 	<!-- end #page hfeed site -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+	<script src="/js/front/modernizr-3.7.1.min.js"></script>
+	<script src="/js/front/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/front/bootstrap.bundle.min.js"></script>
+	<script src="/js/front/plugin.js"></script>
+	<script src="/js/front/main.js"></script>
 </body>
 </html>
