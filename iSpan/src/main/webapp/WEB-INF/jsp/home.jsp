@@ -103,7 +103,7 @@
 												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
 											</div>
 										</li> -->
-										<li class="nav-item"><a class="nav-link" href="/user1/membercenter.controller">會員中心</a></li>
+										<li class="nav-item"><a class="nav-link" href="/Account/User1/membercenter.controller">會員中心</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html">購物車</a></li>
 									</ul>
 								</div>

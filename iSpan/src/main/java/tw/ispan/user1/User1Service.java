@@ -42,6 +42,15 @@ public class User1Service {
 		return User1Repository.save(up3);
 	}
 	
+	
+//	findByUseremailaddress 使用者帳號
+	public Optional<User1> findByUseremailaddress2(String useremailaddress) {
+		Optional<User1> op1 = User1Repository.findByUseremailaddress(useremailaddress);
+		
+	//	System.out.println(op1.get().getUseremailaddress()+","+op1.get().getUserpassword());
+
+		return op1;
+	}	
 //	忘記密碼
 //	public void updateResetPasswordToken(String resetpasswordtoken, String useremailaddress) throws UserNotFoundException {
 //		User1 User1 = User1Repository.findByUseremailaddress1(useremailaddress);

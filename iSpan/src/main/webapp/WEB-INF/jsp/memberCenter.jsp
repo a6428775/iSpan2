@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,15 +11,11 @@
 <!-- STYLE CSS -->
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
@@ -39,7 +34,18 @@
 .main-box {
 	margin: 0 0 30px 100px;
 	width: 800px;
-	height: 700px;
+	height: 830px;
+	padding: 100px;
+	box-shadow: 5px 5px 10px #999;
+	border: 1px solid #fff;
+	text-align: center;
+	font-size: 1.3em;
+}
+
+.main-box1 {
+	margin: 0 0 30px 100px;
+	width: 800px;
+	height: 500px;
 	padding: 100px;
 	box-shadow: 5px 5px 10px #999;
 	border: 1px solid #fff;
@@ -79,43 +85,7 @@
 }
 .toTop-arrow:focus {outline: none;}
 </style>
-<script type="text/javascript">
-$(document).ready(function(){
 
-	load();
-
-});
-
-
-
-function load(){
-	 $.ajax({
-     type:'post',
-     //透過id 查詢產品
-     url:'/userInformation.controller',
-     dataType:'JSON',
-     contentType:'application/json',
-     success: function(data){
-         
-         var json = JSON.stringify(data, null, 4);
-         console.log('success:' + json);
-         var jsonArray = JSON.parse(json);
-          
-         if(json==null){
-//             $('table').prepend('<tr><td colspan="2">No Result</td></tr>');
-         }else{
-             
-        	 $('#nickname').attr({"value":jsonArray.nickname});
-        	 $('#phone').attr({"value":jsonArray.phone});
-        	 $('#address').attr({"value":jsonArray.address});
-        	 $('#birthday').attr({"value":jsonArray.birthday});
-
-
-         }
-     }
-	   });
-}
-</script>
 <title>會員中心</title>
 </head>
 
@@ -208,7 +178,7 @@ function load(){
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
 
-										<li class="nav-item"><label class="nav-link">登入帳號：${Useremailaddress}</label>
+										<li class="nav-item"><label class="nav-link">登入帳號：${Useraccount}</label>
 										</li>
 										<li class="nav-item"><a class="nav-link" href="/logout">登出</a>
 										</li>
@@ -248,14 +218,13 @@ function load(){
 
 				<div class="list-group">
 					<a href="#p1" class="list-group-item list-group-item-action">基本資料</a>
-					<a href="#p2" class="list-group-item list-group-item-action"
-						aria-current="true">帳號管理</a> <a href="#p3"
-						class="list-group-item list-group-item-action">歷史訂單</a>
+					<a href="#p2" class="list-group-item list-group-item-action">帳號管理</a> 
+					<a href="#p3" class="list-group-item list-group-item-action">歷史訂單</a>
 					<!-- <a href="#" class="list-group-item list-group-item-action">A fourth link item</a> -->
 					<!-- <a class="list-group-item list-group-item-action disabled">A disabled link item</a> -->
 				</div>
 				<div class="list-group">
-					<a href="/admin/membercenter.controller" class="list-group-item list-group-item-action">後臺管理(權限)</a>
+					<a href="/store/membercenter.controller" class="list-group-item list-group-item-action">後臺管理(權限)</a>
 				</div>
 				
 				
@@ -270,93 +239,103 @@ function load(){
 					<div id="p1">
 						<div class="main-box">
 							<h3 class="title">基本資料</h3>
-							<form id="form-userinfo" >
-
+							<form id="form-userinfo" action="/Account/User1/membercenterupdate.controller" method="post">
 								<div class="mb-5">
-									<label path="nickname" class="form-label">暱稱</label>
-									<input path="nickname" type="text" class="form-control"
-										id="nickname" aria-describedby="nameHelp" value="" />
-									<div id="nameHelp" class="form-text"></div>
+									<label class="form-label">帳號：</label>
+									<input name="Useremailaddress" type="text" class="form-control"
+										id="Useremailaddress" value="${Useraccount}" disabled />
 								</div>
 								<div class="mb-5">
-									<label path="phone" class="form-label">電話 (09xxxxxxxx)</label>
-									<input path="phone" type="text" class="form-control"
-										id="phone" value="" />
+									<label class="form-label">暱稱</label>
+									<input name="Nickname" type="text" class="form-control"
+										id="Nickname" value="${Nickname}" />
 								</div>
 								<div class="mb-5">
-									<label path="address" class="form-label">地址</label>
-									<input path="address" type="text" class="form-control"
-										id="address" value="" />
+									<label class="form-label">電話 (09xxxxxxxx)</label>
+									<input name="Phone" type="text" class="form-control"
+										id="Phone" value="${Phone}" />
 								</div>
 								<div class="mb-5">
-									<label path="birthday" class="form-label">生日(19xx-xx-xx)</label>
-									<input path="birthday" type="text" class="form-control"
-										id="birthday" value="" />
+									<label class="form-label">地址</label>
+									<input name="Address" type="text" class="form-control"
+										id="Address" value="${Address}" />
+								</div>
+								<div class="mb-5">
+									<label class="form-label">生日(19xx-xx-xx)</label>
+									<input name="Birthday" type="text" class="form-control"
+										id="Birthday" value="${Birthday}" />
 								</div>
 								<div align="center">
-									<button value="submit" id="submit" class="btn btn-primary"
+									<button value="submit" id="submit" class="btn btn-primary" 
 										onclick="processFormData()">送出修改</button>
 								</div>
 							</form>
 
 							<script type="text/javascript">
 								function processFormData() {
-									var nickname = $('#nickname').val();
-									var phone = $('#phone').val();
-									var address = $('#address').val();
-									var birthday = $('#birthday').val();
+									var nickname = $('#Nickname').val();
+									var phone = $('#Phone').val();
+									var address = $('#Address').val();
+									var birthday = $('#Birthday').val();
 
 									alert("您的基本資料已修改\n暱稱：" + nickname + "\n電話："
 											+ phone + "\n地址：" + address
 											+ "\n生日：" + birthday);
-
-
-									  var params = {
-										  	    
-									          "nickname":nickname,
-									          "birthday":birthday,
-									          "phone":phone,
-									          "address":address,
-
-									  }
-									  
-									  console.log("SUCCESS : ", JSON.stringify(params));
-									  $.ajax({
-										   type:'post',
-										   url:'/user1/membercenterupdate.controller',
-										   dataType:'JSON',
-										   contentType:'application/json',
-										   data: JSON.stringify(params),
-										   success: function(data) {
-										      var json = JSON.stringify(data);
-										      
-										      console.log("SUCCESS : ", json);
-//										      $('#feedback').html("新增成功");
-										      
-										      var parsedObjinArray = JSON.parse(json);
-										      $.each(parsedObjinArray, function(index, value) {
-										          console.log(value);
-										      });
-										   },
-										   error: function() {
-										      console.log("error");
-									      }
-									  });
-
-/////////////////////////////////////////
-
-									
 								}
 							</script>
 
 						</div>
 					</div>
+					<div id="p2">
+						<div class="main-box1">
+							<h3 class="title">修改密碼</h3>
+							<form id="form-userinfo" action="/Account/User1/membercenterupdatepwd.controller"method="post">
 
-					</div>  -->
+								<div class="mb-5">
+									<label class="form-label">新密碼</label>
+									<input name="userpassword" type="password" class="form-control" id="userpassword" required 
+											placeholder="請輸入新密碼" onkeyup="KeyUp()" />
+								</div>
+								<div class="mb-5">
+									<label for="userpassword-new" class="form-label">請再次輸入新密碼</label>
+									<input name="userpassword-new"  type="password" class="form-control" id="userpassword-new" required 
+											placeholder="再次輸入新密碼" onkeyup="KeyUp()" /> 
+										<span id="different-pwd"></span>
+								</div>
+								<div align="center">
+									<button type="submit" id="submit1" class="btn btn-primary" disabled
+										onclick="processFormDataPwd()">送出修改</button>
+								</div>
+							</form>
+							
+							<script type="text/javascript">
+								function processFormDataPwd() {
+									alert("您的密碼已修改！");
+								}
+							</script>
+
+							<script>
+								function KeyUp() {
+									var a = $('#userpassword').val();
+									// alert(a); 
+									var b = $('#userpassword-new').val();
+									// alert(b); 
+									if (a == b && a !="") {
+										$('#submit1').removeAttr('disabled');
+										document.getElementById("different-pwd").innerHTML = "";
+									} else {
+										$('#submit1').attr('disabled','disabled');
+										document.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
+									}
+								}
+							</script>
+
+						</div>
+					</div>
 					<div id="p3">
 						<div class="main-box">
 							<h3 class="title">
-								<a href="/users/orders/ordersList.controller">歷史訂單 </a>
+								<a href="#">歷史訂單 </a>
 							</h3>
 						</div>
 					</div>
@@ -365,7 +344,7 @@ function load(){
 			</div>
 		</div>
 	</div>
-	</div>
+	
 	<!-- =================回到頂端=================== -->
 	
 	<button type="button" id="BackTop" class="toTop-arrow"></button>
@@ -384,7 +363,7 @@ function load(){
 	});
 	</script>
 
-	<!-- ====================================================自由發揮區==================================================== -->
+	<!-- ==================================================================================================================== -->
 
 
 	<div class="bottom">

@@ -1,4 +1,6 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +100,7 @@
 	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
 	               }else{
 	            	   var table = $('#showproduct'); 
-	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
+	            	   table.append("<tr id='ptitle' class='col col-md-6'><th>產品編號</th></tr>");
 	
 	            	   //data: jsonArray n:jsonOnject
 // 	            	   $.each(data, function(i,n){
@@ -114,7 +116,7 @@
 	            		var div =
 	           			"<div class='item'>"
 						+ "<input  type='image' name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.pid + ".jpg'  onClick='document.form1.submit()' >"
-						+ "<h3>" + n.pname + "</h3>"
+						+ "<h3>" + n.productname + "</h3>"
 						+ "<p>" + n.price + "</p>"
 						+ "</div>";
 	            		table.append(div);
@@ -270,9 +272,10 @@
 	<table id="showpage">
 	   <tr>
 	      <td>Total Pages:${totalPages} Total Records:${totalElements}</td>
-	      <td colspan="3" align="right">Previous
+	      <td colspan="3" align="right"> Previous
 	         <c:forEach var="i" begin="1" end="${totalPages}" step="1">
 	             <button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
+
 	         </c:forEach>Next
 	      </td>
 	   </tr>
