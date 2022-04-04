@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +7,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>home</title>
 <!-- STYLE CSS -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+<script type="text/javascript">   
+
+$(document).ready(function(){
+    login();
+});
+
+function login(){
+
+
+    $.ajax({
+        type:'post',
+        url:'/Auth.controller',
+        dataType:'JSON',
+        contentType:'application/json',
+        success: function(data){
+            var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
+        	$('#loginlogout').append(logout);
+			
+
+            },
+   		error : function(){
+
+   	   		var login = "<li class='nav-item'><a class='nav-link' href='/login/page' id='login'>登入</a></li>"
+   			$('#loginlogout').append(login);
+   	   		}
+    });
+}
+
+</script> 
 </head>
 <body>
 
@@ -54,7 +82,7 @@
 								<div class="collapse navbar-collapse"
 									id="navbarSupportedContent">
 									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
-									<ul class="navbar-nav">
+									<ul class="navbar-nav" id="loginlogout">
 										<li class="nav-item active"><a class="nav-link"
 											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
@@ -105,8 +133,8 @@
 										</li> -->
 										<li class="nav-item"><a class="nav-link" href="/verifyIdentity.controller">會員中心</a></li>
 										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
-										<li class="nav-item"><a class="nav-link" href="typography.html">購物車</a></li>
-										<li class="nav-item"><a class="nav-link" href="/login/page">登入</a></li>
+										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
+
 									</ul>
 								</div>
 								<!-- end navbar-collapse -->

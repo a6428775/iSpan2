@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.ispan.account.Account;
@@ -161,6 +162,15 @@ public class AccountController {
 		
 	}
 	
+	
+	@PostMapping("/Auth.controller")
+	@ResponseBody
+	public Account Auth() {
+		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Account account = accountService.findByAccount(SecurityName);
+		System.out.println(account);
+		return account;
+	}
 }
 
 
