@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>home</title>
 <!-- STYLE CSS -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
@@ -19,7 +17,94 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+		var indexPage = 1;
+	      loadPage(indexPage);
+	});
+
+function loadPage(indexPage){
+	
+    $.ajax({
+        type:'post',
+        url:'/product/testtest',
+            //queryByPage/' + indexPage,
+        dataType:'JSON',
+        contentType:'application/json',
+        success: function(data){
+            
+            console.log(data);
+            //顯示之前把Table標籤資料清空
+            //清空這段<table id="showorder" border="1"></table>
+			$('#showorder').empty("");
+
+            
+            if(data==null){
+         	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+            }else{
+         	   var table = $('#showorder'); 
+         	   table.append("<tr id='ptitle' align='center'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> </tr>");
+	
+         	   //data:jsonArray n:jsonObject
+         	   $.each(data, function(i,n){
+
+      
+					//如果 餐點沒有圖片  不顯示 圖片的圖示
+          			if (n.preview === null){
+                    	   n.preview = "";
+                           }
+
+							
+                   
+         		   var tr = 
+             		   		"<tr align='center'>" + 
+         		   			"<td>" + n.productid + "</td>" +
+         		            "<td>" + n.productname + "</td>" + 
+         		            "<td>" + n.productcategory + "</td>" +
+         		            "<td>" + n.productunitprice + "</td>" + 
+         		            "<td>" + "<img id='img-preview' src=" + n.preview + ">" + "</td>" + 
+         		         	"<td><a href='/product/updateproduct.controller?pid="+ n.productid +"'>修改餐點</a></td>"+
+         		            "</tr>";
+
+         		   table.append(tr);
+
+					var dr =
+										"<div class='col-6 col-md-3'>"+
+										"<div class='recipe-thumb'>"+
+											"<img src='/images/content/thumb-8.png' alt='Recipe Image'>"+
+											"<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"+
+											"<a href='#' class='view-recipe'>加入購物車</a>"+
+										"</div>"+
+										"<div class='recipe-desc'>"+
+											"<h2 class='recipe-title'>"+
+												"<a href='#'>" + n.productname + "</a>"+
+											"</h2>"+
+											"<p>"+
+												
+												"<em id=''>By Lina Sukowati</em>"+
+											"</p>"+
+											"<span>價格：$"+ n.productunitprice + "</span>"+
+										"</div>"+
+										<!-- end recipe-desc -->
+										"</div>";
+
+					$('#test2').append(dr);		
+
+                       
+         	
+                });       
+            }
+        }
+    });
+ }
+
+
+</script>
 </head>
+
 <body>
 
 	<div id="page" class="hfeed site">
@@ -104,9 +189,7 @@
 											</div>
 										</li> -->
 										<li class="nav-item"><a class="nav-link" href="/verifyIdentity.controller">會員中心</a></li>
-										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html">購物車</a></li>
-										<li class="nav-item"><a class="nav-link" href="/login/page">登入</a></li>
 									</ul>
 								</div>
 								<!-- end navbar-collapse -->
@@ -173,158 +256,12 @@
 								<h3>餐點展示</h3>
 							</div>
 							<!-- end section-title -->
-							<div class="row">
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-1.png" alt="Recipe Image">
-										<a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a>
-										<a href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Salad Nicoise</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
+							<div class="row" id="test2">
+							
+							
+								
+															
 
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-2.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Grilled Beef Steak</a>
-										</h2>
-										<p>
-											<em>By Eka Nurwasilah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-3.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Tiger Prawns Roasted</a>
-										</h2>
-										<p>
-											<em>By Nurjanah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-4.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Korean Soup</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-5.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Roast Aubergine</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;1 Hour</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-6.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Indian Mixed Rice</a>
-										</h2>
-										<p>
-											<em>By Eka Nurwasilah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-7.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Black Red Cake</a>
-										</h2>
-										<p>
-											<em>By Nurjanah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-8.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Fresh Spaghetti with Tuna</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
 							</div>
 							<!-- end row -->
 							<div class="row">
@@ -345,100 +282,7 @@
 					<!-- 刪除中間大圖2 -->
 
 					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->
-					<div class="blog-section">
-						<div class="container">
-							<div class="section-title">
-								<h3>店家展示</h3>
-							</div>
-							<!-- end section-title -->
-							<div class="row">
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-1.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Claritas est etiam processus dynamicus,qui
-												sequitur nembuz</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
 
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-2.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Anteposuerit litterarum formas humanitatis
-												per seacula</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">How to</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-3.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Lorem ipsum dolor sit amet,consectetuer
-												adipiscing elit</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-4.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Mirum est notare quam littera gothica</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
-							</div>
-							<!-- end row -->
-						</div>
-						<!-- end container -->
-					</div>
 					<!-- end blog-section -->
 
 					<!-- 刪除社群分享 -->

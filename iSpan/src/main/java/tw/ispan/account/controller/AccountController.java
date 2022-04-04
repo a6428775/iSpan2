@@ -1,20 +1,24 @@
 package tw.ispan.account.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import tw.ispan.account.Account;
 import tw.ispan.account.AccountService;
@@ -106,7 +110,7 @@ public class AccountController {
 		m.addAttribute("Useraccount", update1.getUserAccount());
 		m.addAttribute("Userpassword", update1.getUserPassword());
 
-		return "home";
+		return "welcome";
 	}
 	
 //	權限限制：僅允許store使用者登入此方法
@@ -114,6 +118,47 @@ public class AccountController {
 	@PreAuthorize("hasAnyAuthority('ROLE_STORE')")
 	public String adminpage() {
 		return ("welcome");
+	}
+	
+//	權限限制：會員 進入 USER頁面   商家 進入STORE頁面	
+	@GetMapping("/verifyIdentity.controller")
+	public String verifyIdentity(Model m) {
+		Collection<? extends GrantedAuthority> SecurityAuth = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+		
+		String SecurityName2 = SecurityAuth.toString();
+		System.out.println(SecurityName2);
+		String a = "[ROLE_USER]";
+		System.out.println(a);
+		if (SecurityName2.equals(a)) {
+			// 取得登入帳號
+			String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+			// findByUseraccount()取得一筆會員Bean，用Model丟出來給jsp顯示
+			Account account = accountService.findByAccount(SecurityName);
+			
+//			取得一筆User1
+			Optional<User1> findUser1 = User1Service.findByUseremailaddress2(SecurityName);
+			
+			System.out.println(account.getUserAccount() + "," + account.getUserPassword() + "," + account.getUserRole());	
+			
+			m.addAttribute("Account",account);
+			m.addAttribute("Useraccount", account.getUserAccount());
+			m.addAttribute("Userpassword", account.getUserPassword());
+			
+			if (findUser1.isPresent()) {
+				m.addAttribute("Nickname", findUser1.get().getNickname());
+				m.addAttribute("Phone", findUser1.get().getPhone());
+				m.addAttribute("Address", findUser1.get().getAddress());
+				m.addAttribute("Birthday", findUser1.get().getBirthday());
+			}			
+			return "memberCenter";
+			
+		}else {
+			
+			return "Background_Home";
+		}
+		
 	}
 	
 }

@@ -52,7 +52,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/home.controller">Home <span class="sr-only">(current)</span></a>
+											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>

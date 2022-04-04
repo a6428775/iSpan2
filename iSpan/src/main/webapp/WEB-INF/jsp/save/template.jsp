@@ -53,7 +53,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
+											href="index.html">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
@@ -125,24 +125,17 @@
 		</header>
 		<!-- end #masthead -->
 
-		<!-- ====================================================自由發揮區==================================================== -->
-
-		<div class="container">
-			<div class="row">
-				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
-					<h3>註冊成功，返回登入頁面以登入!</h3>
-					<a href="/login/page">登入</a>
-				</div>
-			</div>
-		</div>
+<!-- ====================================================自由發揮區==================================================== -->
 
 
 
 
 
-		<!-- ====================================================自由發揮區==================================================== -->
-		<div class="bottom">
-			<div class="container">
+
+
+<!-- ====================================================自由發揮區==================================================== -->
+			<div class="bottom">
+				<div class="container">
 				<!-- 頁尾 //////////////////////////////////////////////////////////////////////////-->
 				<div class="row no-gutters">
 					<div class="col-md-6">
@@ -173,11 +166,11 @@
 
 	</div>
 	<!-- end #page hfeed site -->
-
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
 	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
-
+	
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>

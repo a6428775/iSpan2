@@ -56,7 +56,7 @@
 									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
+											href="/home.controller">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link" href="about.html">關於我們</a>
 										</li>
@@ -103,10 +103,8 @@
 												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
 											</div>
 										</li> -->
-										<li class="nav-item"><a class="nav-link" href="/verifyIdentity.controller">會員中心</a></li>
-										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
+										<li class="nav-item"><a class="nav-link" href="/Account/User1/membercenter.controller">會員中心</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html">購物車</a></li>
-										<li class="nav-item"><a class="nav-link" href="/login/page">登入</a></li>
 									</ul>
 								</div>
 								<!-- end navbar-collapse -->
@@ -492,6 +490,5 @@
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
-	<script src="/js/shoppingcart.js"></script>
 </body>
 </html>
