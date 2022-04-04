@@ -137,9 +137,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="rt-text-note">
-					新朋友?請先<a href="/createuser1main.controller" class="">註冊</a>
-				</div>
+
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3 class="text-center">登入</h3>
 
@@ -177,6 +175,9 @@
 							<button type="submit" class="btn btn-primary">登入</button>
 							<button type="reset" class="btn btn-info">清除</button>
 						</div>
+							<div class="rt-text-note">
+								新朋友?請先<a href="/createuser1main.controller" class="">註冊</a>
+							</div>
 					</form>
 				</div>
 			</div>
