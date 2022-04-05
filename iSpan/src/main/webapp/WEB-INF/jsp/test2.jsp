@@ -76,21 +76,31 @@ function loadPage(indexPage){
 										"<div class='recipe-thumb'>"+
 											"<img src='/images/content/thumb-8.png' alt='Recipe Image'>"+
 											"<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"+
-											"<a href='#' class='view-recipe'>加入購物車</a>"+
+											"<div class='view-recipe' >"  +
+											"<a href='#' class='add-to-cart' style='color:white'>加入購物車</a>" +
+												
+											"<span href='#' id='name' style='display:none'> " + n.productname + "</span>"+
+											"<span id='price' style='display:none'>"+ n.productunitprice + "</span>"+	
+											"<span href='#' id='pid' style='display:none'> " + n.productid + "</span>"+
+											"<span href='#' id='sid' style='display:none'>" + n.storeid + "</span>"+	
+											"</div>"+
+											
 										"</div>"+
 										"<div class='recipe-desc'>"+
 											"<h2 class='recipe-title'>"+
-												"<a href='#'>" + n.productname + "</a>"+
+											"<span href='#' id='name'> " + n.productname + "</span>"+
 											"</h2>"+
 											"<p>"+
 												
 												"<em id=''>By Lina Sukowati</em>"+
 											"</p>"+
-											"<span>價格：$"+ n.productunitprice + "</span>"+
+											"<span>價格：$ </span><span id='price'>"+ n.productunitprice + "</span>"+	
+
 										"</div>"+
 										<!-- end recipe-desc -->
-										"</div>";
 
+										"</div>";
+	
 					$('#test2').append(dr);		
 
                        
@@ -103,10 +113,23 @@ function loadPage(indexPage){
 
 
 </script>
+<style type="text/css">
+.cartModal {
+    position: fixed;
+    z-index: 10000;
+    padding: 20px
+
+}
+
+</style>
+
+
 </head>
 
 <body>
-
+<div class="cartModal">
+        <%@ include file="shoppingcart.jsp" %>
+        </div>
 	<div id="page" class="hfeed site">
 		<!-- start page wrapper -->
 

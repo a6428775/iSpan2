@@ -67,7 +67,9 @@
 	</div>
 	<script
 		src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+	<!--  
 	<script src="/js/shoppingcart.js"></script>
+	-->
 
 </body>
 </html>

@@ -140,13 +140,21 @@ function saveProduct(clickedBtn) {
 	// save selected product in local storage and display it in the cart together
 
 	// vars
-	
-	var productId = clickedBtn.closest('tr').querySelector('#pid').innerText
-	var productName = clickedBtn.closest('tr').querySelector('#name').innerText
-	var productPrice = clickedBtn.closest('tr').querySelector('#price').innerText
-	var storeid = clickedBtn.closest('tr').querySelector("#sid").innerText
 	let isProductInCart = false;
 	let isSameStore = false;
+	
+	var productId = clickedBtn.closest('div').querySelector('#pid').innerText
+	var productName = clickedBtn.closest('div').querySelector('#name').innerText
+	var productPrice = clickedBtn.closest('div').querySelector('#price').innerText
+	var storeid = clickedBtn.closest('div').querySelector("#sid").innerText
+//    var productId = clickedBtn.getAttribute('pid')
+//    var productName = clickedBtn.getAttribute('name')
+//    var productPrice = clickedBtn.getAttribute('price')
+//    var storeid = clickedBtn.getAttribute('sid')
+
+
+
+
 
 	// get local storage array
 	const lsContent = getLSContent();

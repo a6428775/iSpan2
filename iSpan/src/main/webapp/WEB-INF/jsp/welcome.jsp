@@ -33,7 +33,10 @@ function login(){
         dataType:'JSON',
         contentType:'application/json',
         success: function(data){
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller'>會員中心</a></li>"
             var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
+                
+        	$('#loginlogout').append(member);
         	$('#loginlogout').append(logout);
 			
 
@@ -131,7 +134,7 @@ function login(){
 												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
 											</div>
 										</li> -->
-										<li class="nav-item"><a class="nav-link" href="/verifyIdentity.controller">會員中心</a></li>
+									
 										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
 
