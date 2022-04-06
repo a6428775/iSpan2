@@ -41,54 +41,57 @@ function load(){
 }
 
 
-function sendProductUpdate(){
-	  var name = $("#ProductName").val();
-	  var category = $("#ProductCategory").val();
-	  var price = $("#ProductUnitPrice").val();
-	  var pid = $('#pid').val();
+function sendStoreUpdate(){
+	  var name = $("#storeName").val();
+	  var category = $("#storeCategory").val();
+	  var phone = $("#storePhone").val();
+	  var address = $("#storeAddress").val();
+	  var businesshours = $("#storeBusinessHours").val();
 
-//    var amount = parseInt(orderQuantity)*parseInt(price);
+	  
+//	  var pid = $('#pid').val();
 
-    if($.trim(name)==''){
- 	   alert('請輸入產品名稱');
- 	   return;
-    }
+//  var amount = parseInt(orderQuantity)*parseInt(price);
 
-    if($.trim(price)==''){
-  	   alert('請輸入產品價格');
-  	   return;
-     }
+  if($.trim(name)==''){
+	   alert('請輸入商家名稱');
+	   return;
+  }
 
 
-    var params = {
-    	    "productid":pid,
-            "productname":name,
-            "productcategory":category,
-            "productunitprice":price,
-    }
-    
-    console.log("SUCCESS : ", JSON.stringify(params));
-    $.ajax({
- 	   type:'post',
- 	   url:'/product/updateProduct.controller',
- 	   dataType:'JSON',
- 	   contentType:'application/json',
- 	   data: JSON.stringify(params),
- 	   success: function(data) {
- 	      var json = JSON.stringify(data);
- 	      
- 	      console.log("SUCCESS : ", json);
- //	      $('#feedback').html("新增成功");
- 	      
- 	      var parsedObjinArray = JSON.parse(json);
- 	      $.each(parsedObjinArray, function(index, value) {
- 	          console.log(value);
- 	      });
- 	   },
- 	   error: function() {
- 	      console.log("error");
-        }
-    });
+
+
+  var params = {
+  	    
+          "storeName":name,
+          "storeCategory":category,
+          "storePhone":phone,
+          "storeAddress":address,
+          "storeBusinessHours":businesshours,
+  }
+  
+  console.log("SUCCESS : ", JSON.stringify(params));
+  $.ajax({
+	   type:'post',
+	   url:'/Store/updateStore2.controller',
+	   dataType:'JSON',
+	   contentType:'application/json',
+	   data: JSON.stringify(params),
+	   success: function(data) {
+	      var json = JSON.stringify(data);
+	      
+	      console.log("SUCCESS : ", json);
+//	      $('#feedback').html("新增成功");
+	      
+	      var parsedObjinArray = JSON.parse(json);
+	      $.each(parsedObjinArray, function(index, value) {
+	          console.log(value);
+	      });
+	   },
+	   error: function() {
+	      console.log("error");
+      }
+  });
 }
 </script>
 
@@ -205,7 +208,7 @@ function sendProductUpdate(){
 					                        <!-- To make this form functional, sign up at-->
 					                        <!-- https://startbootstrap.com/solution/contact-forms-->
 					                        <!-- to get an API token!-->
-					                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/test2">
+					                        <form id="contactForm"  method="post" enctype="multipart/form-data" >
 					                            <!-- Name input-->
 					                            <div class="form-floating mb-3">
 					                                <input class="form-control" id="storeName" name="storeName" type="text" placeholder="Enter your productname..." data-sb-validations="required" />
@@ -253,7 +256,7 @@ function sendProductUpdate(){
 							                    </div>
 					
 					                            <!-- Submit Button-->
-					                            <button class="btn btn-primary " id="submitButton" type="button" onclick='sendProductUpdate()'>送出修改</button>
+					                            <button class="btn btn-primary " id="submitButton" type="button" onclick='sendStoreUpdate()'>送出修改</button>
 					                        </form>
 					                    </div>
 					                </div>

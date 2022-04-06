@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import tw.ispan.account.Account;
+import tw.ispan.account.AccountRepository;
+import tw.ispan.account.AccountService;
 import tw.ispan.exception.UserNotFoundException;
 import tw.ispan.store.Store;
 import tw.ispan.store.StoreRepository;
@@ -31,12 +34,10 @@ import tw.ispan.store.StoreService;
 public class StoreRegisterController {
 	
 	@Autowired
-	private StoreService sService;
+	private AccountService aService;
 	
 	@Autowired
-	private StoreRepository srp;
-
-	
+	private AccountRepository arp;
 	
 	@RequestMapping(path = "/register2.controller", method = RequestMethod.POST)
 	public String processMainAction(@RequestParam("account") String user, @RequestParam("password") String pwd, Model m) {
@@ -57,30 +58,25 @@ public class StoreRegisterController {
 			return "register";
 		}
 		
-		Store store = new Store();
-		
+		Account account = new Account();
 		
 		String encode = new BCryptPasswordEncoder().encode(pwd);
-
-
 		
-		 Optional<Store> op1 = srp.findByAccount(user);
+		Optional<Account> op1 = arp.findByUserAccount(user);
 
-		 if(op1.isPresent()) {
-			 
-				errors.put("account", "Account already exists");
-				
+		if(op1.isPresent()) {
+				errors.put("account", "Account already exists");	
 				return "register";
-		 }	 
+		}	  
+		account.setUserAccount(user);
+		account.setUserPassword(encode);
+		
+		
+		account.setUserRole("STORE");
 			 
-		 	store.setStoreAccount(user);
-		 	store.setStorePassword(encode);
+		aService.createAccount(account);
 			 
-			 sService.createAccount(store);
-			 
-			 return "login";
-			
-	
+		return "login";
 	
 //		errors.put("account", "Account already exists");
 //		return "register";
