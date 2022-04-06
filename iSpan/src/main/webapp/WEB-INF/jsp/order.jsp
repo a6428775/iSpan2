@@ -19,7 +19,31 @@
         return lsContent;
     };
 
- 
+    <!--   $(function displayProductDetail() {
+
+    	const lsContent = getLSContent();
+    	let productMarkup = "";
+    	    if (lsContent !== null) {
+    	        for (let product of lsContent) {
+    	            productMarkup += 
+    	             <tr>
+    	                <td id="pid" data-id=\${product['id']} store-id=\${product.storeid}></td>
+    	                  <td id="name">\${product['name']} </td>
+    	                 <td id="productPrice">\${product['price']}</td>
+    	                 <td id="productQty">\${product['quantity']}</td>
+    	                  <td id="itemTotalPrice">\${product['price']*product['quantity']}</td>
+    	              </tr>
+    	            ;
+
+    	            }
+    	        } else {
+    	            productMarkup = "Your cart is empty.";
+    	        }
+    	        document.getElementById("cartItem").innerHTML = productMarkup;
+    	        console.log(productMarkup)
+    	        });
+
+-->
 </script>
 
 

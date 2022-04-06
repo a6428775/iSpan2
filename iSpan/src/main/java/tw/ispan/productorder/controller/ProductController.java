@@ -145,6 +145,7 @@ public class ProductController {
 	@ResponseBody
 	public List<Store> processQueryStoreAll(){
 		return s.findAll();
+		
 	}
 	
 	
