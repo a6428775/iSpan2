@@ -1,6 +1,5 @@
-<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,13 +81,13 @@
 	    var indexPage = 1;
 	
 	    $(document).ready(function(){
-	          loadPage(indexPage);
+	    	StoreAll();
 	    });
 	
-	    function loadPage(indexPage){
+	    function StoreAll(){
 	       $.ajax({
 	           type:'post',
-	           url:'/product/queryByPage/' + indexPage,
+	           url:'/product/StoreAll.controler',
 	           dataType:'JSON',
 	           contentType:'application/json',
 	           success: function(data){
@@ -99,8 +98,8 @@
 	               if(data==null){
 	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
 	               }else{
-	            	   var table = $('#showproduct'); 
-	            	   table.append("<tr id='ptitle' class='col col-md-6'><th>產品編號</th></tr>");
+	            	   
+//	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
 	
 	            	   //data: jsonArray n:jsonOnject
 // 	            	   $.each(data, function(i,n){
@@ -114,12 +113,19 @@
 	            	   $.each(data, function(i,n){
 
 	            		var div =
-	           			"<div class='item'>"
-						+ "<input  type='image' name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.pid + ".jpg'  onClick='document.form1.submit()' >"
-						+ "<h3>" + n.productname + "</h3>"
-						+ "<p>" + n.price + "</p>"
-						+ "</div>";
-	            		table.append(div);
+	            		"<li>"
+	           			+"<div class='team1'>"
+	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
+						+ "<a href='#'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
+	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
+						+ "<h4 >" + n.storeName + "</h4>"
+						+ "<p>" + n.storePhone + "</p>"
+						+ "</div>"
+						+ "</li>";
+
+
+						
+						$('#flexiselDemo3').append(div);
 	                   });    	   
 	               }
 	           }
@@ -130,6 +136,37 @@
 	    	indexPage = page;
 	    	loadPage(indexPage);
 	    } 
+
+
+		$(window).on('load', function() {
+				
+			$("#flexiselDemo3").flexisel({
+				visibleItems: 4,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,    		
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: { 
+					portrait: { 
+						changePoint:480,
+						visibleItems: 1
+					}, 
+					landscape: { 
+						changePoint:640,
+						visibleItems: 2
+					},
+					tablet: { 
+						changePoint:768,
+						visibleItems: 4
+					}
+				}
+
+					
+			});
+				
+		});		   
+	    
 	</script>
 
 <meta charset="utf-8">
@@ -141,7 +178,12 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/fonts/styles.css" rel="stylesheet">
+<link href="/css/fonts/styles2.css" rel="stylesheet">
+
+<link href="/css/fronts/bootstrap.css" rel='stylesheet' type='text/css' media="all" />
+<link href="/css/fronts/style.css" rel='stylesheet' type='text/css' media="all" />
+
+<link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
 
 <title>使用者登入</title>
 </head>
@@ -256,7 +298,31 @@
 <!-- ====================================================自由發揮區==================================================== -->
 
 
-	<div class="header">
+<div class="ourteam">
+			<div class="container" >
+				<h3>推薦餐廳</h3>
+				<div class="team" >
+					  <ul id="flexiselDemo3" >
+						<li>
+							<div class="team1" >
+
+							</div>
+						</li>
+<!--  					<li>
+							<div class="team1" >
+								<img src="images/t2.jpg" class="img-responsive" alt="" />
+								<h4>Tony Stark</h4>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+							</div>
+						</li>
+-->	
+					 </ul>
+				</div>
+		</div>
+	</div>
+
+
+<!-- 	<div class="header">
 		<a href="#" class="logo"><img alt="網站名稱" src="https://picsum.photos/100/40?random=1"></a>
 		<nav>
 			<a href="/welcome" >首頁</a>
@@ -272,10 +338,9 @@
 	<table id="showpage">
 	   <tr>
 	      <td>Total Pages:${totalPages} Total Records:${totalElements}</td>
-	      <td colspan="3" align="right"> Previous
+	      <td colspan="3" align="right">Previous
 	         <c:forEach var="i" begin="1" end="${totalPages}" step="1">
 	             <button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-
 	         </c:forEach>Next
 	      </td>
 	   </tr>
@@ -289,19 +354,19 @@
 		<div class="rest">
 			<div class="warp">
 				<div class="item">
-					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/images/10000.jpg"  onClick="document.form1.submit()" >
+					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/images/1.jpg"  onClick="document.form1.submit()" >
 					<h3>義朵朵</h3>
 					<p>某某店</p>
 				</div>
 				
 				<div class="item">
-					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/WEB-INF/resources/image/1.jpg"  onClick="document.form1.submit()" >
+					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/images/1.jpg"  onClick="document.form1.submit()" >
 					<h3>義朵朵</h3>
 					<p>某某店</p>
 				</div>
 				
 				<div class="item">
-					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/image/1.jpg"  onClick="document.form1.submit()" >
+					<input  type="image"  name="submit_Btn"  id="submit_Btn" src="${pageContext.request.contextPath }/images/1.jpg"  onClick="document.form1.submit()" >
 					<h3>義朵朵</h3>
 					<p>某某店</p>
 				</div>
@@ -310,7 +375,7 @@
 	</div>
 
 
-
+ -->
 
 <!-- ====================================================自由發揮區==================================================== -->
 			<div class="bottom">
@@ -354,5 +419,9 @@
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
+	
+	<script src="/js/jss/jquery.flexisel.js"></script>
+	<script src="/js/jss/modernizr.custom.js"></script>
+	<script src="/js/jss/classie.js"></script>
 </body>
 </html>

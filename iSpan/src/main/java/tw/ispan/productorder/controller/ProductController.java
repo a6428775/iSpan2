@@ -91,7 +91,7 @@ public class ProductController {
 	@ResponseBody
 	public List<Product> processQueryAllByPage(@PathVariable("pageNo") int pageNo , Model m){
 		//每頁顯示的筆數
-		int pageSize = 2;
+		int pageSize = 10;
 		//設定顯示頁碼與每頁筆數
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<Product> page =pService.findAllByPage2(pageable);
@@ -140,6 +140,13 @@ public class ProductController {
         return p.findByStoreId(1);
         
 	}
+	
+	@PostMapping("/StoreAll.controler")
+	@ResponseBody
+	public List<Store> processQueryStoreAll(){
+		return s.findAll();
+	}
+	
 	
 	
 }

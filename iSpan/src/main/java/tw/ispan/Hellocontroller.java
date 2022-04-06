@@ -56,7 +56,7 @@ public class Hellocontroller {
 	
 	@GetMapping("/test3")
 	public String processAction5() {
-		return "Background_Home";
+		return "test3";
 	}
 	
 	//只搜尋某STOREID 的餐點
