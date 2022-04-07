@@ -35,7 +35,7 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>OrderID</th> <th>StoreID</th> <th>UserID</th> <th>OrderDate</th> <th>OrderStatus</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>訂單ID</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單狀態</th>  </tr>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
@@ -49,7 +49,7 @@
              		            "</tr>"+
              		          
                 		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
-                 		   		"<td colspan='5' id = '變數'>餐點 : XXX     數量 :  X    價格 :  </br> 餐點 : XXX     數量 :  X    價格 :    </td>" +
+                 		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
 								"</tr>" ;
 
              		            
@@ -72,7 +72,7 @@
 	 function loadorder(oid){
 		   $.ajax({
 			     type:'post',
-			     //透過id 查詢產品
+			     //透過訂單id 查詢訂單詳細資訊
 			     url:'/Store/QueryInformationByOrderID.controller?oid='+ oid,
 			     dataType:'JSON',
 			     contentType:'application/json',
@@ -81,18 +81,17 @@
 			         var json = JSON.stringify(data, null, 4);
 			         console.log('success:' + json);
 			         var jsonArray = JSON.parse(json);
-			          
+
+	
 			         if(data==null){
 			         
-			         }else{
-
-//			        	 $('#ProductName').attr({"value":jsonArray.productname});
-//			        	 $('#ProductCategory').attr({"value":jsonArray.productcategory});
-//			        	 $('#ProductUnitPrice').attr({"value":jsonArray.productunitprice});
-//			        	 $("#img-preview").attr({"src":jsonArray.preview});
 			         }
-			         $.each(data[0], function(i,n){
-							//console.log(n)
+			         
+			         $.each(jsonArray, function(i,n){
+
+			         var tdd = "餐點 : " + n.productName + "     數量 :  " + n.number + "    價格 :  " + n.productPrice + "   </br>"
+			        	 $('#orderid'+oid).prepend(tdd);
+		        	 
 			         });
 
 			     }
@@ -117,7 +116,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -146,9 +145,9 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -219,7 +218,7 @@
 							</table>
 							
 							
-							
+				<!-- 
 							<table id="showpage">
 								<tr>
 									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
@@ -229,6 +228,8 @@
 							         </c:forEach>下一頁
 							      </td>
 								</tr>
+				 -->			
+					
 							</table>
 						</div>
 							<div id ="creat"></div>

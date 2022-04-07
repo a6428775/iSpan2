@@ -16,39 +16,23 @@
         const lsContent = JSON.parse(localStorage.getItem("products"))
                 || [];
         console.log(lsContent)
+     
+
+
+        $.each(lsContent, function(i,n){
+
+    $('#123').append(n.name);
+        }); 
         return lsContent;
     };
 
-    <!--   $(function displayProductDetail() {
-
-    	const lsContent = getLSContent();
-    	let productMarkup = "";
-    	    if (lsContent !== null) {
-    	        for (let product of lsContent) {
-    	            productMarkup += 
-    	             <tr>
-    	                <td id="pid" data-id=\${product['id']} store-id=\${product.storeid}></td>
-    	                  <td id="name">\${product['name']} </td>
-    	                 <td id="productPrice">\${product['price']}</td>
-    	                 <td id="productQty">\${product['quantity']}</td>
-    	                  <td id="itemTotalPrice">\${product['price']*product['quantity']}</td>
-    	              </tr>
-    	            ;
-
-    	            }
-    	        } else {
-    	            productMarkup = "Your cart is empty.";
-    	        }
-    	        document.getElementById("cartItem").innerHTML = productMarkup;
-    	        console.log(productMarkup)
-    	        });
-
--->
+	
+  
 </script>
 
 
 </head>
 <body>
-productMarkup
+<a id ="123">  321</a>
 </body>
 </html>

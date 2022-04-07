@@ -35,6 +35,7 @@ public class AccountController {
 	@Autowired
 	private User1Service User1Service;
 	
+	
 //	註冊新會員
 	@RequestMapping(path = "/createaccountmain.controller", method = RequestMethod.GET)
     public String processaccountMainAction(Model m) {
@@ -42,6 +43,44 @@ public class AccountController {
     	m.addAttribute("account", account);
     	return "register";
 	}
+	
+//	修改User1基本資料(若不存在則新增一筆User1)
+	@PostMapping("/Account/User1/membercenterupdate.controller")
+	public String User1Update(@RequestParam("Nickname") String Nickname, @RequestParam("Phone") String Phone,
+									@RequestParam("Address") String Address, @RequestParam("Birthday") String Birthday, Model m, User1 User1) {
+
+//		取得登入帳號
+		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		取得一筆User1
+		Optional<User1> findUser1 = User1Service.findByUseremailaddress2(SecurityName);
+		
+//		修改User1基本資料(若不存在則新增一筆User1)
+		if (findUser1.isEmpty()) {
+			
+			User1.setUseremailaddress(SecurityName);
+			User1.setNickname(Nickname);
+			User1.setPhone(Phone);
+			User1.setAddress(Address);
+			User1.setBirthday(Birthday);
+
+			User1Service.createUser1(User1);
+		} else {
+
+			findUser1.get().setNickname(Nickname);
+			findUser1.get().setPhone(Phone);
+			findUser1.get().setAddress(Address);
+			findUser1.get().setBirthday(Birthday);
+
+			User1Service.update(findUser1.get());
+		}
+		
+		return "welcome";
+	}
+	
+	
+	
+	
+	
 	@PostMapping("/createaccount.controller")
 	public String processCreateUserAction(@RequestParam("useraccount") String useraccount, @RequestParam("userpassword") String userpassword,
 											@RequestParam("userrole") String userrole, Model m) {

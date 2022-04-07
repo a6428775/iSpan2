@@ -148,6 +148,11 @@ public class ProductController {
 		
 	}
 	
+	@GetMapping("/checkout.controller")
+	public String checkout(){
+		return "checkout";
+		
+	}
 	
 	
 }

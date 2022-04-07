@@ -79,9 +79,9 @@ function loadPage(indexPage){
 											"<div class='view-recipe' >"  +
 											"<a href='#' class='add-to-cart' style='color:white'>加入購物車</a>" +
 												
-											"<span href='#' id='name' style='display:none'> " + n.productname + "</span>"+
+											"<span href='#' id='name' style='display:none'>" + n.productname + "</span>"+
 											"<span id='price' style='display:none'>"+ n.productunitprice + "</span>"+	
-											"<span href='#' id='pid' style='display:none'> " + n.productid + "</span>"+
+											"<span href='#' id='pid' style='display:none'>" + n.productid + "</span>"+
 											"<span href='#' id='sid' style='display:none'>" + n.storeid + "</span>"+	
 											"</div>"+
 											

@@ -31,7 +31,7 @@ function displayProducts() {
           <td id="productPrice">${product.price}</td>
 		  <td>
 		  <input class="min" type="button" value="-">
-		  <input id="num" name="num" type="text" value="${product.quantity}" readonly="true" onchange="setTotal(e);">
+		  <input id="num" name="num" type="text" value='${product.quantity}' readonly="true" onchange="setTotal(e);">
 		  <input class="add" type="button" value="+">
 		  </td>
 		  <td id="itemTotalPrice">${product.price}</td>
@@ -71,15 +71,15 @@ function minQty(clickedBtn){
 }
 
 function updateLSContent(pid, qty){
-	lsContent = getLSContent();
-	var productIntex;
+	let lsContent = getLSContent();
+	var productIndex;
 	lsContent.forEach(function(product, index){
-		if(product.id === pid){
-			productIntex = index;
-			lsContent[productIntex].quantity = lsContent[productIntex].quantity + qty;
+		if (product.id === pid){
+			productIndex = index;
+			lsContent[productIndex].quantity = lsContent[productIndex].quantity + qty;
 		}
 	})
-	console.log(lsContent[0].quantity)
+
 	setLSContent(lsContent);
 }
 
@@ -147,11 +147,6 @@ function saveProduct(clickedBtn) {
 	var productName = clickedBtn.closest('div').querySelector('#name').innerText
 	var productPrice = clickedBtn.closest('div').querySelector('#price').innerText
 	var storeid = clickedBtn.closest('div').querySelector("#sid").innerText
-//    var productId = clickedBtn.getAttribute('pid')
-//    var productName = clickedBtn.getAttribute('name')
-//    var productPrice = clickedBtn.getAttribute('price')
-//    var storeid = clickedBtn.getAttribute('sid')
-
 
 
 

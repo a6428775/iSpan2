@@ -174,15 +174,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>頁籤</title>
 <!-- STYLE CSS -->
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles2.css" rel="stylesheet">
-
 <link href="/css/fronts/bootstrap.css" rel='stylesheet' type='text/css' media="all" />
-<link href="/css/fronts/style.css" rel='stylesheet' type='text/css' media="all" />
-
+<link href="/css/fronts/style2.css" rel='stylesheet' type='text/css' media="all" />
 <link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
 
 <title>使用者登入</title>
@@ -411,14 +407,14 @@
 	</div>
 	<!-- end #page hfeed site -->
 	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
 	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
 	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
 	
-	<!-- Include all compiled plugins(below),or include individual files as needed -->
+	<!-- Include all compiled plugins(below),or include individual files as needed 
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>
-	<script src="/js/fonts/main.js"></script>
+	<script src="/js/fonts/main.js"></script>-->
 	
 	<script src="/js/jss/jquery.flexisel.js"></script>
 	<script src="/js/jss/modernizr.custom.js"></script>

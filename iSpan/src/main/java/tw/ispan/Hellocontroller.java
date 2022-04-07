@@ -66,4 +66,13 @@ public class Hellocontroller {
 		return o.findByOrderId(4);
 		
 	}
+	
+	@GetMapping("/test4")
+	public String processAction6() {
+		return "/product/productQueryAll";
+	}
+	@GetMapping("/test5")
+	public String processAction7() {
+		return "checkout";
+	}
 }

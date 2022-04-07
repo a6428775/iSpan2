@@ -10,6 +10,17 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
+
+<!-- 123 -->
+
+<link href="/css/fronts/style2.css" rel='stylesheet' type='text/css' media="all" />
+
+<link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
+
+	
+
+<!-- 123 -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
@@ -22,6 +33,7 @@
 
 $(document).ready(function(){
     login();
+    StoreAll();
 });
 
 function login(){
@@ -48,6 +60,91 @@ function login(){
    	   		}
     });
 }
+
+//推薦餐廳//////////////////////////////////////
+	    function StoreAll(){
+	       $.ajax({
+	           type:'post',
+	           url:'/product/StoreAll.controler',
+	           dataType:'JSON',
+	           contentType:'application/json',
+	           success: function(data){
+	               console.log(data);
+	               
+	               $('#showproduct').empty("");
+	               
+	               if(data==null){
+	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	               }else{
+	            	   
+//	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
+	
+	            	   //data: jsonArray n:jsonOnject
+// 	            	   $.each(data, function(i,n){
+// 	            		   var tr = "<tr align='center'>" + "<td>" + n.pid + "</td>" +
+// 	            		            "<td>" + n.pname + "</td>" + "<td>" + n.category + "</td>" +
+// 	            		            "<td>" + n.price + "</td>" + n.quantity + "</td>" +"</tr>";
+// 	            		   table.append(tr);
+// 	                   });      
+
+	            	   //data: jsonArray n:jsonOnject
+	            	   $.each(data, function(i,n){
+
+	            		var div =
+	            		"<li>"
+	           			+"<div class='team1' align='center' valign='center' >"
+	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
+						+ "<a href='http://localhost:8081/test2'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
+	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
+						+ "<h6>　 " + n.storeName + "</h6>"
+						+ "<p style='color:red'>　 " + n.storeCategory + "</p>"
+						+ "<p style='color:red'>　 " + n.storePhone + "</p>"
+						+ "</div>"
+						+ "</li>";
+
+
+						
+						$('#flexiselDemo3').append(div);
+	                   });    	   
+	               }
+	           }
+	       });
+	    }
+
+		$(window).on('load', function() {
+				
+			$("#flexiselDemo3").flexisel({
+				visibleItems: 4,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,    		
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: { 
+					portrait: { 
+						changePoint:480,
+						visibleItems: 1
+					}, 
+					landscape: { 
+						changePoint:640,
+						visibleItems: 2
+					},
+					tablet: { 
+						changePoint:768,
+						visibleItems: 4
+					}
+				}
+
+					
+			});
+				
+		});		   
+
+/////////////////////////////////////////////
+
+
+
+
 
 </script> 
 </head>
@@ -375,106 +472,45 @@ function login(){
 
 					<!-- 刪除中間大圖2 -->
 
-					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->
-					<div class="blog-section">
-						<div class="container">
-							<div class="section-title">
-								<h3>店家展示</h3>
-							</div>
-							<!-- end section-title -->
-							<div class="row">
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-1.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Claritas est etiam processus dynamicus,qui
-												sequitur nembuz</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
+					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->				
+	<!--  ////////////////////////////推薦餐廳////////////////////-->				
 
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-2.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Anteposuerit litterarum formas humanitatis
-												per seacula</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">How to</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
+				<div class="blog-section">
 
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-3.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Lorem ipsum dolor sit amet,consectetuer
-												adipiscing elit</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
-										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
 
-								<div class="col-6 col-md-3 blog-list">
-									<figure class="blog-thumb">
-										<img src="/images/content/blog-4.png" alt="blog">
-									</figure>
-									<div class="entry-header">
-										<h2 class="post-title entry-title">
-											<a href="#">Mirum est notare quam littera gothica</a>
-										</h2>
-									</div>
-									<!-- end entry-header -->
-									<div class="post-meta">
-										<div class="cat">
-											<a href="#">Cooking Tips</a>
+													<div margin:auto><h3 >推薦餐廳</h3></div>
+									<div class="ourteam">
+												<div class="container" >
+													<div class="team" >
+														  <ul id="flexiselDemo3" >
+															<li>
+																<div class="team1" >
+									
+																</div>
+															</li>
+									<!--  					<li>
+																<div class="team1" >
+																	<img src="images/t2.jpg" class="img-responsive" alt="" />
+																	<h4>Tony Stark</h4>
+																	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+																</div>
+															</li>
+									-->	
+														 </ul>
+													</div>
+											</div>
 										</div>
-										<time class="published" datetime="2019-03-03"
-											title="March 3, 2019 - 21:12 pm">Mar 3,2019</time>
-									</div>
-								</div>
-								<!-- end col -->
-							</div>
-							<!-- end row -->
-						</div>
-						<!-- end container -->
+
+
+
+
+
 					</div>
 					<!-- end blog-section -->
 
 					<!-- 刪除社群分享 -->
 
-
+	<!--  ////////////////////////////推薦餐廳////////////////////-->		
 					<div class="bottom">
 						<div class="container">
 
@@ -524,5 +560,9 @@ function login(){
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
 	<script src="/js/shoppingcart.js"></script>
+	
+	<script src="/js/jss/jquery.flexisel.js"></script>
+	<script src="/js/jss/modernizr.custom.js"></script>
+	<script src="/js/jss/classie.js"></script>
 </body>
 </html>

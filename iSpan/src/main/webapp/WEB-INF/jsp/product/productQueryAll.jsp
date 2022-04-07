@@ -40,10 +40,11 @@
 
             	   //data: jsonArray n:jsonOnject
             	   $.each(data, function(i,n){
-            		   var tr = "<tr id='product' align='center'>" + "<td id='pid'>" + n.id + "</td>" +
-            		            "<td id='name'>" + n.pname + "</td>" + "<td id='category'>" + n.pcategory + "</td>" +
-            		            "<td id='price'>" + n.pprice + "</td>" + "<td id='sid'>" + n.sid + "</td>" +
+            		   var tr = "<tr id='product' align='center'>" + "<td id='pid'>" + n.productid + "</td>" +
+            		            "<td id='name'>" + n.productname + "</td>" + "<td id='category'>" + n.productcategory + "</td>" +
+            		            "<td id='price'>" + n.productunitprice + "</td>" + "<td id='sid'>" + n.storeid + "</td>" +
             		            "<td>" + "<button class='add-to-cart'>" + "加入購物車" +  "</button>" + "</td>" +
+            		            
             		            "</tr>";
             		   table.append(tr);
             		   

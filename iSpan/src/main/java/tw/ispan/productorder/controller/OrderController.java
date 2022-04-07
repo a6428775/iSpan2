@@ -1,5 +1,6 @@
 package tw.ispan.productorder.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,8 @@ import tw.ispan.productorder.ProductOrderService;
 import tw.ispan.store.Store;
 import tw.ispan.store.StoreRepository;
 import tw.ispan.store.StoreService;
+import tw.ispan.user1.User1;
+import tw.ispan.user1.User1Service;
 
 
 @Controller
@@ -48,7 +51,8 @@ public class OrderController {
 	private OrderInformationRepository o;
 	@Autowired
 	private OrderInformationService oService;
-
+	@Autowired
+	private User1Service uService;
 	
 	@GetMapping("/Store.controller")
 	public String processAction(){ 
@@ -168,6 +172,36 @@ public class OrderController {
         store.setStoreAccount(username);
         
         return sService.createAccount(store);
+	}
+	
+	//儲存成 ProductOrder
+	@PostMapping("/saveorder.controller")
+	public String saveorder(@RequestBody ProductOrder productorder){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User1> us1 = uService.findByUseremailaddress2(username);
+        int us1id = us1.get().getUserid();
+        
+        Date date = new Date();
+        
+        productorder.setOrderdate(date);
+        productorder.setStoreid(productorder.getStoreid());
+        productorder.setUserid(us1id);
+		pService.insert(productorder);
+		
+		return null;
+	}
+	
+	//儲存成 OrderInformation
+	@PostMapping("/saveorderInformation.controller")
+	public String saveorder(@RequestBody OrderInformation orderInformation){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User1> us1 = uService.findByUseremailaddress2(username);
+        int us1id = us1.get().getUserid();
+        
+        Date date = new Date();
+        
+
+		return null;
 	}
 }
 
