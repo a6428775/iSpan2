@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
+<link rel="stylesheet" href="/css/ordersystem.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -35,7 +35,7 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>OrderID</th> <th>StoreID</th> <th>UserID</th> <th>OrderDate</th> <th>OrderStatus</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>訂單ID</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單狀態</th>  </tr>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
@@ -110,13 +110,13 @@
         <meta name="author" content="" />
         <title>後台管理</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/Backstage/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -145,9 +145,9 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -218,7 +218,7 @@
 							</table>
 							
 							
-							
+				<!-- 
 							<table id="showpage">
 								<tr>
 									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
@@ -228,6 +228,8 @@
 							         </c:forEach>下一頁
 							      </td>
 								</tr>
+				 -->			
+					
 							</table>
 						</div>
 							<div id ="creat"></div>
@@ -251,9 +253,9 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/datatables-simple-demo.js"></script>
+        <script src="/js/datatables-simple-demo.js"></script>
     </body>
 </html>

@@ -16,12 +16,12 @@ public class User1 {
 	@Id @Column(name = "USERID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userid;
-		
-	@Column(name = "USEREMAILADDRESS")
-	private String useremailaddress ;
-
+	
 	@Column(name = "NICKNAME")
 	private String nickname;
+	
+	@Column(name = "USEREMAILADDRESS")
+	private String useremailaddress ;
 	
 	@Column(name = "BIRTHDAY")
 	private String birthday;
@@ -31,12 +31,27 @@ public class User1 {
 	
 	@Column(name = "ADDRESS")
 	private String address;
+	
+//	@Column(name = "RESET_PASSWORD_TOKEN")
+//    private String resetpasswordtoken;
+
+//	public String getResetpasswordtoken() {
+//		return resetpasswordtoken;
+//	}
+//
+//	public void setResetpasswordtoken(String resetpasswordtoken) {
+//		this.resetpasswordtoken = resetpasswordtoken;
+//	}
 
 	public User1() {
 		
 	}
-
-	public User1 (String useremailaddress, String nickname, String birthday, String phone , String address) {
+	
+//	public User1 (String useremailaddress, String userpassword ) {
+//		
+//	}
+//
+	public User1 (Integer userid, String useremailaddress, String nickname, String birthday, String phone ,String address) {
 		
 	}
 
@@ -48,20 +63,20 @@ public class User1 {
 		this.userid = userid;
 	}
 
-	public String getUseremailaddress() {
-		return useremailaddress;
-	}
-
-	public void setUseremailaddress(String useremailaddress) {
-		this.useremailaddress = useremailaddress;
-	}
-
 	public String getNickname() {
 		return nickname;
 	}
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public String getUseremailaddress() {
+		return useremailaddress;
+	}
+
+	public void setUseremailaddress(String useremailaddress) {
+		this.useremailaddress = useremailaddress;
 	}
 
 	public String getBirthday() {
@@ -88,5 +103,5 @@ public class User1 {
 		this.address = address;
 	}
 
-	
+
 }

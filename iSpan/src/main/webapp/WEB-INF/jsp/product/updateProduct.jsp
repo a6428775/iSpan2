@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
+<link rel="stylesheet" href="/css/ordersystem.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -100,13 +100,13 @@ function sendProductUpdate(){
         <meta name="author" content="" />
         <title>後台管理</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/Backstage/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -135,9 +135,9 @@ function sendProductUpdate(){
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -148,8 +148,8 @@ function sendProductUpdate(){
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
 
-                                    <a class="nav-link" href='/product/storeCreateProduct.controller?'> 商家資料修改</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">訂單</a>
+                                    <a class="nav-link" href='/Store/updateStore.controller'> 商家資料修改</a>
+                                    <a class="nav-link" href="/Store/Store.controller">訂單</a>
                                 </nav>
                             </div>
                             
@@ -164,7 +164,7 @@ function sendProductUpdate(){
                                     <a class="nav-link" href='/product/storeCreateProduct.controller?'> 新增餐點</a>
                                     <a class="nav-link" href="/product/mainacction.controller">餐點列表</a>
                                 </nav>
-                            </div>                            
+                            </div>                                
                             
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
@@ -269,9 +269,9 @@ function sendProductUpdate(){
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/datatables-simple-demo.js"></script>
+        <script src="/js/datatables-simple-demo.js"></script>
     </body>
 </html>

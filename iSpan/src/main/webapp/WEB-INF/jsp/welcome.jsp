@@ -1,289 +1,625 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>home</title>
+<!-- STYLE CSS -->
 <script type="text/javascript">
-
-	var indexPage = 1;
-	
+///////////////////////////////////////////////////////////////////
 	$(document).ready(function(){
-	      loadPage(indexPage);
-
-	      loadstore();
+		var indexPage = 1;
+	      loadPage(indexPage);    
 	});
 
     function loadPage(indexPage){
         $.ajax({
             type:'post',
-            url:'/Store/QueryAllByStoreID.controller',
+            url:'/Store/queryUserIDByPage/' + indexPage, // OrderController => processQueryUserIDByPage 前往的網頁
             dataType:'JSON',
             contentType:'application/json',
-            success: function(data){
+            success: function(data){  //server送回來的訂單資料
                 
                 console.log(data);
                 //顯示之前把Table標籤資料清空
                 //清空這段<table id="showorder" border="1"></table>
                 $('#showorder').empty("");
                 
-                
                 if(data==null){
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>OrderID</th> <th>StoreID</th> <th>UserID</th> <th>OrderDate</th> <th>OrderStatus</th>  </tr>");
+             	   table.append("<thead><tr id='ptitle'><th>評論</th><th>No.</th><th>訂單日期</th><th>訂單狀態</th><th>詳細</th></tr></thead>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
-             		   var tr = 
-                 		   		"<tr align='center' >" + 
-                 		   		"<td>" + n.orderid + "</td>" +
-             		            "<td>" + n.storeid + "</td>" + 
-             		            "<td>" + n.userid + "</td>" +
-             		            "<td>" + n.orderdate + "</td>" + 
-             		            "<td>" + n.orderstatus + "</td>" +
-             		            "</tr>";
-             		          
-        //        		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
-       //          		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
-		//						"</tr>" ;
-
-             		            
+             		   var tr ="<tbody>" + 
+                 		   			"<tr align='center'>" + 
+	        		   				"<td><a href='#' >" + "回饋" + "</a></td>" +
+			   						"<td>" + n.orderid + "</td>" +
+	   		            		   	"<td>" + n.orderdate + "</td>" + 
+	   		            		   	"<td>" + n.orderstatus + "</td>" +
+	            		   			"<td><a href='/users/orders/ordersproduct.controller?oid=" + n.orderid + "' class='btn btn-sm btn-success'>" + "MORE" + "</a></td>" +
+		           					"</tr>" + 
+	           					"</tbody>";
+	           					
 					   table.append(tr);
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
-			   		//			loadorder(n.orderid);
-			   				
+			   					// loadorder(n.orderid);
                     });           	   
                 }
             }
         });
         //load 訂單詳細資訊的 function
      }
-    function change(page){
+
+     function change(page){
      	indexPage = page;
      	loadPage(indexPage);
-     } 
-///////////////////////////////////////////////////////////////////
-function loadstore(){
-	 $.ajax({
-     type:'post',
-     //透過登入帳號id 查詢商家資訊
-     url:'/Store/storeupdateInformation.controller',
-     dataType:'JSON',
-     contentType:'application/json',
-     success: function(data){
-         
-         var json = JSON.stringify(data, null, 4);
-         console.log('success:' + json);
-         var jsonArray = JSON.parse(json);
-          
-         if(json==null){
-//             $('table').prepend('<tr><td colspan="2">No Result</td></tr>');
-         }else{
-             
-        	 $('#storeName').append(jsonArray.storeName);
-        	 $('#storeCategory').append(jsonArray.storeCategory);
-        	 $('#storePhone').append(jsonArray.storePhone);
-        	 $('#storeAddress').append(jsonArray.storeAddress);
-        	 $('#storeBusinessHours').append(jsonArray.storeBusinessHours);
-         }
-     }
-	   });
-}
+	 	} 
+	 	
+
 
 ///////////////////////////---------------------------------------
 </script>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
+<link href="/css/fonts/styles.css" rel="stylesheet">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>後台管理</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/Backstage/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
-            <!-- 側邊欄切換-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- 導航欄搜索-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- 右上角導航欄-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">設定</a></li>
-                        <li><a class="dropdown-item" href="#!">廠商資料</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="/logout">登出</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                商家資訊
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
+<!-- 123 -->
 
-                                    <a class="nav-link" href='/Store/updateStore.controller'> 商家資料修改</a>
-                                    <a class="nav-link" href="/Store/Store.controller">訂單</a>
-                                </nav>
-                            </div>
-                            
-                        	<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                商家餐點
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>                               
-                            <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
+<link href="/css/fronts/style2.css" rel='stylesheet' type='text/css' media="all" />
 
-                                    <a class="nav-link" href='/product/storeCreateProduct.controller?'> 新增餐點</a>
-                                    <a class="nav-link" href="/product/mainacction.controller">餐點列表</a>
-                                </nav>
-                            </div>                            
-                            
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                歷史訂單
-                            </a>
-                        </div>
-                    </div>
+<link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
+
+	
+
+<!-- 123 -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING:Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+<script type="text/javascript">   
+
+$(document).ready(function(){
+    login();
+    StoreAll();
+});
+
+function login(){
 
 
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">主頁</h1>
+    $.ajax({
+        type:'post',
+        url:'/Auth.controller',
+        dataType:'JSON',
+        contentType:'application/json',
+        success: function(data){
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller'>會員中心</a></li>"
+            var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
+                
+        	$('#loginlogout').append(member);
+        	$('#loginlogout').append(logout);
+			
 
- <!--  /////////////////////////////////////商家地圖 和 資訊                       //////////////////////////-->
-                          <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        商家地圖
-                                    </div>
-                                    <div align="center">
-<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3681.9410598566637!2d120.28482903633024!3d22.65598606015211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z6auY6ZuE576O6KGT6aSo!5e0!3m2!1szh-TW!2stw!4v1648023181153!5m2!1szh-TW!2stw" width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        商家資訊
-                                    </div >
-                                    <br/>
-                                     <div  align="center">
-                                     	<p >商家名稱 : <a id="storeName"></a></p> 
-                                     	<hr>
-                                     	<br/>
-                                     	<p >位置 : <a id="storeAddress"></a></p> 
-                                     	<hr>
-                                     	<br/>
-                                     	<p>連絡電話 : <a id="storePhone"></a></p>
-                                     	<hr />
+            },
+   		error : function(){
 
-                                     	<br/>
-                                     	<p>營業時間 : <a id="storeBusinessHours"></a></p>
-                                     	<hr>
-                                     	<br/>
-                                     	<p>料理類型 : <a id="storeCategory"></a></p>
-                                     <br/>
-                                     </div>
+   	   		var login = "<li class='nav-item'><a class='nav-link' href='/login/page' id='login'>登入</a></li>"
+   			$('#loginlogout').append(login);
+   	   		}
+    });
+}
 
-                                </div>
-                            </div>
-                        </div>
- <!--  /////////////////////////////////////商家地圖 和 資訊                       //////////////////////////-->
-                        
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                               訂單資訊
-                            </div>
-                        <div class="card-body">
-                        
-							<table  class="dataTable-table">
-								<tbody id="showorder">
-								
-								
-								</tbody>
-							
-							</table>
-							
-							
-							
-							<table id="showpage">
-								<tr>
-									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
-							      <td colspan="3" align="right">上一頁
-							         <c:forEach var="i" begin="1" end="${totalPages}" step="1">
-							             <button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-							         </c:forEach>下一頁
-							      </td>
-								</tr>
-							</table>
+//推薦餐廳//////////////////////////////////////
+	    function StoreAll(){
+	       $.ajax({
+	           type:'post',
+	           url:'/product/StoreAll.controler',
+	           dataType:'JSON',
+	           contentType:'application/json',
+	           success: function(data){
+	               console.log(data);
+	               
+	               $('#showproduct').empty("");
+	               
+	               if(data==null){
+	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	               }else{
+	            	   
+//	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
+	
+	            	   //data: jsonArray n:jsonOnject
+// 	            	   $.each(data, function(i,n){
+// 	            		   var tr = "<tr align='center'>" + "<td>" + n.pid + "</td>" +
+// 	            		            "<td>" + n.pname + "</td>" + "<td>" + n.category + "</td>" +
+// 	            		            "<td>" + n.price + "</td>" + n.quantity + "</td>" +"</tr>";
+// 	            		   table.append(tr);
+// 	                   });      
+
+	            	   //data: jsonArray n:jsonOnject
+	            	   $.each(data, function(i,n){
+
+	            		var div =
+	            		"<li>"
+	           			+"<div class='team1' align='center' valign='center' >"
+	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
+						+ "<a href='http://localhost:8081/test2'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
+	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
+						+ "<h6>　 " + n.storeName + "</h6>"
+						+ "<p style='color:red'>　 " + n.storeCategory + "</p>"
+						+ "<p style='color:red'>　 " + n.storePhone + "</p>"
+						+ "</div>"
+						+ "</li>";
+
+
+						
+						$('#flexiselDemo3').append(div);
+	                   });    	   
+	               }
+	           }
+	       });
+	    }
+
+		$(window).on('load', function() {
+				
+			$("#flexiselDemo3").flexisel({
+				visibleItems: 4,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,    		
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: { 
+					portrait: { 
+						changePoint:480,
+						visibleItems: 1
+					}, 
+					landscape: { 
+						changePoint:640,
+						visibleItems: 2
+					},
+					tablet: { 
+						changePoint:768,
+						visibleItems: 4
+					}
+				}
+
+					
+			});
+				
+		});		   
+
+/////////////////////////////////////////////
+
+
+
+
+
+</script> 
+</head>
+<body>
+
+	<div id="page" class="hfeed site">
+		<!-- start page wrapper -->
+
+		<header id="masthead" class="site-header navbar-fixed-top">
+			<div class="header-navigation">
+				<div class="container-fluid">
+
+					<div class="row">
+
+						<div class="col col-md-2">
+							<div class="site-branding navbar-brand">
+								<!-- 左上logo圖片////////////////////////////////////////////////////////////////////////// -->
+								<a href="#"><img src="/images/logo-2.png"
+									alt="Food Recipe Web Template" title="Taplak"></a>
+							</div>
+							<!-- end logo -->
 						</div>
-							<div id ="creat"></div>
+						<!-- end col-md-3 -->
 
-  
+						<div class="col-12 col-md-8">
+							<nav class="site-navigation navbar navbar-expand-lg navbar-light">
+
+								<button class="navbar-toggler" type="button"
+									data-toggle="collapse" data-target="#navbarSupportedContent"
+									aria-controls="navbarSupportedContent" aria-expanded="false"
+									aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+
+								<div class="collapse navbar-collapse"
+									id="navbarSupportedContent">
+									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
+									<ul class="navbar-nav" id="loginlogout">
+										<li class="nav-item active"><a class="nav-link"
+											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
+										</li>
+										<li class="nav-item"><a class="nav-link" href="/about">關於我們</a>
+										</li>
+										<li class="nav-item"><a class="nav-link" href="typography.html">最新消息</a>
+										</li>
+										<li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">餐點資訊</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
+                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
+                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
+                                            </div>
+                                        </li>
+										<li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">店家資訊</a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
+                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
+                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
+                                            </div>
+                                        </li>
+										<li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#"
+											id="navbarDropdown4" role="button" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">服務資源</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+												<a class="dropdown-item" href="contact.html">聯絡我們</a> 
+												<a class="dropdown-item" href="faq.html">FAQ</a> 
+											</div></li>
+										
+										<!-- <li class="nav-item dropdown"><a
+											class="nav-link dropdown-toggle" href="#"
+											id="navbarDropdown4" role="button" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false">會員中心</a>
+											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+												<a class="dropdown-item" href="/user1/membercenter.controller">登入</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
+											</div>
+										</li> -->
+									
+										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
+										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
+
+									</ul>
+								</div>
+								<!-- end navbar-collapse -->
+							</nav>
+							<!-- end site-navigation -->
+						</div>
+						<!-- end col-md-8 -->
+
+						<!-- 刪除社群icon、搜尋icon-->	
+                            
+					</div>
+					<!-- end row -->
+
+				</div>
+				<!-- end container-fluid -->
+			</div>
+			<!-- end header-navigation -->
+		</header>
+		<!-- end #masthead -->
+
+		<!-- 刪除搜尋列 -->
+		
+		<!-- 幻燈片 輪播圖 SLIDER SECTION /////////////////////////////////////////////////////////////////////-->
+		<div class="owl-carousel owl-theme">
+			<div class="item">
+				<img src="/images/content/slide-13.png" alt="slide 1">
+				<div class="caption">
+					<h2 class="animated bounce">Our 10 Most Popular Recipes</h2>
+					<!-- <button class="btn btn-primary">EXPLORE NOW</button> -->
+				</div>
+			</div>
+			<!-- end item -->
+			<div class="item">
+				<img src="/images/content/slide-14.png" alt="slide 2">
+				<div class="caption">
+					<h2 class="animated bounce">Best Review Recipe 2019</h2>
+					<!-- <button class="btn btn-primary">READ MORE</button> -->
+				</div>
+			</div>
+			<!-- end item -->
+			<div class="item">
+				<img src="/images/content/slide-15.png" alt="slide 3">
+				<div class="caption">
+					<h2 class="animated bounce">Most Popular Homemade Recipes</h2>
+					<!-- <button class="btn btn-primary">EXPLORE NOW</button> -->
+				</div>
+			</div>
+			<!-- end item -->
+		</div>
+		<!-- end owl-carousel -->
 
 
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/scripts.js"></script>
+		<div class="choice-section">
+			<div class="container">
+				<div class="section-title">
+					<!-- 刪除12張圖片組 -->
 
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/datatables-simple-demo.js"></script>
-    </body>
+					<!-- 刪除中間大圖1 -->
+
+					<!-- 產品圖 /////////////////////////////////////////////////////////////////////-->
+					<div class="recipes-section">
+						<div class="container">
+							<div class="section-title">
+								<h3>餐點展示</h3>
+							</div>
+							<!-- end section-title -->
+							<div class="row">
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-1.png" alt="Recipe Image">
+										<a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a>
+										<a href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Salad Nicoise</a>
+										</h2>
+										<p>
+											<em>By Lina Sukowati</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-2.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Grilled Beef Steak</a>
+										</h2>
+										<p>
+											<em>By Eka Nurwasilah</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-3.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Tiger Prawns Roasted</a>
+										</h2>
+										<p>
+											<em>By Nurjanah</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-4.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Korean Soup</a>
+										</h2>
+										<p>
+											<em>By Lina Sukowati</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-5.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Roast Aubergine</a>
+										</h2>
+										<p>
+											<em>By Lina Sukowati</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;1 Hour</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-6.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Indian Mixed Rice</a>
+										</h2>
+										<p>
+											<em>By Eka Nurwasilah</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-7.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Black Red Cake</a>
+										</h2>
+										<p>
+											<em>By Nurjanah</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+
+								<div class="col-6 col-md-3">
+									<div class="recipe-thumb">
+										<img src="/images/content/thumb-8.png" alt="Recipe Image"><a
+											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
+											href="#" class="view-recipe">VIEW RECIPE</a>
+									</div>
+									<div class="recipe-desc">
+										<h2 class="recipe-title">
+											<a href="#">Fresh Spaghetti with Tuna</a>
+										</h2>
+										<p>
+											<em>By Lina Sukowati</em>
+										</p>
+										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
+									</div>
+									<!-- end recipe-desc -->
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
+							<div class="row">
+								<div class="centered">
+									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
+								</div>
+								<!-- end centered -->
+							</div>
+							<!-- end row -->
+
+						</div>
+						<!-- end container -->
+					</div>
+					<!-- end recipes -->
+
+					<!-- 刪除作者群介紹 -->
+
+					<!-- 刪除中間大圖2 -->
+
+					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->				
+	<!--  ////////////////////////////推薦餐廳////////////////////-->				
+
+				<div class="blog-section">
+
+
+													<div margin:auto><h3 >推薦餐廳</h3></div>
+									<div class="ourteam">
+												<div class="container" >
+													<div class="team" >
+														  <ul id="flexiselDemo3" >
+															<li>
+																<div class="team1" >
+									
+																</div>
+															</li>
+									<!--  					<li>
+																<div class="team1" >
+																	<img src="images/t2.jpg" class="img-responsive" alt="" />
+																	<h4>Tony Stark</h4>
+																	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+																</div>
+															</li>
+									-->	
+														 </ul>
+													</div>
+											</div>
+										</div>
+
+
+
+
+
+					</div>
+					<!-- end blog-section -->
+
+					<!-- 刪除社群分享 -->
+
+	<!--  ////////////////////////////推薦餐廳////////////////////-->		
+					<div class="bottom">
+						<div class="container">
+
+							<!-- 刪除關於我們 -->
+
+							<!-- 頁尾 /////////////////////////////////////////////////////////////////////-->
+							<div class="row no-gutters">
+								<div class="col-md-6">
+									<div class="copy">
+										<p>
+											&copy; copyright 2022 by iii-Java-123-group1
+											<i class="fas fa-heart"></i>
+										</p>
+									</div>
+									<!-- end copy -->
+								</div>
+								<!-- end col -->
+								<div class="col-md-6">
+									<ul class="bottom-nav">
+										<li><a href="http://www.bootstrapmb.com/">Home</a></li>
+										<li><a href="#">Contact Us</a></li>
+										<li><a href="#">Privacy Policy</a></li>
+										<li><a href="#">Terms and Conditions</a></li>
+									</ul>
+								</div>
+								<!-- end col -->
+							</div>
+							<!-- end row -->
+						</div>
+						<!-- end container -->
+					</div>
+					<!-- end bottom -->
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- end #page hfeed site -->
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
+	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+
+	<!-- Include all compiled plugins(below),or include individual files as needed -->
+	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
+	<script src="/js/fonts/plugin.js"></script>
+	<script src="/js/fonts/main.js"></script>
+	<script src="/js/shoppingcart.js"></script>
+	
+	<script src="/js/jss/jquery.flexisel.js"></script>
+	<script src="/js/jss/modernizr.custom.js"></script>
+	<script src="/js/jss/classie.js"></script>
+</body>
 </html>

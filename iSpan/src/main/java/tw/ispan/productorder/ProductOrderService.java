@@ -19,6 +19,11 @@ public class ProductOrderService {
 	@Autowired
 	private ProductOrderRepository prp;
 	
+//	--查詢該用戶訂單
+	public Page<ProductOrder> findUserIDByPage(int UserID, Pageable pageable){
+		return prp.findAllByUserId(UserID, pageable);
+	}
+	
 	public Page<ProductOrder> findAllByPage(Pageable pageable){
 		return prp.findAll(pageable);
 	}

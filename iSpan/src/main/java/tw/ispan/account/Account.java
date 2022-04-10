@@ -9,61 +9,55 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name = "account")
+@Entity @Table(name= "ACCOUNT") 
 @Component
 public class Account {
 	
-	@Id @Column(name = "ACCOUNTID")
+	@Id
+	@Column(name = "ACCOUNTID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int accountid;
+	private int accountId;
 	
 	@Column(name = "USERACCOUNT")
-	private String useraccount;
+	private String userAccount;
 	
 	@Column(name = "USERPASSWORD")
-	private String userpassword ;
+	private String userPassword;
 	
 	@Column(name = "USERROLE")
-	private String userrole;
+	private String userRole;
+
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getUserAccount() {
+		return userAccount;
+	}
+
+	public void setUserAccount(String userAccount) {
+		this.userAccount = userAccount;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
 	
-	public Account() {
-		
-	}
-
-	public Account (String useraccount, String userpassword, String userrole) {
-		
-	}
-
-	public int getAccountid() {
-		return accountid;
-	}
-
-	public void setAccountid(int accountid) {
-		this.accountid = accountid;
-	}
-
-	public String getUseraccount() {
-		return useraccount;
-	}
-
-	public void setUseraccount(String useraccount) {
-		this.useraccount = useraccount;
-	}
-
-	public String getUserpassword() {
-		return userpassword;
-	}
-
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
-	}
-
-	public String getUserrole() {
-		return userrole;
-	}
-
-	public void setUserrole(String userrole) {
-		this.userrole = userrole;
-	}
 	
 }

@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>登入</title>
+<title>頁籤</title>
 <!-- STYLE CSS -->
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
 	rel="stylesheet">
@@ -14,16 +14,6 @@
 	rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
 <style type="text/css">
-.rt-text-note {
-	color: #8d8d8d;
-	padding-top: 30px;}
-.btn-re {
-	text-align: center;}
-.btn-1 {
-	float: right;}
-.loginerror {
-	color: #f00;
-	text-align: center;}
 </style>
 <title>使用者登入</title>
 </head>
@@ -63,7 +53,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
+											href="index.html">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
@@ -109,9 +99,9 @@
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">會員中心</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="/user1/membercenter.controller">登入</a>
+												<a class="dropdown-item" href="/login/page">登入</a>
 												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="/createuser1main.controller">註冊</a>
+												<a class="dropdown-item" href="#">註冊</a>
 											</div></li>
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
@@ -135,58 +125,17 @@
 		</header>
 		<!-- end #masthead -->
 
-		<div class="container">
-			<div class="row">
+<!-- ====================================================自由發揮區==================================================== -->
 
-				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
-					<h3 class="text-center">登入</h3>
 
-					<form action="/login/page" method="post">
-						<div class="mb-3">
-							<label for="useremailaddress" class="form-label">帳號：</label> <input
-								class="form-control" type="email" name="username" id="useremailaddress"
-								placeholder="請輸入信箱" value="@gmail.com"/>
-						</div>
-						<div class="mb-3">
-							<label for="userpassword" class="form-label">密碼：</label> <input
-								class="form-control form-control-sm" type="password"
-								name="password" id="userpassword" placeholder="請輸入密碼" />
-						</div>
-						<!-- <a href="" class="btn-1" >忘記密碼？</a> -->
 
-						<div class="mb-3 form-check">
-							<label>
-								<input type="checkbox" class="form-check-input" name="rememberMe-key">記住我 
-							</label>
-															
-							<div class="loginerror">
-							<!-- ===============================查無帳號=============================== -->
-								<script>
-									var getUrlString = location.href;
-									var url = new URL(getUrlString);
-									if (url.searchParams.get('error') == "true") {
-										document.write("帳號或密碼錯誤，請重新輸入！");
-									}
-								</script>
-							</div>
-						</div>
 
-						<div class="btn-re">
-							<button type="submit" class="btn btn-primary">登入</button>
-							<button type="reset" class="btn btn-info">清除</button>
-						</div>
-							<div class="rt-text-note">
-								新朋友?請先<a href="/createuser1main.controller" class="">註冊</a>
-							</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<div class="bottom">
-			<div class="container">
 
-				<!-- 刪除關於我們 -->
 
+
+<!-- ====================================================自由發揮區==================================================== -->
+			<div class="bottom">
+				<div class="container">
 				<!-- 頁尾 //////////////////////////////////////////////////////////////////////////-->
 				<div class="row no-gutters">
 					<div class="col-md-6">

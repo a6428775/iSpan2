@@ -1,5 +1,6 @@
 package tw.ispan.productorder.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.ispan.orderInformation.OrderInformation;
@@ -29,6 +31,8 @@ import tw.ispan.productorder.ProductOrderService;
 import tw.ispan.store.Store;
 import tw.ispan.store.StoreRepository;
 import tw.ispan.store.StoreService;
+import tw.ispan.user1.User1;
+import tw.ispan.user1.User1Service;
 
 
 @Controller
@@ -48,7 +52,30 @@ public class OrderController {
 	private OrderInformationRepository o;
 	@Autowired
 	private OrderInformationService oService;
-
+	@Autowired
+	private User1Service uService;
+	
+//	----該用戶的所有訂單
+	@PostMapping("/queryUserIDByPage/{pageNo}")	
+	@ResponseBody
+	public List<ProductOrder> processQueryUserIDByPage(@SessionAttribute("UserID") int UserID, @PathVariable("pageNo") int pageNo , Model m){
+		//每頁顯示的筆數
+		int pageSize = 2;
+		//設定顯示頁碼與每頁筆數
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<ProductOrder> page = pService.findUserIDByPage(UserID, pageable);
+		//取得資料總頁數
+		m.addAttribute("totalPages", page.getTotalPages());
+		//取得全部資料筆數
+		m.addAttribute("totalElements", page.getTotalElements());
+		//取得所取得的該頁資料內容
+		return page.getContent();
+	}
+//	-----歷史訂單
+	@GetMapping("/queryUserIDByPage.controller")
+	public String processQueryUserIDByPageAction(){ 
+		return "Order/memberCenter01";  
+	}
 	
 	@GetMapping("/Store.controller")
 	public String processAction(){ 
@@ -70,7 +97,7 @@ public class OrderController {
 	@ResponseBody
 	public List<ProductOrder> processQueryAllByPage(@PathVariable("pageNo") int pageNo , Model m){
 		//每頁顯示的筆數
-		int pageSize = 10;
+		int pageSize = 2;
 		//設定顯示頁碼與每頁筆數
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		Page<ProductOrder> page =pService.findAllByPage(pageable);
@@ -82,11 +109,52 @@ public class OrderController {
 		return page.getContent();
 	}
         
-	//商家資訊修改 
+	//商家資訊修改網頁
 	@GetMapping("/updateStore.controller")
 	public String processUpdateStoreActiong() {
 		return "/Order/updateStore";
 	}
+	
+	//接收資料更新商家資訊
+	@PostMapping("/updateStore2.controller")
+	public Store processProductupdateAction(@RequestBody Store store) {
+		
+		
+		//取得登入廠商的ID 才能新增廠申自己的餐點進資料庫  還沒寫防呆
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+        
+
+        
+        Optional<Store> op1 = s.findByAccount(username);
+        
+  //      Integer ss = op1.get().getStoreID();
+        
+        if ( op1.isEmpty() ) {
+        	
+        	store.setStoreAccount(username);
+        	
+        }else {
+        	
+        	 Integer ss = op1.get().getStoreID();
+        	 store.setStoreID(ss);
+        	 store.setStoreAccount(op1.get().getStoreAccount());
+        	
+        }
+      
+        
+ //       store.setStorePassword(op1.get().getStorePassword());
+		//取得登產品ID 透過ID 更新資料
+
+		
+
+		return sService.update(store);
+	}	
+	
+	
+	
+	
+	
 	
 	@PostMapping("/storeupdateInformation.controller")
 	@ResponseBody
@@ -120,4 +188,43 @@ public class OrderController {
 		return  o.findByOrderId(oid);
 	}
 
+	
+	@PostMapping("/createStore.controller")
+	public Store processCreateStoreAction2(@RequestBody Store store) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        store.setStoreAccount(username);
+        
+        return sService.createAccount(store);
+	}
+	
+	//儲存成 ProductOrder
+	@PostMapping("/saveorder.controller")
+	public String saveorder(@RequestBody ProductOrder productorder){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User1> us1 = uService.findByUseremailaddress2(username);
+        int us1id = us1.get().getUserid();
+        
+        Date date = new Date();
+        
+        productorder.setOrderdate(date);
+        productorder.setStoreid(productorder.getStoreid());
+        productorder.setUserid(us1id);
+		pService.insert(productorder);
+		
+		return null;
+	}
+	
+	//儲存成 OrderInformation
+	@PostMapping("/saveorderInformation.controller")
+	public String saveorder(@RequestBody OrderInformation orderInformation){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User1> us1 = uService.findByUseremailaddress2(username);
+        int us1id = us1.get().getUserid();
+        
+        Date date = new Date();
+        
+
+		return null;
+	}
 }
+

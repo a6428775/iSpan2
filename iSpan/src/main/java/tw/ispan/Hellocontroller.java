@@ -45,15 +45,18 @@ public class Hellocontroller {
         return ss;
 	}
 	@GetMapping("/test")
-
 	public String processAction2() {
 		return "/Store/QueryInformationByOrderID.controller";
 	}
 	
 	@GetMapping("/test2")
 	public String processAction4() {
-
-		return "home";
+		return "test2";
+	}
+	
+	@GetMapping("/test3")
+	public String processAction5() {
+		return "test3";
 	}
 	
 	//只搜尋某STOREID 的餐點
@@ -63,4 +66,14 @@ public class Hellocontroller {
 		return o.findByOrderId(4);
 		
 	}
+	
+	@GetMapping("/test4")
+	public String processAction6() {
+		return "/product/productQueryAll";
+	}
+	@GetMapping("/test5")
+	public String processAction7() {
+		return "checkout";
+	}
+	
 }

@@ -1,20 +1,26 @@
 package tw.ispan.account.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.ispan.account.Account;
 import tw.ispan.account.AccountService;
@@ -22,6 +28,7 @@ import tw.ispan.user1.User1;
 import tw.ispan.user1.User1Service;
 
 @Controller
+@SessionAttributes(names = {"UserID"})
 public class AccountController {
 
 	@Autowired
@@ -30,6 +37,7 @@ public class AccountController {
 	@Autowired
 	private User1Service User1Service;
 	
+	
 //	註冊新會員
 	@RequestMapping(path = "/createaccountmain.controller", method = RequestMethod.GET)
     public String processaccountMainAction(Model m) {
@@ -37,6 +45,44 @@ public class AccountController {
     	m.addAttribute("account", account);
     	return "register";
 	}
+	
+//	修改User1基本資料(若不存在則新增一筆User1)
+	@PostMapping("/Account/User1/membercenterupdate.controller")
+	public String User1Update(@RequestParam("Nickname") String Nickname, @RequestParam("Phone") String Phone,
+									@RequestParam("Address") String Address, @RequestParam("Birthday") String Birthday, Model m, User1 User1) {
+
+//		取得登入帳號
+		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		取得一筆User1
+		Optional<User1> findUser1 = User1Service.findByUseremailaddress2(SecurityName);
+		
+//		修改User1基本資料(若不存在則新增一筆User1)
+		if (findUser1.isEmpty()) {
+			
+			User1.setUseremailaddress(SecurityName);
+			User1.setNickname(Nickname);
+			User1.setPhone(Phone);
+			User1.setAddress(Address);
+			User1.setBirthday(Birthday);
+
+			User1Service.createUser1(User1);
+		} else {
+
+			findUser1.get().setNickname(Nickname);
+			findUser1.get().setPhone(Phone);
+			findUser1.get().setAddress(Address);
+			findUser1.get().setBirthday(Birthday);
+
+			User1Service.update(findUser1.get());
+		}
+		
+		return "welcome";
+	}
+	
+	
+	
+	
+	
 	@PostMapping("/createaccount.controller")
 	public String processCreateUserAction(@RequestParam("useraccount") String useraccount, @RequestParam("userpassword") String userpassword,
 											@RequestParam("userrole") String userrole, Model m) {
@@ -46,10 +92,10 @@ public class AccountController {
 		
 		Account account = new Account();
 		String encode = new BCryptPasswordEncoder().encode(userpassword);
-		account.setUserpassword(encode);
-		account.setUseraccount(useraccount);
-		account.setUserrole(userrole);
-		Account createAccount = accountService.createUser1(account);
+		account.setUserPassword(encode);
+		account.setUserAccount(useraccount);
+		account.setUserRole(userrole);
+		Account createAccount = accountService.createAccount(account);
 		if(createAccount != null) {
 			return "registerResult";
 		} else {
@@ -65,22 +111,23 @@ public class AccountController {
 		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		// findByUseraccount()取得一筆會員Bean，用Model丟出來給jsp顯示
-		Account account = accountService.findByUseraccount(SecurityName);
+		Account account = accountService.findByAccount(SecurityName);
 		
 //		取得一筆User1
-		Optional<User1> findUser1 = User1Service.findByUseremailaddress(SecurityName);
+		Optional<User1> findUser1 = User1Service.findByUseremailaddress2(SecurityName);
 		
-		System.out.println(account.getUseraccount() + "," + account.getUserpassword() + "," + account.getUserrole());	
+		System.out.println(account.getUserAccount() + "," + account.getUserPassword() + "," + account.getUserRole());	
 		
 		m.addAttribute("Account",account);
-		m.addAttribute("Useraccount", account.getUseraccount());
-		m.addAttribute("Userpassword", account.getUserpassword());
+		m.addAttribute("Useraccount", account.getUserAccount());
+		m.addAttribute("Userpassword", account.getUserPassword());
 		
 		if (findUser1.isPresent()) {
 			m.addAttribute("Nickname", findUser1.get().getNickname());
 			m.addAttribute("Phone", findUser1.get().getPhone());
 			m.addAttribute("Address", findUser1.get().getAddress());
 			m.addAttribute("Birthday", findUser1.get().getBirthday());
+			m.addAttribute("UserID", findUser1.get().getUserid());
 		}
 		
 		return "memberCenter";
@@ -93,20 +140,20 @@ public class AccountController {
 		// 取得登入帳號
 		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
 		// findByUseraccount()取得一筆會員Bean
-		Account account1 = accountService.findByUseraccount(SecurityName);
+		Account account1 = accountService.findByAccount(SecurityName);
 		
 		//編碼、修改後更新
 		String encode = new BCryptPasswordEncoder().encode(userpassword);
-		account1.setUserpassword(encode);
-		Account update1 = accountService.update(account1);
+		account1.setUserPassword(encode);
+		Account update1 = accountService.createAccount(account1);
 
-		System.out.println(update1.getUseraccount() + "," + update1.getUserpassword() + "," + update1.getUserrole());	
+		System.out.println(update1.getUserAccount() + "," + update1.getUserPassword() + "," + update1.getUserRole());	
 		
 		m.addAttribute("Account", update1);
-		m.addAttribute("Useraccount", update1.getUseraccount());
-		m.addAttribute("Userpassword", update1.getUserpassword());
+		m.addAttribute("Useraccount", update1.getUserAccount());
+		m.addAttribute("Userpassword", update1.getUserPassword());
 
-		return "home";
+		return "welcome";
 	}
 	
 //	權限限制：僅允許store使用者登入此方法
@@ -116,6 +163,59 @@ public class AccountController {
 		return ("welcome");
 	}
 	
+//	權限限制：會員 進入 USER頁面   商家 進入STORE頁面	
+	@GetMapping("/verifyIdentity.controller")
+	public String verifyIdentity(Model m) {
+		Collection<? extends GrantedAuthority> SecurityAuth = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+		
+		String SecurityName2 = SecurityAuth.toString();
+		System.out.println(SecurityName2);
+		String a = "[ROLE_USER]";
+		System.out.println(a);
+		if (SecurityName2.equals(a)) {
+			// 取得登入帳號
+			String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+			// findByUseraccount()取得一筆會員Bean，用Model丟出來給jsp顯示
+			Account account = accountService.findByAccount(SecurityName);
+			
+//			取得一筆User1
+			Optional<User1> findUser1 = User1Service.findByUseremailaddress2(SecurityName);
+			
+			System.out.println(account.getUserAccount() + "," + account.getUserPassword() + "," + account.getUserRole());	
+			
+			m.addAttribute("Account",account);
+			m.addAttribute("Useraccount", account.getUserAccount());
+			m.addAttribute("Userpassword", account.getUserPassword());
+			
+			if (findUser1.isPresent()) {
+				m.addAttribute("Nickname", findUser1.get().getNickname());
+				m.addAttribute("Phone", findUser1.get().getPhone());
+				m.addAttribute("Address", findUser1.get().getAddress());
+				m.addAttribute("Birthday", findUser1.get().getBirthday());
+				m.addAttribute("UserID", findUser1.get().getUserid());
+			}			
+			System.out.println(findUser1.get().getUserid());	
+
+			return "memberCenter";
+			
+		}else {
+			
+			return "Background_Home";
+		}
+		
+	}
+	
+	
+	@PostMapping("/Auth.controller")
+	@ResponseBody
+	public Account Auth() {
+		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+		Account account = accountService.findByAccount(SecurityName);
+		System.out.println(account);
+		return account;
+	}
 }
 
 

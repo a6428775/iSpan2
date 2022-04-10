@@ -2,42 +2,34 @@ package tw.ispan.account;
 
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.ispan.exception.UserNotFoundException;
+import tw.ispan.store.Store;
+
+
+
 
 @Service
-@Transactional
 public class AccountService {
+
 	
 	@Autowired
-	private AccountRepository accountrepository;
+	private AccountRepository arpo;
 	
-//	findByUseraccount 取得使用者帳號
-	public Account findByUseraccount(String useraccount) {
-		Optional<Account> op1 = accountrepository.findByUseraccount(useraccount);
-		
-		System.out.println( op1.get().getUseraccount() + "," + op1.get().getUserpassword() );
-		
-		if (op1.isEmpty()) {
-			throw new UserNotFoundException("帳號或密碼錯誤!");
-		}
-		return op1.get();
-	}
+	public Account createAccount(Account account) {
+		return arpo.save(account);
+	} 
 	
-//	建立帳號
-	public Account createUser1(Account account) {
-		Optional<Account> op2 = accountrepository.findByUseraccount(account.getUseraccount());
-		if (op2.isEmpty()) {
-			return accountrepository.save(account);
-		}
-		return null;
-	}
-//	更新帳號資料
-	public Account update(Account ac) {
-		return accountrepository.save(ac);
+	//登入驗證有無此帳號
+	public Account findByAccount(String Account) {
+		
+		 Optional<Account> op1 = arpo.findByUserAccount(Account);
+
+		 if(op1.isEmpty()) {
+			 throw new UserNotFoundException("Account errow");
+		 }	 
+			 return op1.get();
 	}
 }

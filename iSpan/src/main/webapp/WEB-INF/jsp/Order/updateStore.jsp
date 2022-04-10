@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="/css/Backstage/ordersystem.css">
+<link rel="stylesheet" href="/css/ordersystem.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -41,54 +41,57 @@ function load(){
 }
 
 
-function sendProductUpdate(){
-	  var name = $("#ProductName").val();
-	  var category = $("#ProductCategory").val();
-	  var price = $("#ProductUnitPrice").val();
-	  var pid = $('#pid').val();
+function sendStoreUpdate(){
+	  var name = $("#storeName").val();
+	  var category = $("#storeCategory").val();
+	  var phone = $("#storePhone").val();
+	  var address = $("#storeAddress").val();
+	  var businesshours = $("#storeBusinessHours").val();
 
-//    var amount = parseInt(orderQuantity)*parseInt(price);
+	  
+//	  var pid = $('#pid').val();
 
-    if($.trim(name)==''){
- 	   alert('請輸入產品名稱');
- 	   return;
-    }
+//  var amount = parseInt(orderQuantity)*parseInt(price);
 
-    if($.trim(price)==''){
-  	   alert('請輸入產品價格');
-  	   return;
-     }
+  if($.trim(name)==''){
+	   alert('請輸入商家名稱');
+	   return;
+  }
 
 
-    var params = {
-    	    "productid":pid,
-            "productname":name,
-            "productcategory":category,
-            "productunitprice":price,
-    }
-    
-    console.log("SUCCESS : ", JSON.stringify(params));
-    $.ajax({
- 	   type:'post',
- 	   url:'/product/updateProduct.controller',
- 	   dataType:'JSON',
- 	   contentType:'application/json',
- 	   data: JSON.stringify(params),
- 	   success: function(data) {
- 	      var json = JSON.stringify(data);
- 	      
- 	      console.log("SUCCESS : ", json);
- //	      $('#feedback').html("新增成功");
- 	      
- 	      var parsedObjinArray = JSON.parse(json);
- 	      $.each(parsedObjinArray, function(index, value) {
- 	          console.log(value);
- 	      });
- 	   },
- 	   error: function() {
- 	      console.log("error");
-        }
-    });
+
+
+  var params = {
+  	    
+          "storeName":name,
+          "storeCategory":category,
+          "storePhone":phone,
+          "storeAddress":address,
+          "storeBusinessHours":businesshours,
+  }
+  
+  console.log("SUCCESS : ", JSON.stringify(params));
+  $.ajax({
+	   type:'post',
+	   url:'/Store/updateStore2.controller',
+	   dataType:'JSON',
+	   contentType:'application/json',
+	   data: JSON.stringify(params),
+	   success: function(data) {
+	      var json = JSON.stringify(data);
+	      
+	      console.log("SUCCESS : ", json);
+//	      $('#feedback').html("新增成功");
+	      
+	      var parsedObjinArray = JSON.parse(json);
+	      $.each(parsedObjinArray, function(index, value) {
+	          console.log(value);
+	      });
+	   },
+	   error: function() {
+	      console.log("error");
+      }
+  });
 }
 </script>
 
@@ -100,13 +103,13 @@ function sendProductUpdate(){
         <meta name="author" content="" />
         <title>後台管理</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/Backstage/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -135,9 +138,9 @@ function sendProductUpdate(){
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -148,8 +151,8 @@ function sendProductUpdate(){
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
 
-                                    <a class="nav-link" href='/Store/updateStore.controller?'> 商家資料修改</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">訂單</a>
+                                    <a class="nav-link" href='/Store/updateStore.controller'> 商家資料修改</a>
+                                    <a class="nav-link" href="/Store/Store.controller">訂單</a>
                                 </nav>
                             </div>
                             
@@ -205,7 +208,7 @@ function sendProductUpdate(){
 					                        <!-- To make this form functional, sign up at-->
 					                        <!-- https://startbootstrap.com/solution/contact-forms-->
 					                        <!-- to get an API token!-->
-					                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/test2">
+					                        <form id="contactForm"  method="post" enctype="multipart/form-data" >
 					                            <!-- Name input-->
 					                            <div class="form-floating mb-3">
 					                                <input class="form-control" id="storeName" name="storeName" type="text" placeholder="Enter your productname..." data-sb-validations="required" />
@@ -253,7 +256,7 @@ function sendProductUpdate(){
 							                    </div>
 					
 					                            <!-- Submit Button-->
-					                            <button class="btn btn-primary " id="submitButton" type="button" onclick='sendProductUpdate()'>送出修改</button>
+					                            <button class="btn btn-primary " id="submitButton" type="button" onclick='sendStoreUpdate()'>送出修改</button>
 					                        </form>
 					                    </div>
 					                </div>
@@ -281,9 +284,9 @@ function sendProductUpdate(){
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/scripts.js"></script>
+        <script src="/js/scripts.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="/js/Backstage/datatables-simple-demo.js"></script>
+        <script src="/js/datatables-simple-demo.js"></script>
     </body>
 </html>

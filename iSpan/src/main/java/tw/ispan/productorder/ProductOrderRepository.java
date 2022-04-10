@@ -2,6 +2,8 @@ package tw.ispan.productorder;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,5 +12,11 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Inte
 	
 	@Query(value = "select * from ProductOrder where StoreID = ?", nativeQuery = true)
 	public List<ProductOrder> findByStoreId(int storeID);
+
+//	--查詢該用戶訂單
+	@Query(value = "select * from ProductOrder where UserID = ?", nativeQuery = true)
+	public Page<ProductOrder> findAllByUserId(int UserID, Pageable pageable);
+	
+	
 
 }

@@ -41,9 +41,12 @@ public class Store {
 	@Column(name = "STOREACCOUNT")
 	private String account;
 	
-	@Column(name = "STOREPASSWORD")
-	private String storePassword;
-
+	public Store() {
+	}
+	
+	public Store(String account, String storePassword) {
+	}	
+	
 	public int getStoreID() {
 		return storeID;
 	}
@@ -108,13 +111,7 @@ public class Store {
 		this.account = account;
 	}
 
-	public String getStorePassword() {
-		return storePassword;
-	}
 
-	public void setStorePassword(String storePassword) {
-		this.storePassword = storePassword;
-	}
 	
 	
 

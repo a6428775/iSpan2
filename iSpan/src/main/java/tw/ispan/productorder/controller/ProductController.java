@@ -131,18 +131,27 @@ public class ProductController {
 		return pService.findById(pid);
 	}
 	
-	//透過Store id 查詢 產品資料
+	//透過Store id 查詢 產品資料  (點擊 網頁 某間餐廳 取得參數)
 	@PostMapping("/testtest")	
 	@ResponseBody
 	public List<Product> processQueryAllByStoreID(){
-		//取得登入廠商的ID 才能新增廠申自己的餐點進資料庫  還沒寫防呆
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(username); // user  
-        Optional<Store> op1 = s.findByAccount(username);
-        Integer ss = op1.get().getStoreID();
 
-        return p.findByStoreId(ss);
+
+        return p.findByStoreId(1);
         
+	}
+	
+	@PostMapping("/StoreAll.controler")
+	@ResponseBody
+	public List<Store> processQueryStoreAll(){
+		return s.findAll();
+		
+	}
+	
+	@GetMapping("/checkout.controller")
+	public String checkout(){
+		return "checkout";
+		
 	}
 	
 	

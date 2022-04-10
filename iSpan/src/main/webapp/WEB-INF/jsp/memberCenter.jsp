@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,55 +9,329 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>會員中心</title>
 <!-- STYLE CSS -->
+
+<style>
+a:hover, a:focus {
+	text-decoration: none;
+	outline: none;
+}
+
+.tab .nav-tabs {
+	border: none;
+	margin: 20px 0 20px 0;
+}
+
+.tab .nav-tabs li a {
+	padding: 10px 20px;
+	margin-right: 10px;
+	font-size: 17px;
+	font-weight: 600;
+	color: #293241;
+	text-transform: uppercase;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	z-index: 1;
+	position: relative;
+	transition: all 0.3s ease 0s;
+}
+
+.tab .nav-tabs li a:hover, .tab .nav-tabs li.active a {
+	border: none;
+	color: #fff;
+}
+
+.tab .nav-tabs li a:before {
+	content: "";
+	width: 20%;
+	height: 100%;
+	background: #ed5551;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	transition: all 0.3s ease 0s;
+}
+
+.tab .nav-tabs li.active a:before, .tab .nav-tabs li a:hover:before {
+	width: 100%;
+}
+
+.tab .tab-content {
+	padding: 30px;
+	background: #fff;
+	outline: 3px solid #eb482d;
+	outline-offset: -8px;
+	font-size: 17px;
+	color:;
+	letter-spacing: 1px;
+	line-height: 30px;
+	position: relative;
+	height:600px;
+}
+
+.tab .tab-content h3 {
+	margin-top: 0;
+}
+
+@media only screen and (max-width: 479px) {
+	.tab .nav-tabs li {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 15px;
+	}
+}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/front/styles.css" rel="stylesheet">
-
+<link href="/css/fonts/styles.css" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
-<style type="text/css">
-.list-group {
-	padding: 25px 0;
-}
 
-.list-group-item{
-	background-color:#eb482d;
-}
 
-</style>
 
+<!-- 歷史訂單table -->
+<script type="text/javascript">
+///////////////////////////////////////////////////////////////////
+	$(document).ready(function(){
+		var indexPage = 1;
+	      loadPage(indexPage);    
+	});
+
+    function loadPage(indexPage){
+        $.ajax({
+            type:'post',
+            url:'/Store/queryUserIDByPage/' + indexPage, // OrderController => processQueryUserIDByPage 前往的網頁
+            dataType:'JSON',
+            contentType:'application/json',
+            success: function(data){  //server送回來的訂單資料
+                
+                console.log(data);
+                //顯示之前把Table標籤資料清空
+                //清空這段<table id="showorder" border="1"></table>
+                $('#showorder').empty("");
+                
+                
+                if(data==null){
+             	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+                }else{
+             	   var table = $('#showorder'); 
+             	   table.append("<thead><tr id='ptitle' align='center'><th>評論</th><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>詳細</th></tr></thead>");
+
+             	   //data:jsonArray n:jsonObject
+             	   $.each(data, function(i,n){
+             		   var tr ="<tbody>" + 
+                 		   			"<tr align='center'>" + 
+	        		   				"<td><a href='#' >" + "回饋" + "</a></td>" +
+			   						"<td>" + n.orderid + "</td>" +
+	   		            		   	"<td>" + n.orderdate + "</td>" + 
+	   		            		   	"<td>" + n.orderstatus + "</td>" +
+	            		   			"<td><a href='/users/orders/ordersproduct.controller?oid=" + n.orderid + "' class='btn btn-sm btn-success'>" + "MORE" + "</a></td>" +
+		           					"</tr>" + 
+	           					"</tbody>";
+	           					
+					   table.append(tr);
+								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
+			   					// loadorder(n.orderid);
+                    });           	   
+                }
+            }
+        });
+        //load 訂單詳細資訊的 function
+     }
+
+     function change(page){
+     	indexPage = page;
+     	loadPage(indexPage);
+	 	} 
+	 	
+//    尚未完成
+	 /* function loadorder(oid){
+		   $.ajax({
+			     type:'post',
+			     //透過訂單id 查詢訂單詳細資訊
+			     url:'/Store/QueryInformationByOrderID.controller?oid='+ oid,
+			     dataType:'JSON',
+			     contentType:'application/json',
+			     success: function(data){
+	
+			         var json = JSON.stringify(data, null, 4);
+			         console.log('success:' + json);
+			         var jsonArray = JSON.parse(json);
+
+			         if(data==null){ 
+			         }
+			         $.each(jsonArray, function(i,n){
+			         var tdd = "餐點 : " + n.productName + "     數量 :  " + n.number + "    價格 :  " + n.productPrice + "   </br>"
+			        	 $('#orderid'+oid).prepend(tdd);
+			         });
+			     	}
+				   });
+		 } */
+
+///////////////////////////---------------------------------------
+</script>
 <style>
-.main-box {
-	margin: 0 0 30px 100px;
-	width: 800px;
-	height: 830px;
-	padding: 100px;
-	box-shadow: 5px 5px 10px #999;
-	border: 1px solid #fff;
-	text-align: center;
-	font-size: 1.3em;
+.panel {
+	font-family: 'Raleway', sans-serif;
+	padding: 0;
+	border: none;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 }
 
-.main-box1 {
-	margin: 0 0 30px 100px;
-	width: 800px;
-	height: 500px;
-	padding: 100px;
-	box-shadow: 5px 5px 10px #999;
-	border: 1px solid #fff;
-	text-align: center;
-	font-size: 1.3em;
+.panel .panel-heading {
+	background: #535353;
+	padding: 5px;
+	border-radius: 0;
+}
+
+.panel .panel-heading .btn {
+	color: #fff;
+	background-color: #000;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 7px 15px;
+	border: none;
+	border-radius: 0;
+	transition: all 0.3s ease 0s;
+}
+
+.panel .panel-heading .btn:hover {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.panel .panel-heading .form-horizontal .form-group {
+	margin: 0;
+}
+
+.panel .panel-heading .form-horizontal label {
+	color: #fff;
+	margin-right: 10px;
+}
+
+.panel .panel-heading .form-horizontal .form-control {
+	display: inline-block;
+	width: 60px;
+	border: none;
+	border-radius: 0;
+}
+
+.panel .panel-heading .form-horizontal .form-control:focus {
+	box-shadow: none;
+	border: none;
+}
+
+.panel .panel-body {
+	padding: 0;
+	border-radius: 0;
+}
+
+.panel .panel-body .table thead tr th {
+	color: #fff;
+	background: #8D8D8D;
+	font-size: 17px;
+	font-weight: 700;
+	padding: 12px;
+	border-bottom: none;
+}
+
+.panel .panel-body .table thead tr th:nth-of-type(1) {
+	width: 120px;
+}
+
+.panel .panel-body .table thead tr th:nth-of-type(3) {
+	width: 50%;
+}
+
+.panel .panel-body .table tbody tr td {
+	color: #555;
+	background: #fff;
+	font-size: 15px;
+	font-weight: 500;
+	padding: 13px;
+	vertical-align: middle;
+	border-color: #e7e7e7;
+}
+
+.panel .panel-body .table tbody tr:nth-child(odd) td {
+	background: #f5f5f5;
+}
+
+.panel .panel-body .table tbody .action-list {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.panel .panel-body .table tbody .action-list li {
+	display: inline-block;
+}
+
+.panel .panel-body .table tbody .action-list li a {
+	color: #fff;
+	font-size: 13px;
+	line-height: 28px;
+	height: 28px;
+	width: 33px;
+	padding: 0;
+	border-radius: 0;
+	transition: all 0.3s ease 0s;
+}
+
+.panel .panel-body .table tbody .action-list li a:hover {
+	box-shadow: 0 0 5px #ddd;
+}
+
+.panel .panel-footer {
+	color: #fff;
+	background: #535353;
+	font-size: 16px;
+	line-height: 33px;
+	padding: 25px 15px;
+	border-radius: 0;
+}
+
+.pagination {
+	margin: 0;
+}
+
+.pagination li a {
+	color: #fff;
+	background-color: rgba(0, 0, 0, 0.3);
+	font-size: 15px;
+	font-weight: 700;
+	margin: 0 2px;
+	border: none;
+	border-radius: 0;
+	transition: all 0.3s ease 0s;
+}
+
+.pagination li a:hover, .pagination li a:focus, .pagination li.active a
+	{
+	color: #fff;
+	background-color: #000;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 </style>
 
+<!-- 回到最上方鈕 -->
 <style type="text/css">
 .toTop-arrow {
 	width: 2.5rem;
@@ -66,11 +340,12 @@
 	opacity: 0.6;
 	background: #000;
 	cursor: pointer;
-	position:fixed;
+	position: fixed;
 	right: 1rem;
 	bottom: 1rem;
 	display: none;
 }
+
 .toTop-arrow::before, .toTop-arrow::after {
 	width: 18px;
 	height: 5px;
@@ -79,15 +354,20 @@
 	position: absolute;
 	content: "";
 }
+
 .toTop-arrow::before {
 	transform: rotate(-45deg) translate(0, -50%);
 	left: 0.5rem;
 }
+
 .toTop-arrow::after {
 	transform: rotate(45deg) translate(0, -50%);
 	right: 0.5rem;
 }
-.toTop-arrow:focus {outline: none;}
+
+.toTop-arrow:focus {
+	outline: none;
+}
 </style>
 
 <title>會員中心</title>
@@ -129,7 +409,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/home.controller">Home <span class="sr-only">(current)</span></a>
+											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<!-- <li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li> -->
@@ -208,74 +488,79 @@
 	</div>
 	<!-- end #page hfeed site -->
 	<!-- ====================================================自由發揮區==================================================== -->
+
+
+
 	<div class="container">
 		<div class="row">
+			<div class="offset-sm-1 col-md-10">
+				<div class="tab" role="tabpanel">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#Section1"
+							aria-controls="home" role="tab" data-toggle="tab">基本資料</a></li>
+						<li role="presentation"><a href="#Section2"
+							aria-controls="profile" role="tab" data-toggle="tab">修改密碼</a></li>
+						<li role="presentation"><a href="#Section3"
+							aria-controls="messages" role="tab" data-toggle="tab">歷史訂單</a></li>
+					</ul>
+					<!-- Tab panes -->
+					<div class="tab-content tabs">
+						<div role="tabpanel" class="tab-pane in active" id="Section1">
+							<div class="container">
+								<div class="row">
+									<div class="offset-sm-1 col-md-10">
 
-			<div class="row-cols-1 col-12 col-md-3">
-				<div class="list-group">
-					<a href="/users/orders/ormainaction.controller" class="list-group-item list-group-item-action">購物車</a> 
-					<a href="#" class="list-group-item list-group-item-action" aria-current="true">聯絡我們</a> 
-					<a href="#" class="list-group-item list-group-item-action">常見問題</a>
-					<!-- <a href="#" class="list-group-item list-group-item-action">A fourth link item</a> -->
-					<!-- <a class="list-group-item list-group-item-action disabled">A disabled link item</a> -->
-				</div>
 
-				<div class="list-group">
-					<a href="#p1" class="list-group-item list-group-item-action">基本資料</a>
-					<a href="#p2" class="list-group-item list-group-item-action">帳號管理</a> 
-					<a href="#p3" class="list-group-item list-group-item-action">歷史訂單</a>
-					<!-- <a href="#" class="list-group-item list-group-item-action">A fourth link item</a> -->
-					<!-- <a class="list-group-item list-group-item-action disabled">A disabled link item</a> -->
-				</div>
-				<div class="list-group">
-					<a href="/store/membercenter.controller" class="list-group-item list-group-item-action">後臺管理(權限)</a>
-				</div>
-				
-				
-				
-			</div>
 
-			<div class="g-4 col-12 col-md-8">
+										<h3 class="title">基本資料</h3>
+										<form id="form-userinfo"
+											action="/Account/User1/membercenterupdate.controller"
+											method="post">
+											<div class="mb-3">
+												<label class="form-label">帳號</label> <input
+													name="Useremailaddress" type="text" class="form-control"
+													id="Useremailaddress" value="${Useraccount}" disabled />
+											</div>
+											<div class="mb-3">
+												<label class="form-label">暱稱</label> <input name="Nickname"
+													type="text" class="form-control" id="Nickname"
+													value="${Nickname}" />
+											</div>
+											<div class="mb-3">
+												<label class="form-label">電話 (09xxxxxxxx)</label> <input
+													name="Phone" type="text" class="form-control" id="Phone"
+													value="${Phone}" />
+											</div>
+											<div class="mb-3">
+												<label class="form-label">地址</label> <input name="Address"
+													type="text" class="form-control" id="Address"
+													value="${Address}" />
+											</div>
+											<div class="mb-3">
+												<label class="form-label">生日</label> <input name="Birthday"
+													type="date" class="form-control" id="Birthday"
+													value="${Birthday}">
+											</div>
 
-				<!-- tabs分頁 -->
-				<div id="tabs">
+											<!-- =================生日預設=================== 
+								<script type="text/javascript">
+									var now = new Date(); // 給input date設定預設值
+									var day = ("0" + now.getDate()).slice(-2); //格式化日，如果小於9，前面補0
+									var month = ("0" + (now.getMonth() + 1))
+											.slice(-2); //格式化月，如果小於9，前面補0
+									var today = now.getFullYear() + "-"
+											+ (month) + "-" + (day); //拼裝完整日期格式
+									$('#Birthday').val(today); //完成賦值
+								</script>-->
 
-					<div id="p1">
-						<div class="main-box">
-							<h3 class="title">基本資料</h3>
-							<form id="form-userinfo" action="/Account/User1/membercenterupdate.controller" method="post">
-								<div class="mb-5">
-									<label class="form-label">帳號：</label>
-									<input name="Useremailaddress" type="text" class="form-control"
-										id="Useremailaddress" value="${Useraccount}" disabled />
-								</div>
-								<div class="mb-5">
-									<label class="form-label">暱稱</label>
-									<input name="Nickname" type="text" class="form-control"
-										id="Nickname" value="${Nickname}" />
-								</div>
-								<div class="mb-5">
-									<label class="form-label">電話 (09xxxxxxxx)</label>
-									<input name="Phone" type="text" class="form-control"
-										id="Phone" value="${Phone}" />
-								</div>
-								<div class="mb-5">
-									<label class="form-label">地址</label>
-									<input name="Address" type="text" class="form-control"
-										id="Address" value="${Address}" />
-								</div>
-								<div class="mb-5">
-									<label class="form-label">生日(19xx-xx-xx)</label>
-									<input name="Birthday" type="text" class="form-control"
-										id="Birthday" value="${Birthday}" />
-								</div>
-								<div align="center">
-									<button value="submit" id="submit" class="btn btn-primary" 
-										onclick="processFormData()">送出修改</button>
-								</div>
-							</form>
+											<div align="center">
+												<button value="submit" id="submit" class="btn btn-primary"
+													onclick="processFormData()">送出修改</button>
+											</div>
+										</form>
 
-							<script type="text/javascript">
+										<script type="text/javascript">
 								function processFormData() {
 									var nickname = $('#Nickname').val();
 									var phone = $('#Phone').val();
@@ -288,83 +573,128 @@
 								}
 							</script>
 
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div id="p2">
-						<div class="main-box1">
-							<h3 class="title">修改密碼</h3>
-							<form id="form-userinfo" action="/Account/User1/membercenterupdatepwd.controller"method="post">
 
-								<div class="mb-5">
-									<label class="form-label">新密碼</label>
-									<input name="userpassword" type="password" class="form-control" id="userpassword" required 
-											placeholder="請輸入新密碼" onkeyup="KeyUp()" />
-								</div>
-								<div class="mb-5">
-									<label for="userpassword-new" class="form-label">請再次輸入新密碼</label>
-									<input name="userpassword-new"  type="password" class="form-control" id="userpassword-new" required 
-											placeholder="再次輸入新密碼" onkeyup="KeyUp()" /> 
-										<span id="different-pwd"></span>
-								</div>
-								<div align="center">
-									<button type="submit" id="submit1" class="btn btn-primary" disabled
-										onclick="processFormDataPwd()">送出修改</button>
-								</div>
-							</form>
-							
-							<script type="text/javascript">
+						<div role="tabpanel" class="tab-pane " id="Section2">
+							<div class="container">
+								<div class="row">
+									<div class="offset-sm-1 col-md-10">
+
+										<h3 class="title">修改密碼</h3>
+										<form id="form-userinfo"
+											action="/Account/User1/membercenterupdatepwd.controller"
+											method="post">
+
+											<div class="mb-5">
+												<label class="form-label">新密碼</label> <input
+													name="userpassword" type="password" class="form-control"
+													id="userpassword" required placeholder="請輸入新密碼"
+													onkeyup="KeyUp()" />
+											</div>
+											<div class="mb-5">
+												<label for="userpassword-new" class="form-label">請再次輸入新密碼</label>
+												<input name="userpassword-new" type="password"
+													class="form-control" id="userpassword-new" required
+													placeholder="再次輸入新密碼" onkeyup="KeyUp()" /> <span
+													id="different-pwd"></span>
+											</div>
+											<div align="center">
+												<button type="submit" id="submit1" class="btn btn-primary"
+													disabled onclick="processFormDataPwd()">送出修改</button>
+											</div>
+										</form>
+
+										<script type="text/javascript">
 								function processFormDataPwd() {
 									alert("您的密碼已修改！");
 								}
 							</script>
 
-							<script>
+										<script>
 								function KeyUp() {
 									var a = $('#userpassword').val();
 									// alert(a); 
 									var b = $('#userpassword-new').val();
 									// alert(b); 
-									if (a == b && a !="") {
+									if (a == b && a != "") {
 										$('#submit1').removeAttr('disabled');
-										document.getElementById("different-pwd").innerHTML = "";
+										document
+												.getElementById("different-pwd").innerHTML = "";
 									} else {
-										$('#submit1').attr('disabled','disabled');
-										document.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
+										$('#submit1').attr('disabled',
+												'disabled');
+										document
+												.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
 									}
 								}
 							</script>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane " id="Section3">
 
+							<div class="container">
+								<div class="row">
+									<div class="offset-sm-1 col-md-10">
+
+										<h3 class="title">歷史訂單</h3>
+										<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /> -->
+										<div class="panel">
+											<div class="panel-body table-responsive">
+												<table id="showorder" class="table"></table>
+											</div>
+											<div class="panel-footer">
+												<div class="row">
+													<div class="col-sm-12 col-xs-12">
+														<ul class="pagination hidden-xs pull-right">
+															<li style="padding-right: 20px">Total
+																Pages:${totalPages}</li>
+															<li style="padding-right: 20px">Total
+																Records:${totalElements}</li>
+															<li style="padding-right: 20px">Previous《 <c:forEach
+																	var="i" begin="1" end="${totalPages}" step="1">
+																	<button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
+																</c:forEach> 》Next
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="p3">
-						<div class="main-box">
-							<h3 class="title">
-								<a href="#">歷史訂單 </a>
-							</h3>
-						</div>
-					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
+
 	<!-- =================回到頂端=================== -->
-	
+
 	<button type="button" id="BackTop" class="toTop-arrow"></button>
 	<script>
-	$(function(){
-		$('#BackTop').click(function(){ 
-			$('html,body').animate({scrollTop:0}, 333);
+		$(function() {
+			$('#BackTop').click(function() {
+				$('html,body').animate({
+					scrollTop : 0
+				}, 333);
+			});
+			$(window).scroll(function() {
+				if ($(this).scrollTop() > 300) {
+					$('#BackTop').fadeIn(222);
+				} else {
+					$('#BackTop').stop().fadeOut(222);
+				}
+			}).scroll();
 		});
-		$(window).scroll(function() {
-			if ( $(this).scrollTop() > 300 ){
-				$('#BackTop').fadeIn(222);
-			} else {
-				$('#BackTop').stop().fadeOut(222);
-			}
-		}).scroll();
-	});
 	</script>
 
 	<!-- ==================================================================================================================== -->
@@ -403,13 +733,14 @@
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/front/modernizr-3.7.1.min.js"></script>
-	<script src="/js/front/jquery-3.4.1.min.js"></script>
+	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
+	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/front/bootstrap.bundle.min.js"></script>
-	<script src="/js/front/plugin.js"></script>
-	<script src="/js/front/main.js"></script>
+	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
+	<script src="/js/fonts/plugin.js"></script>
+	<script src="/js/fonts/main.js"></script>
+
 
 </body>
 </html>

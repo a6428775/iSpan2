@@ -6,13 +6,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>權限限制</title>
+<title>頁籤</title>
 <!-- STYLE CSS -->
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail"
 	rel="stylesheet">
-<link href="/css/front/styles.css" rel="stylesheet">
+<link href="/css/fonts/styles.css" rel="stylesheet">
 <style type="text/css">
 </style>
 <title>使用者登入</title>
@@ -53,7 +53,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/home.controller">Home <span class="sr-only"></span></a>
+											href="index.html">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
@@ -106,7 +106,7 @@
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">購物車</a></li>
 
-										<li class="nav-item"><a class="nav-link" href="/Account/User1/membercenter.controller">會員中心</a></li>
+										<li class="nav-item"><a class="nav-link" href="/user1/membercenter.controller">會員中心</a></li>
 										<li class="nav-item"><a class="nav-link" href="/logout">登出</a>
 										</li>
 									</ul>
@@ -134,10 +134,7 @@
 			<div class="row">
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<div class="rt-text-note">
-						您沒有權限訪問此頁面，<a href="/Account/User1/membercenter.controller" class="">返回前頁。</a>
-					</div>
-					<div class="rt-text-note">
-						<a href="/store/membercenter.controller" class="">或前往賣家管理中心。</a>
+						您沒有權限訪問此頁面，<a href="/home.controller" class="">返回首頁</a>
 					</div>
 				</div>
 			</div>
@@ -148,7 +145,7 @@
 
 
 
-<!-- ====================================================自由發揮區==================================================== -->
+		<!-- ====================================================自由發揮區==================================================== -->
 			<div class="bottom">
 				<div class="container">
 				<!-- 頁尾 //////////////////////////////////////////////////////////////////////////-->
@@ -183,12 +180,12 @@
 	<!-- end #page hfeed site -->
 	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="/js/front/modernizr-3.7.1.min.js"></script>
-	<script src="/js/front/jquery-3.4.1.min.js"></script>
+	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
+	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
 	
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
-	<script src="/js/front/bootstrap.bundle.min.js"></script>
-	<script src="/js/front/plugin.js"></script>
-	<script src="/js/front/main.js"></script>
+	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
+	<script src="/js/fonts/plugin.js"></script>
+	<script src="/js/fonts/main.js"></script>
 </body>
 </html>
