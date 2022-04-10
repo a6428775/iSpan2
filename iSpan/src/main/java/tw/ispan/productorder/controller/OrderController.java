@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.ispan.orderInformation.OrderInformation;
@@ -53,6 +54,24 @@ public class OrderController {
 	private OrderInformationService oService;
 	@Autowired
 	private User1Service uService;
+	
+	
+//	----該用戶的所有訂單
+	@PostMapping("/queryUserIDByPage/{pageNo}")	
+	@ResponseBody
+	public List<ProductOrder> processQueryUserIDByPage(@SessionAttribute("UserID") int UserID, @PathVariable("pageNo") int pageNo , Model m){
+		//每頁顯示的筆數
+		int pageSize = 2;
+		//設定顯示頁碼與每頁筆數
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		Page<ProductOrder> page = pService.findUserIDByPage(UserID, pageable);
+		//取得資料總頁數
+		m.addAttribute("totalPages", page.getTotalPages());
+		//取得全部資料筆數
+		m.addAttribute("totalElements", page.getTotalElements());
+		//取得所取得的該頁資料內容
+		return page.getContent();
+	}
 	
 	@GetMapping("/Store.controller")
 	public String processAction(){ 
@@ -176,7 +195,8 @@ public class OrderController {
 	
 	//儲存成 ProductOrder
 	@PostMapping("/saveorder.controller")
-	public String saveorder(@RequestBody ProductOrder productorder){
+	@ResponseBody
+	public ProductOrder saveorder(@RequestBody ProductOrder productorder){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User1> us1 = uService.findByUseremailaddress2(username);
         int us1id = us1.get().getUserid();
@@ -186,9 +206,11 @@ public class OrderController {
         productorder.setOrderdate(date);
         productorder.setStoreid(productorder.getStoreid());
         productorder.setUserid(us1id);
+        
 		pService.insert(productorder);
 		
-		return null;
+
+		return productorder;
 	}
 	
 	//儲存成 OrderInformation
@@ -196,10 +218,10 @@ public class OrderController {
 	public String saveorder(@RequestBody OrderInformation orderInformation){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User1> us1 = uService.findByUseremailaddress2(username);
-        int us1id = us1.get().getUserid();
-        
-        Date date = new Date();
-        
+
+ 
+    
+        oService.save(orderInformation);
 
 		return null;
 	}

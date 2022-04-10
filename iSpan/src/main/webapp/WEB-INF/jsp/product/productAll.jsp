@@ -86,7 +86,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="index.html">回主頁</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->

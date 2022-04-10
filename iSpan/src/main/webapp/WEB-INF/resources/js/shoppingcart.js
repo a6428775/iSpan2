@@ -34,7 +34,7 @@ function displayProducts() {
 		  <input id="num" name="num" type="text" value='${product.quantity}' readonly="true" onchange="setTotal(e);">
 		  <input class="add" type="button" value="+">
 		  </td>
-		  <td id="itemTotalPrice">${product.price}</td>
+		  <td id="itemTotalPrice">${product.price * product.quantity}</td>
           <td><a href="#" data-id="${product.id}" class="remove">X</a></td>
           </tr>
         `;

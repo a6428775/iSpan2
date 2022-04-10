@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import tw.ispan.account.Account;
 import tw.ispan.account.AccountService;
@@ -27,6 +28,7 @@ import tw.ispan.user1.User1;
 import tw.ispan.user1.User1Service;
 
 @Controller
+@SessionAttributes(names = {"UserID"})
 public class AccountController {
 
 	@Autowired
@@ -191,6 +193,7 @@ public class AccountController {
 				m.addAttribute("Phone", findUser1.get().getPhone());
 				m.addAttribute("Address", findUser1.get().getAddress());
 				m.addAttribute("Birthday", findUser1.get().getBirthday());
+				m.addAttribute("UserID", findUser1.get().getUserid());
 			}			
 			return "memberCenter";
 			

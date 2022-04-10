@@ -8,11 +8,11 @@
 		<version>2.6.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>DemoSpringBootProject</groupId>
-	<artifactId>SpringBootProjectHW</artifactId>
+	<groupId>iSpan</groupId>
+	<artifactId>iSpan</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>SpringBootProjectHW</name>
+	<name>iSpan</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -93,7 +93,14 @@
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>5.6.2</version>
 		</dependency>
-		
+
+				
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 
 				
 

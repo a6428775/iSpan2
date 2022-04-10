@@ -36,4 +36,8 @@ public class OrderInformationService {
 	public Page<OrderInformation> findAllByPage(Pageable pageable){
 		return orp.findAll(pageable);
 	}
+	
+	public OrderInformation save(OrderInformation o) {	
+		return orp.save(o);
+	}
 }

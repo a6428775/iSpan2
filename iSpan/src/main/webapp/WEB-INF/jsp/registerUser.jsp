@@ -137,23 +137,23 @@
 
 
 						<div class="mb-3">
-							<label path="useremailaddress" class="form-label">帳號(請輸入正確信箱)：</label>
-							<input class="form-control" type="text" path="useremailaddress"
-								id="useremailaddress" name="useremailaddress" placeholder="" required="true" />
+							<label class="form-label">帳號(請輸入正確信箱)：</label>
+							<input class="form-control" type="email" 
+								id="useremailaddress" name="useremailaddress" placeholder="" value="@gmail.com" required />
 						</div>
 						<div class="mb-3">
-							<label path="userpassword" class="form-label">密碼：</label>
-							<input class="form-control" type="password" path="userpassword"
-								id="userpassword" name="userpassword" placeholder="" required="true" onkeyup="KeyUp()" />
+							<label class="form-label">密碼：</label>
+							<input class="form-control" type="password" 
+								id="userpassword" name="userpassword" placeholder="" required onkeyup="KeyUp()" />
 						</div>
 						<div class="mb-3">
-							<label path="password1" class="form-label">請再次輸入密碼：</label> <input
-								class="form-control" type="password" path="password1"
-								id="password1" placeholder="" required="true" onkeyup="KeyUp()" />
+							<label class="form-label">請再次輸入密碼：</label> <input
+								class="form-control" type="password" 
+								id="password1" placeholder="" required onkeyup="KeyUp()" />
 						</div>
 
 						<div class="mb-3">
-							<label path="password1" class="form-label">請選擇註冊身分：</label> 
+							<label class="form-label">請選擇註冊身分：</label> 
 								<select id="userrole" name="userrole">
 
 								    <option>USER</option>

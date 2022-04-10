@@ -24,6 +24,36 @@
 
 <script type="text/javascript">
 
+$(function test() {
+	const lsContent = getLSContent();
+	let productMarkup = "";
+	let productMarkup2 = "";
+		if (lsContent !== null) {
+			
+			for (let product of lsContent) {
+				productMarkup += `
+		         <tr>
+					<td id="pid" data-id=\${product['id']} store-id=\${product.storeid}></td>
+		          	<td id="name">\${product['name']} </td>
+		         	<td id="productPrice">\${product['price']}</td>
+		         	<td id="productQty">\${product['quantity']}</td>
+		      
+				  	<td id="itemTotalPrice">\${product['price']*product['quantity']}</td>
+				   	<td id="storeid" style="display: none">\${product['storeid']}</td>
+		          </tr>
+		        `;
+				productMarkup2 = productMarkup2 + product['name'] + '$' + product['price'] + ' x ' + product['quantity'] + '#'
+				}
+			}
+
+		
+		console.log(productMarkup2);
+		var b = "<input type='hidden'	name='ItemName' value='"+productMarkup2+"' class='form-control' />";
+		
+		$('#idFormAioCheckOut').append(b);
+})
+
+
 function getLSContent() {
 			const lsContent = JSON.parse(localStorage.getItem("products"))
 					|| [];
@@ -49,7 +79,7 @@ $(function displayProductDetail() {
 				   	<td id="storeid" style="display: none">\${product['storeid']}</td>
 		          </tr>
 		        `;
-
+			
 				}
 			} else {
 				productMarkup = "Your cart is empty.";
@@ -74,6 +104,10 @@ $(function getCartItemPrices(){
 			total = total +prices[i];
 		}
 		var totalMarkUp = "Total: " + total;
+
+		var a = "<input type='hidden' name='TotalAmount' value='" + total + "' class='form-control'  />"+
+		"<input type='hidden' name='TradeDesc' value='嗨' class='form-control' />";
+		$('#idFormAioCheckOut').append(a);
 		document.getElementById("total").innerHTML = totalMarkUp;
 		
 	} else{
@@ -81,8 +115,15 @@ $(function getCartItemPrices(){
 	}
 });
 
-<!--///////////////////////////////////////////////////////////-->
+<!--///////////////////////////////////////////////////////////ProductOrder-->
 function sendOrderSave(){
+
+	  var idFormAioCheckOut=document.getElementById('idFormAioCheckOut');
+	    
+	        setTimeout("mooy()",1000);
+	    
+
+	 
 	  var storeid = document.getElementById("storeid").innerHTML;
 
 var params = {    
@@ -99,9 +140,87 @@ $.ajax({
 	   success: function(data) {
 	      var json = JSON.stringify(data);
 	      
-	      console.log("SUCCESS : ", json);
+	      console.log("SUCCESS : ", data.orderid);
+
+	
+			var c = "<input type='hidden'	name='CustomField1' value='"+data.orderid+"' class='form-control' />"
+			$('#idFormAioCheckOut').append(c);
+	      
+
+	      <!---->
+	  	const lsContent2 = getLSContent();
+
+		  console.log(lsContent2) ;
+		  $.each(lsContent2, function(i,n){
+			
+		  
+					var params = {  
+							"orderID":data.orderid,
+							"productName":n.name,
+							"number":n.quantity,
+							"productUnitPrice":n.price,
+							"productPrice":n.quantity*n.price,
+					}
+					
+					console.log("SUCCESS : ", JSON.stringify(params));
+					$.ajax({
+						   type:'post',
+						   url:'/Store/saveorderInformation.controller',
+						   dataType:'JSON',
+						   contentType:'application/json',
+						   data: JSON.stringify(params),
+						   success: function(data) {
+						      var json = JSON.stringify(data);
+			
+						      
+						      console.log("SUCCESS : ", json);
+						   },
+					
+					});
+				});
+
+	      <!---->
 	   },
 
+});
+}
+
+
+function mooy(){
+    idFormAioCheckOut.submit();
+    }
+<!--///////////////////////////////////////////////////////////OrderInformation-->
+function sendOrderInformationSave(){
+	
+	const lsContent2 = getLSContent();
+
+		  console.log(lsContent2) ;
+		  $.each(lsContent2, function(i,n){
+			
+		  
+					var params = {  
+							
+							"productName":n.name,
+							"number":n.quantity,
+							"productUnitPrice":n.price,
+							"productPrice":n.quantity*n.price,
+					}
+					
+					console.log("SUCCESS : ", JSON.stringify(params));
+					$.ajax({
+						   type:'post',
+						   url:'/Store/saveorderInformation.controller',
+						   dataType:'JSON',
+						   contentType:'application/json',
+						   data: JSON.stringify(params),
+						   success: function(data) {
+						      var json = JSON.stringify(data);
+			
+						      
+						      console.log("SUCCESS : ", json);
+						   },
+					
+					});
 });
 }	
 	</script>
@@ -237,8 +356,21 @@ $.ajax({
 					<span class="price text-success"></span>
 				</h5>
 			</div>
+			<div class="d-flex justify-content-end">
+			<form id="idFormAioCheckOut" method="post" action="ECPayServer" class="border shadow p-3 mb-5">	
 			<input type ="button" onclick="history.back()" value="回上一頁"></input>
-			<input type ="button" onclick="sendOrderSave()" value="送出訂單"></input>
+			
+
+
+<!--  
+			<button type="submit" class="btn btn-primary" onclick="sendOrderSave()">結帳</button>
+-->
+			<input type ="button" onclick="sendOrderSave()" value="送出訂單" align="right" ></input>
+            </form>
+     
+            
+            
+			</div>
 		</div>
 
 

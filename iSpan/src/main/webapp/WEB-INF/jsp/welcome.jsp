@@ -315,7 +315,7 @@ function login(){
 										<p>
 											<em>By Lina Sukowati</em>
 										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span>
+										<span><i class="fas fa-clock"></i>&nbsp;15 Minutes</span>
 									</div>
 									<!-- end recipe-desc -->
 								</div>
