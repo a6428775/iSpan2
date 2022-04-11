@@ -53,7 +53,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="index.html">Home <span class="sr-only">(current)</span></a>
+											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
@@ -131,7 +131,7 @@
 			<div class="row">
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3>註冊成功，返回登入頁面以登入!</h3>
-					<a href="/user1/membercenter.controller">登入</a>
+					<a href="/login/page">登入</a>
 				</div>
 			</div>
 		</div>

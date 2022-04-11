@@ -31,27 +31,32 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle' align='center'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> </tr>");
+             	   table.append("<tr id='ptitle' height='50'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> <th> </th> </tr>");
 		
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
 
           
 						//如果 餐點沒有圖片  不顯示 圖片的圖示
+						var src ="/images/product";
               			if (n.preview === null){
                         	   n.preview = "";
+                        	   src="";
                                }
-
-								
+              			var fileDir = n.preview;
+              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
                        
              		   var tr = 
-                 		   		"<tr align='center'>" + 
+                 		   		"<tr>" + 
              		   			"<td>" + n.productid + "</td>" +
              		            "<td>" + n.productname + "</td>" + 
              		            "<td>" + n.productcategory + "</td>" +
-             		            "<td>" + n.productunitprice + "</td>" + 
-             		            "<td>" + "<img id='img-preview' src=" + n.preview + ">" + "</td>" + 
+             		            "<td text-align:center>" + n.productunitprice + "</td>" + 
+             		//           <img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  />
+             		            "<td width='80' height='80'>" + "<img id='img-preview' width='80' height='80' src="+ src + suffix + ">" + "</td>" + 
+             		 //           "<td>" + src + suffix + "</td>" + 
              		         	"<td><a href='/product/updateproduct.controller?pid="+ n.productid +"'>修改餐點</a></td>"+
+             		         	"<td><a href='/product/deleteProduct.controller?pid="+ n.productid +"'>刪除餐點</a></td>"+
              		            "</tr>";
 
              		   table.append(tr);
@@ -71,6 +76,11 @@
 
 
 </script>
+<style>
+img[src=""]{
+opacity: 0;
+}
+</style>
 
     <head>
         <meta charset="utf-8" />
@@ -86,7 +96,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="index.html">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -115,9 +125,9 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -128,8 +138,8 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
 
-                                    <a class="nav-link" href='/product/storeCreateProduct.controller?'> 商家資料修改</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">訂單</a>
+                                    <a class="nav-link" href='/Store/updateStore.controller'> 商家資料修改</a>
+                                    <a class="nav-link" href="/Store/Store.controller">訂單</a>
                                 </nav>
                             </div>
                             
@@ -144,7 +154,7 @@
                                     <a class="nav-link" href='/product/storeCreateProduct.controller?'> 新增餐點</a>
                                     <a class="nav-link" href="/product/mainacction.controller">餐點列表</a>
                                 </nav>
-                            </div>                            
+                            </div>                                
                             
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="charts.html">
@@ -164,7 +174,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">儀錶板</h1>
+                        <h2 class="mt-4">店家商品資訊</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">產品資訊</li>
                         </ol>
@@ -172,28 +182,19 @@
                                 <i class="fas fa-table me-1"></i>
                                餐點
                             </div>
-                        <div class="card-body">
+                        <div class="card-body" style="text-align:center;line-height:80px;font-size: 20px">
                         
 							<table  class="dataTable-table">
 								<tbody id="showorder">
 								
 								
 								</tbody>
-							
+						
 							</table>
 							
 							
 							
-							<table id="showpage">
-								<tr>
-									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
-							      <td colspan="3" align="right">上一頁
-							         <c:forEach var="i" begin="1" end="${totalPages}" step="1">
-							             <button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-							         </c:forEach>下一頁
-							      </td>
-								</tr>
-							</table>
+						
 						</div>
 							<div id ="creat"></div>
 

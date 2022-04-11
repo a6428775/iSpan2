@@ -30,6 +30,7 @@ function load(){
 //             $('table').prepend('<tr><td colspan="2">No Result</td></tr>');
          }else{
              
+        	 $('#storeId').attr({"value":jsonArray.storeID});
         	 $('#storeName').attr({"value":jsonArray.storeName});
         	 $('#storeCategory').attr({"value":jsonArray.storeCategory});
         	 $('#storePhone').attr({"value":jsonArray.storePhone});
@@ -48,7 +49,7 @@ function sendStoreUpdate(){
 	  var address = $("#storeAddress").val();
 	  var businesshours = $("#storeBusinessHours").val();
 
-	  
+	  var contactForm=document.getElementById('contactForm');
 //	  var pid = $('#pid').val();
 
 //  var amount = parseInt(orderQuantity)*parseInt(price);
@@ -92,7 +93,35 @@ function sendStoreUpdate(){
 	      console.log("error");
       }
   });
+  contactForm.submit();
 }
+/////////////////////////////////
+$(function () {            
+    //當選檔變更時，立即預覽之前被選擇的照片
+    $("#uploadFile").change(function () { 
+        previewImg(this.files);
+    });
+});
+function previewImg(files) {
+    if (files.length == 0)
+        return;
+    var file = files[0];
+    var fr = new FileReader();
+    //註冊當選檔被讀取完成後之事件處理器
+    fr.readAsDataURL(file);
+    fr.onload =
+        function () {
+            $("#img-preview").attr({ src: fr.result});
+            /*  fr.result: The file's contents. 內容如下:
+                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA ...
+            */
+        };
+}
+$(function () {
+    //當使用者上傳一個檔案後將進入Web Server回應的新頁面。
+    //又當使用者「返回前頁」時，需要「重新預覽」前回點選擬上傳的圖片。
+    previewImg($("#uploadFile")[0].files);
+});
 </script>
 
     <head>
@@ -109,7 +138,7 @@ function sendStoreUpdate(){
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -138,9 +167,9 @@ function sendStoreUpdate(){
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/login/welcome">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -151,8 +180,8 @@ function sendStoreUpdate(){
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
 
-                                    <a class="nav-link" href='/Store/updateStore.controller?'> 商家資料修改</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">訂單</a>
+                                    <a class="nav-link" href='/Store/updateStore.controller'> 商家資料修改</a>
+                                    <a class="nav-link" href="/Store/Store.controller">訂單</a>
                                 </nav>
                             </div>
                             
@@ -208,8 +237,13 @@ function sendStoreUpdate(){
 					                        <!-- To make this form functional, sign up at-->
 					                        <!-- https://startbootstrap.com/solution/contact-forms-->
 					                        <!-- to get an API token!-->
-					                        <form id="contactForm"  method="post" enctype="multipart/form-data" >
+					                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/Store/insertStoreProduct2.controller">
 					                            <!-- Name input-->
+					                            <div class="form-floating mb-3" style="display:none">
+					                                <input class="form-control" id="storeId" name="storeId" type="text" placeholder="Enter your storeId..." data-sb-validations="required" />
+					                                <label for="storeId" >商家ID</label>
+					                                <div class="invalid-feedback" data-sb-feedback="storeId:required">餐點名稱還未輸入</div>
+					                            </div>
 					                            <div class="form-floating mb-3">
 					                                <input class="form-control" id="storeName" name="storeName" type="text" placeholder="Enter your productname..." data-sb-validations="required" />
 					                                <label for="storeName" >商家名稱</label>

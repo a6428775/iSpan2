@@ -1,9 +1,17 @@
 package tw.ispan.productorder.controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.product.Product;
 import tw.ispan.product.ProductRepository;
@@ -51,7 +61,7 @@ public class ProductController {
 	
 	//創建餐點
 	@PostMapping("/insertProduct.controller")
-	public Product processProductInsertAction(@RequestBody Product pro) {
+	public Product processProductInsertAction(@RequestBody Product pro ) throws FileNotFoundException {
 		
 		//取得登入廠商的ID 才能新增廠申自己的餐點進資料庫  還沒寫防呆
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -60,9 +70,47 @@ public class ProductController {
         Integer ss = op1.get().getStoreID();
       
 		pro.setStoreid(ss);
-
+	
 		return pService.insert(pro);
+		
 	}
+	
+	//抓取餐點上傳的圖片
+	@PostMapping("/insertProduct2.controller")
+	public String uplaod(HttpServletRequest req,@RequestParam("uploadFile") MultipartFile file,@RequestParam("ProductName") String productname,Model m) {
+		
+		File dest;
+		Product product =pService.findByName(productname);
+		try {
+			String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+			
+			File path = new File(ResourceUtils.getURL("src").getPath());
+			if(!path.exists()) path = new File("");
+			System.out.println("path:"+path.getAbsolutePath());
+			
+			File upload = new File(path.getAbsolutePath(),"main/webapp/WEB-INF/resources/images/product");
+			if(!upload.exists()) upload.mkdirs();
+			System.out.println("upload url:"+upload.getAbsolutePath());
+			
+			 dest = new File(upload + File.separator + fileName); 
+			 file.transferTo(dest);
+			 System.out.println(dest.toString());
+			
+			 
+			 
+			 m.addAttribute("fileName",fileName);
+			 product.setPreview(dest);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+		pService.insert(product);
+		 return "/product/createProduct";
+	} 
+	
 	
 	//更新餐點
 	@PostMapping("/updateProduct.controller")
@@ -85,6 +133,14 @@ public class ProductController {
 
 		return pService.insert(pro);
 	}	
+	
+
+	//刪除餐點
+	@GetMapping("/deleteProduct.controller")
+	public String processDeleteAction(@RequestParam("pid") int pid , Model m) {
+		pService.delete(pid);
+		return "/product/productAll";
+	}
 	
 	
 	@PostMapping("/queryByPage/{pageNo}")	
@@ -139,6 +195,19 @@ public class ProductController {
 
         return p.findByStoreId(1);
         
+	}
+	
+	@PostMapping("/StoreAll.controler")
+	@ResponseBody
+	public List<Store> processQueryStoreAll(){
+		return s.findAll();
+		
+	}
+	
+	@GetMapping("/checkout.controller")
+	public String checkout(){
+		return "checkout";
+		
 	}
 	
 	

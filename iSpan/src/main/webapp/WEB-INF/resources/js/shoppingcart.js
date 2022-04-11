@@ -31,10 +31,10 @@ function displayProducts() {
           <td id="productPrice">${product.price}</td>
 		  <td>
 		  <input class="min" type="button" value="-">
-		  <input id="num" name="num" type="text" value="${product.quantity}" readonly="true" onchange="setTotal(e);">
+		  <input id="num" name="num" type="text" value='${product.quantity}' readonly="true" onchange="setTotal(e);">
 		  <input class="add" type="button" value="+">
 		  </td>
-		  <td id="itemTotalPrice">${product.price}</td>
+		  <td id="itemTotalPrice">${product.price * product.quantity}</td>
           <td><a href="#" data-id="${product.id}" class="remove">X</a></td>
           </tr>
         `;
@@ -71,15 +71,15 @@ function minQty(clickedBtn){
 }
 
 function updateLSContent(pid, qty){
-	lsContent = getLSContent();
-	var productIntex;
+	let lsContent = getLSContent();
+	var productIndex;
 	lsContent.forEach(function(product, index){
-		if(product.id === pid){
-			productIntex = index;
-			lsContent[productIntex].quantity = lsContent[productIntex].quantity + qty;
+		if (product.id === pid){
+			productIndex = index;
+			lsContent[productIndex].quantity = lsContent[productIndex].quantity + qty;
 		}
 	})
-	console.log(lsContent[0].quantity)
+
 	setLSContent(lsContent);
 }
 
@@ -140,13 +140,16 @@ function saveProduct(clickedBtn) {
 	// save selected product in local storage and display it in the cart together
 
 	// vars
-	
-	var productId = clickedBtn.closest('tr').querySelector('#pid').innerText
-	var productName = clickedBtn.closest('tr').querySelector('#name').innerText
-	var productPrice = clickedBtn.closest('tr').querySelector('#price').innerText
-	var storeid = clickedBtn.closest('tr').querySelector("#sid").innerText
 	let isProductInCart = false;
 	let isSameStore = false;
+	
+	var productId = clickedBtn.closest('div').querySelector('#pid').innerText
+	var productName = clickedBtn.closest('div').querySelector('#name').innerText
+	var productPrice = clickedBtn.closest('div').querySelector('#price').innerText
+	var storeid = clickedBtn.closest('div').querySelector("#sid").innerText
+
+
+
 
 	// get local storage array
 	const lsContent = getLSContent();

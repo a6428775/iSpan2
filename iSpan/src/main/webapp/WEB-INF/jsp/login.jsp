@@ -63,7 +63,7 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/home.controller">Home <span class="sr-only">(current)</span></a>
+											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
@@ -137,17 +137,15 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="rt-text-note">
-					新朋友?請先<a href="/createuser1main.controller" class="">註冊</a>
-				</div>
+
 				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
 					<h3 class="text-center">登入</h3>
 
 					<form action="/login/page" method="post">
 						<div class="mb-3">
 							<label for="useremailaddress" class="form-label">帳號：</label> <input
-								class="form-control" type="text" name="username" id="useremailaddress"
-								placeholder="請輸入使用者名稱" value="@gmail.com"/>
+								class="form-control" type="test" name="username" id="useremailaddress"
+								placeholder="請輸入信箱" value="@gmail.com"/>
 						</div>
 						<div class="mb-3">
 							<label for="userpassword" class="form-label">密碼：</label> <input
@@ -177,6 +175,9 @@
 							<button type="submit" class="btn btn-primary">登入</button>
 							<button type="reset" class="btn btn-info">清除</button>
 						</div>
+							<div class="rt-text-note">
+								新朋友?請先<a href="/createuser1main.controller" class="">註冊</a>
+							</div>
 					</form>
 				</div>
 			</div>

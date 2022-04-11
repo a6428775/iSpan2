@@ -38,7 +38,6 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/Store/**").authenticated()
 			.antMatchers(HttpMethod.GET, "/user1/**").authenticated()
-//			.antMatchers(HttpMethod.GET, "/test/**").hasAuthority("ROLE_USER") 
 			.antMatchers(HttpMethod.GET).permitAll()
 			.antMatchers(HttpMethod.POST, "/Store/**").authenticated()
 			.antMatchers(HttpMethod.POST, "/user1/**").authenticated()
@@ -53,7 +52,9 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin().loginPage("/login/page")
 //			.defaultSuccessUrl("/user1/membercenter.controller")  
 			.defaultSuccessUrl("/login/welcome")  
-			.failureUrl("/login/page?error=true");
+		.failureUrl("/login/page?error=true")
+		.and()
+			.logout().logoutSuccessUrl("/login/page");
 
 //		沒有權限時返回的頁面403
 		http.exceptionHandling().accessDeniedPage("/403");

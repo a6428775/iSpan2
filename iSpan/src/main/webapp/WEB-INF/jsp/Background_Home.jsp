@@ -17,7 +17,7 @@
     function loadPage(indexPage){
         $.ajax({
             type:'post',
-            url:'/product/queryByPage/' + indexPage,
+            url:'/Store/QueryAllByStoreID.controller',
             dataType:'JSON',
             contentType:'application/json',
             success: function(data){
@@ -25,32 +25,40 @@
                 console.log(data);
                 //顯示之前把Table標籤資料清空
                 //清空這段<table id="showorder" border="1"></table>
-				$('#showorder').empty("");
-
+                $('#showorder').empty("");
+                
                 
                 if(data==null){
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle' align='center'> <th>productid</th> <th>productname</th> <th>productcategory</th> <th>productunitprice</th> <th>storeid</th> </tr>");
-		
+             	   table.append("<tr id='ptitle'> <th>訂單ID</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單狀態</th>  </tr>");
+
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
              		   var tr = 
-                 		   		"<tr align='center'>" + 
-             		   			"<td>" + n.productid + "</td>" +
-             		            "<td>" + n.productname + "</td>" + 
-             		            "<td>" + n.productcategory + "</td>" +
-             		            "<td>" + n.productunitprice + "</td>" + 
-             		            "<td>" + n.storeid + "</td>" +
+                 		   		"<tr align='center' >" + 
+                 		   		"<td>" + n.orderid + "</td>" +
+             		            "<td>" + n.storeid + "</td>" + 
+             		            "<td>" + n.userid + "</td>" +
+             		            "<td>" + n.orderdate + "</td>" + 
+             		            "<td>" + n.orderstatus + "</td>" +
              		            "</tr>";
+             		          
+        //        		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
+       //          		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+		//						"</tr>" ;
 
-             		   table.append(tr);
-             	
-                    });       
+             		            
+					   table.append(tr);
+								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
+			   		//			loadorder(n.orderid);
+			   				
+                    });           	   
                 }
             }
         });
+        //load 訂單詳細資訊的 function
      }
     function change(page){
      	indexPage = page;
@@ -101,7 +109,7 @@ function loadstore(){
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">後台頁面</a>
+            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
@@ -130,9 +138,9 @@ function loadstore(){
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="/test2">
+                            <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                後台主頁
                             </a>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -239,7 +247,7 @@ function loadstore(){
 							</table>
 							
 							
-							
+	<!-- 
 							<table id="showpage">
 								<tr>
 									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
@@ -250,6 +258,8 @@ function loadstore(){
 							      </td>
 								</tr>
 							</table>
+	 -->						
+							
 						</div>
 							<div id ="creat"></div>
 
