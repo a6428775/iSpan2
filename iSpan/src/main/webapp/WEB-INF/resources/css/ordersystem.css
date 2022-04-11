@@ -1,12 +1,11 @@
 @charset "UTF-8";
-
 table {
 	margin: auto;
 	width: 70%
 }
 
 #ptitle {
-	background-color: orange;
+	background-color: Silver;
 }
 
 #orderListTitle {
@@ -14,4 +13,8 @@ table {
 	font-size: 25px;
 	font-weight: bold;
 	text-align: center;
+}
+
+img[src=""]{
+opacity: 0;
 }

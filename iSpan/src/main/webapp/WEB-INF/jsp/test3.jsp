@@ -82,9 +82,66 @@
 	
 	    $(document).ready(function(){
 	    	StoreAll();
+	    	StoreAll2();
 	    });
-	
-	    function StoreAll(){
+///////////////////////////////
+
+		function StoreAll(){
+
+			var SearchText = document.getElementById("mySearch").value;
+	       $.ajax({
+	           type:'post',
+	           url:'/product/StoreAll.controler',
+	           //url:'/product/StoreByName.controler',
+	           dataType:'JSON',
+	           contentType:'application/json',
+	           success: function(data){
+	               console.log(data);
+	               console.log(SearchText);
+	               //console.log(flag);
+	               
+
+	               $('#divData').empty("");
+//             	   $('#flexiselDemo3').empty("");
+	               
+	               if(data==null){
+	            	   $('#divData').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	            	   $('#flexiselDemo3').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	               }else{
+	            		
+	            	   $.each(data, function(i,n){
+		            	if ((SearchText == "") || (n.storeName.search(SearchText) != -1 )) {
+		            		var div =
+								"<div class='col-6 col-md-3'>"
+			            		+ "<div class='recipe-thumb'>"
+								+ "<img src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg' alt='Recipe Image'>"
+								+ "<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"
+								+ "<a href='#' class='view-recipe'>VIEW RECIPE</a>"
+								+ "</div>"
+								+ "<div class='recipe-desc'>"
+								+ "<h2 class='recipe-title'>"
+								+ "<a href='#'>" + n.storeName + "</a>"
+								+ "</h2>"
+								+ "<p>"
+								+ "<em>" + n.storePhone + "</em>"
+								+ "</p>"
+								+ "<span><i class='fas fa-clock'></i>&nbsp;" + n.storeID + "</span>"
+								+ "</div>"
+								+ "</div>"
+							$('#divData').append(div);
+		            	}
+	            	   });      
+	            	   
+				 
+      			
+	               }
+	           }
+	       });
+	    }
+
+
+///////////////////////////////
+	    function StoreAll2(){
 	       $.ajax({
 	           type:'post',
 	           url:'/product/StoreAll.controler',
@@ -99,15 +156,6 @@
 	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
 	               }else{
 	            	   
-//	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
-	
-	            	   //data: jsonArray n:jsonOnject
-// 	            	   $.each(data, function(i,n){
-// 	            		   var tr = "<tr align='center'>" + "<td>" + n.pid + "</td>" +
-// 	            		            "<td>" + n.pname + "</td>" + "<td>" + n.category + "</td>" +
-// 	            		            "<td>" + n.price + "</td>" + n.quantity + "</td>" +"</tr>";
-// 	            		   table.append(tr);
-// 	                   });      
 
 	            	   //data: jsonArray n:jsonOnject
 	            	   $.each(data, function(i,n){
@@ -115,9 +163,7 @@
 	            		var div =
 	            		"<li>"
 	           			+"<div class='team1'>"
-	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
 						+ "<a href='#'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
-	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
 						+ "<h4 >" + n.storeName + "</h4>"
 						+ "<p>" + n.storePhone + "</p>"
 						+ "</div>"
@@ -293,6 +339,54 @@
 
 <!-- ====================================================自由發揮區==================================================== -->
 
+					<div class="recipes-section">
+						<div class="container">
+							<div class="section-title">
+								<h3>餐廳列表</h3>
+							</div>
+							  <div>
+							  <h3>
+							    <input type="search" id = "mySearch" placeholder="請輸入關鍵字..." size="50">
+							    <button type="submit" onclick="StoreAll()">搜尋</button>
+							  </h3>
+							  </div>
+							<h3></h3>	
+							<h3></h3>
+							<!-- end section-title -->
+							<div id="divData" class="row">
+							
+<!-- 								<div class="col-6 col-md-3"> -->
+<!-- 									<div class="recipe-thumb"> -->
+<!-- 										<img src="/images/content/thumb-1.png" alt="Recipe Image"> -->
+<!-- 										<a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a> -->
+<!-- 										<a href="#" class="view-recipe">VIEW RECIPE</a> -->
+<!-- 									</div> -->
+<!-- 									<div class="recipe-desc"> -->
+<!-- 										<h2 class="recipe-title"> -->
+<!-- 											<a href="#">Salad Nicoise</a> -->
+<!-- 										</h2> -->
+<!-- 										<p> -->
+<!-- 											<em>By Lina Sukowati</em> -->
+<!-- 										</p> -->
+<!-- 										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span> -->
+<!-- 									</div> -->
+<!-- 									end recipe-desc -->
+<!-- 								</div> -->
+<!-- 								end col -->
+
+							</div>
+							<!-- end row -->
+							<div class="row">
+								<div class="centered">
+									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
+								</div>
+								<!-- end centered -->
+							</div>
+							<!-- end row -->
+
+						</div>
+						<!-- end container -->
+					</div>
 
 <div class="ourteam">
 			<div class="container" >

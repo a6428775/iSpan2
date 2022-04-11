@@ -1,8 +1,13 @@
 package tw.ispan.productorder.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.orderInformation.OrderInformation;
 import tw.ispan.orderInformation.OrderInformationRepository;
@@ -225,5 +232,42 @@ public class OrderController {
 
 		return null;
 	}
+	
+	
+	//抓取餐點上傳的圖片
+	@PostMapping("/insertStoreProduct2.controller")
+	public String uplaod(HttpServletRequest req,@RequestParam("uploadFile") MultipartFile file,@RequestParam("storeId") int storeid,Model m) {
+		
+		File dest;
+		Store store =sService.findById(storeid);
+		try {
+			String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+			
+			File path = new File(ResourceUtils.getURL("src").getPath());
+			if(!path.exists()) path = new File("");
+			System.out.println("path:"+path.getAbsolutePath());
+			
+			File upload = new File(path.getAbsolutePath(),"main/webapp/WEB-INF/resources/images/store");
+			if(!upload.exists()) upload.mkdirs();
+			System.out.println("upload url:"+upload.getAbsolutePath());
+			
+			 dest = new File(upload + File.separator + fileName); 
+			 file.transferTo(dest);
+			 System.out.println(dest.toString());
+			
+			 
+			 
+			 m.addAttribute("fileName",fileName);
+			 store.setPreview(dest);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+		sService.update(store);
+		 return "/Order/updateStore";
+	} 
 }
 

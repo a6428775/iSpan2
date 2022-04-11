@@ -49,4 +49,14 @@ public class ProductService {
 	public Product updateById(Product p ,Integer id) {
 		return prpo.save(p);
 	}
+	
+	public Product delete(Integer p) {
+		prpo.deleteById(p);
+		return null;
+	}
+	
+	public Product findByName(String p) {
+		return prpo.findByname(p);
+		
+	}
 }
