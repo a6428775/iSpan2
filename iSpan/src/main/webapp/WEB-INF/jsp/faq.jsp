@@ -186,8 +186,7 @@ function loadPage(indexPage){
 										</li>
 										<li class="nav-item"><a class="nav-link" href="/aboutus">關於我們</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
-											href="/event">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="/event">最新消息</a></li>
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown1" role="button" data-toggle="dropdown"
@@ -371,12 +370,13 @@ function loadPage(indexPage){
 									<h5 class="mb-0">
 										<button class="btn btn-link collapsed" data-toggle="collapse"
 											data-target="#collapseTwo" aria-expanded="false"
-											aria-controls="collapseTwo">BBQ了!</button>
+											aria-controls="collapseTwo">可以使用現金付款嗎?</button>
 									</h5>
 								</div>
 								<div id="collapseTwo" class="collapse"
 									aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="card-body">打開的是豬</div>
+									<div class="card-body">
+										美好食程平台上都是以線上支付為主。您可以使用信用卡、現金等多元支付方式，歡迎多加利用。</div>
 								</div>
 							</div>
 							<!-- end card -->
@@ -386,12 +386,12 @@ function loadPage(indexPage){
 									<h5 class="mb-0">
 										<button class="btn btn-link collapsed" data-toggle="collapse"
 											data-target="#collapseThree" aria-expanded="false"
-											aria-controls="collapseThree">打開會後悔</button>
+											aria-controls="collapseThree">支付頁面顯示「使用台灣發行的信用卡時，系統將發送驗證碼」，每次下單皆未收到手機驗證簡訊，請問這樣是正常的程序嗎？</button>
 									</h5>
 								</div>
 								<div id="collapseThree" class="collapse"
 									aria-labelledby="headingThree" data-parent="#accordion">
-									<div class="card-body">打開的是笨蛋</div>
+									<div class="card-body">您好，綠界支付手機驗證，有時候會因為電信設定拒收廣告訊息，收不到驗證碼故不能訂購成功，因此美好食程將簡訊功能關閉，沒有發送手機驗證是正常的喔!</div>
 								</div>
 							</div>
 							<!-- end card -->
@@ -400,12 +400,12 @@ function loadPage(indexPage){
 									<h5 class="mb-0">
 										<button class="btn btn-link" data-toggle="collapse"
 											data-target="#collapseFour" aria-expanded="true"
-											aria-controls="collapseFour">標題</button>
+											aria-controls="collapseFour">我的帳號被停權或停用了</button>
 									</h5>
 								</div>
 								<div id="collapseFour" class="collapse"
 									aria-labelledby="headingFour" data-parent="#accordion">
-									<div class="card-body">內容</div>
+									<div class="card-body">您好，有許多原因會造成帳號遭停用，而我們會以不同方式處理這些個案，瞭解如何修復登入問題，可透過信箱聯繫我們，由專人為您服務。</div>
 								</div>
 							</div>
 							<!-- end card -->
@@ -415,12 +415,12 @@ function loadPage(indexPage){
 									<h5 class="mb-0">
 										<button class="btn btn-link collapsed" data-toggle="collapse"
 											data-target="#collapseFive" aria-expanded="false"
-											aria-controls="collapseFive">請勿開啟!</button>
+											aria-controls="collapseFive">自取服務？</button>
 									</h5>
 								</div>
 								<div id="collapseFive" class="collapse"
 									aria-labelledby="headingFive" data-parent="#accordion">
-									<div class="card-body">不要看</div>
+									<div class="card-body">您好，到店取餐服務是用戶自行到店家取餐喔！先用本網站訂餐，店家接單後製作完成餐點，本網站會通知用戶可前往取餐喔！</div>
 								</div>
 							</div>
 							<!-- end card -->
