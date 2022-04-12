@@ -32,7 +32,7 @@ public class Product {
 	private String productunitprice;
 	
 	@Column(name = "PREVIEW")
-	private File preview;
+	private String preview;
 	
 	@Column(name = "STOREID")
 	private int storeid;
@@ -69,11 +69,11 @@ public class Product {
 		this.productunitprice = productunitprice;
 	}
 
-	public File getPreview() {
+	public String getPreview() {
 		return preview;
 	}
 
-	public void setPreview(File preview) {
+	public void setPreview(String preview) {
 		this.preview = preview;
 	}
 

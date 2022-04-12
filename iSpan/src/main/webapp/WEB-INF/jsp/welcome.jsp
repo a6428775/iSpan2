@@ -89,6 +89,7 @@ function login(){
 // 	                   });      
 	            	   //data: jsonArray n:jsonOnject
 	            	   $.each(data, function(i,n){
+
 		            	   
 						var src ="/images/store";
               			if (n.preview === null){
@@ -97,7 +98,6 @@ function login(){
                                }
               			var fileDir = n.preview;
               			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
-
 	            		var div =
 	            		"<li>"
 	           			+"<div class='team1' align='center' valign='center' >"
@@ -123,10 +123,10 @@ function login(){
 		$(window).on('load', function() {
 				
 			$("#flexiselDemo3").flexisel({
-				visibleItems: 4,
+				visibleItems: 5,
 				animationSpeed: 1000,
 				autoPlay: true,
-				autoPlaySpeed: 3000,    		
+				autoPlaySpeed: 2500,    		
 				pauseOnHover: true,
 				enableResponsiveBreakpoints: true,
 				responsiveBreakpoints: { 
@@ -176,11 +176,21 @@ function login(){
 	               }else{
 	            		
 	            	   $.each(data, function(i,n){
+
+							var src ="/images/store";
+	              			if (n.preview === null){
+	                        	   n.preview = "";
+	                        	   src="";
+	                               }
+	              			var fileDir = n.preview;
+	              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
+
+		            	   
 		            	if ((SearchText == "") || (n.storeName.search(SearchText) != -1 )) {
 		            		var div =
 								"<div class='col-6 col-md-3'>"
 			            		+ "<div class='recipe-thumb'>"
-								+ "<img src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg' alt='Recipe Image'>"
+								+ "<img class='img-responsive' src= " + src + suffix + " />"
 								+ "<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"
 								+ "<a href='/product/testtest2?sid="+ n.storeID +"' class='view-recipe'>進入店家</a>"
 								+ "</div>"
@@ -364,7 +374,7 @@ function login(){
 
 
 													<div margin:auto><h3 >推薦餐廳</h3></div>
-									<div class="ourteam">
+									<div class="ourteam" >
 												<div class="container" >
 													<div class="team" >
 														  <ul id="flexiselDemo3" >

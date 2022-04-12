@@ -6,13 +6,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
-	var indexPage = 1;
+
 	
 	$(document).ready(function(){
-	      loadPage(indexPage);
+	      loadPage();
 	});
 
-    function loadPage(indexPage){
+    function loadPage(){
+
+    	var SearchText = document.getElementById("mySearch").value;
+     	  console.log(SearchText);
         $.ajax({
             type:'post',
             url:'/product/testtest',
@@ -31,8 +34,8 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle' height='50'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> <th> </th> </tr>");
-		
+             	   table.append("<tr id='ptitle' height='50'> <th>餐點編號</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> <th> </th> </tr>");
+  
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
 
@@ -45,7 +48,8 @@
                                }
               			var fileDir = n.preview;
               			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
-                       
+
+              			if ((SearchText == "") || (n.productname.search(SearchText) != -1 ) || (n.productcategory.search(SearchText) != -1 ) || (n.productunitprice.search(SearchText) != -1 ) || (SearchText.search(n.productid) != -1 ) ) {
              		   var tr = 
                  		   		"<tr>" + 
              		   			"<td>" + n.productid + "</td>" +
@@ -60,7 +64,7 @@
              		            "</tr>";
 
              		   table.append(tr);
-
+              			}
                            
              	
                     });       
@@ -178,6 +182,13 @@ opacity: 0;
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">產品資訊</li>
                         </ol>
+                
+                <div class="input-group">
+                    <input id = "mySearch" type="search" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" size="20" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="submit" onclick="loadPage()"><i class="fas fa-search" ></i></button>
+                </div>
+
+							   
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                餐點

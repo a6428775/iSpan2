@@ -99,7 +99,7 @@ public class ProductController {
 			 
 			 
 			 m.addAttribute("fileName",fileName);
-			 product.setPreview(dest);
+			 product.setPreview(dest.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;

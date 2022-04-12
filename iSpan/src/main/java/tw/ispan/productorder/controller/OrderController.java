@@ -258,7 +258,7 @@ public class OrderController {
 			 
 			 
 			 m.addAttribute("fileName",fileName);
-			 store.setPreview(dest);
+			 store.setPreview(dest.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;

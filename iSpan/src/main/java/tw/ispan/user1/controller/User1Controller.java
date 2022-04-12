@@ -23,6 +23,7 @@ import tw.ispan.account.Account;
 import tw.ispan.account.AccountRepository;
 import tw.ispan.account.AccountService;
 import tw.ispan.store.Store;
+import tw.ispan.store.StoreService;
 import tw.ispan.user1.User1;
 import tw.ispan.user1.User1Repository;
 import tw.ispan.user1.User1Service;
@@ -36,7 +37,8 @@ public class User1Controller {
 	private User1Repository urpo;
 	@Autowired
 	private AccountService aService;
-	
+	@Autowired
+	private StoreService sService;
 	@Autowired
 	private AccountRepository arp;
 	
@@ -55,6 +57,8 @@ System.out.println(userrole);
 		m.addAttribute("errors", errors);
 		
 		Account account = new Account();
+		User1 user1 = new User1();
+		Store store = new Store();
 		
 		String encode = new BCryptPasswordEncoder().encode(pwd);
 		
@@ -71,7 +75,15 @@ System.out.println(userrole);
 		account.setUserRole(userrole);
 			 
 		aService.createAccount(account);
-			 
+		
+		if (userrole.equals("USER")) {
+			
+		user1.setUseremailaddress(user);
+		User1Service.createUser1(user1);
+		}else {
+			store.setStoreAccount(user);
+			sService.createAccount(store);
+		}
 		return "registerResult";
 
 

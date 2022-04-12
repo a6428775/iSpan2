@@ -32,7 +32,7 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>訂單ID</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單狀態</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>訂單邊號</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  </tr>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
@@ -42,6 +42,7 @@
              		            "<td>" + n.storeid + "</td>" + 
              		            "<td>" + n.userid + "</td>" +
              		            "<td>" + n.orderdate + "</td>" + 
+             		            "<td>" + n.price + "</td>" + 	            
              		            "<td>" + n.orderstatus + "</td>" +
              		            "</tr>";
              		          
