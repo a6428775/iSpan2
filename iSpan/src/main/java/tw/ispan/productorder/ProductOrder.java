@@ -34,6 +34,17 @@ public class ProductOrder {
 	
 	@Column(name = "ORDERSTATUS")
 	private String orderstatus;
+	
+	@Column(name = "Price")
+	private int price;
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	public int getOrderid() {
 		return orderid;

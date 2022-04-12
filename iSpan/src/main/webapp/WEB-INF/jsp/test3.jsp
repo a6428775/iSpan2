@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link href="/css/fronts/welcome.css" rel="stylesheet" type="text/css"  />
 <style type="text/css">
 
 		.header{
@@ -344,10 +344,10 @@
 							<div class="section-title">
 								<h3>餐廳列表</h3>
 							</div>
-							  <div>
+							 <div class="item">
 							  <h3>
-							    <input type="search" id = "mySearch" placeholder="請輸入關鍵字..." size="50">
-							    <button type="submit" onclick="StoreAll()">搜尋</button>
+							    <input type="search" style="outline: none;" id = "mySearch" placeholder="搜尋想訂購餐點的餐廳" size="50">
+							    <button type="submit" style="outline: none;" onclick="StoreAll()">搜尋</button>
 							  </h3>
 							  </div>
 							<h3></h3>	

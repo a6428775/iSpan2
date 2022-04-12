@@ -22,15 +22,16 @@
 
 
 	$(document).ready(function(){
-		var indexPage = 1;
-	      loadPage(indexPage);
+		var sid = $('#sid').val();
+		loadPage(sid);
+		console.log(sid)
 	});
 
-function loadPage(indexPage){
+function loadPage(sid){
 	
     $.ajax({
         type:'post',
-        url:'/product/testtest',
+        url:'/product/testtest3?sid='+sid,
             //queryByPage/' + indexPage,
         dataType:'JSON',
         contentType:'application/json',
@@ -271,6 +272,7 @@ function loadPage(indexPage){
 							<div class="section-title">
 								<h3>餐點展示</h3>
 							</div>
+							<input id="sid" type="hidden" value="${sid}">
 							<!-- end section-title -->
 							<div class="row" id="test2">
 							

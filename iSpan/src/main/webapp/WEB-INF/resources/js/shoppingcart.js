@@ -161,7 +161,7 @@ function saveProduct(clickedBtn) {
 		} 
 		
 	})
-
+	
 	// to avoid user adds the same course twice, check
 	// the product is not in LS already before adding it
 	lsContent.forEach(function(product) {
@@ -191,6 +191,7 @@ function saveProduct(clickedBtn) {
 		// update the display of courses in the shopping cart
 		displayProducts();
 		displayCartTotal();
+		alert(productName + "已加入購物車!");
 	}
 }
 

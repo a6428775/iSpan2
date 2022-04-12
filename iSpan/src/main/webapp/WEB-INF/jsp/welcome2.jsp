@@ -17,7 +17,8 @@
 
 <link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
 
-<link href="/css/fronts/welcome.css" rel="stylesheet" type="text/css"  />	
+<link href="/css/fronts/welcome.css" rel="stylesheet" type="text/css"  />
+	
 
 <!-- 123 -->
 
@@ -33,7 +34,6 @@
 
 $(document).ready(function(){
     login();
-    StoreAll2();
     StoreAll();
 });
 
@@ -63,42 +63,66 @@ function login(){
 }
 
 //推薦餐廳//////////////////////////////////////
-	    function StoreAll2(){
-	       $.ajax({
-	           type:'post',
-	           url:'/product/StoreAll.controler',
-	           dataType:'JSON',
-	           contentType:'application/json',
-	           success: function(data){
-	               console.log(data);
-	               
-	               $('#showproduct').empty("");
-	               
-	               if(data==null){
-	            	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-	               }else{
-	            	   
-//	            	   table.append("<tr id='ptitle'><th>產品編號</th><th>產品名稱</th><th>產品種類</th><th>產品價格</th><th>產品數量</th></tr>");
-	
-	            	   //data: jsonArray n:jsonOnject
-// 	            	   $.each(data, function(i,n){
-// 	            		   var tr = "<tr align='center'>" + "<td>" + n.pid + "</td>" +
-// 	            		            "<td>" + n.pname + "</td>" + "<td>" + n.category + "</td>" +
-// 	            		            "<td>" + n.price + "</td>" + n.quantity + "</td>" +"</tr>";
-// 	            		   table.append(tr);
-// 	                   });      
-	            	   //data: jsonArray n:jsonOnject
-	            	   $.each(data, function(i,n){
-		            	   
-						var src ="/images/store";
-              			if (n.preview === null){
-                        	   n.preview = "";
-                        	   src="";
-                               }
-              			var fileDir = n.preview;
-              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
+function StoreAll(){
 
-	            		var div =
+	var SearchText = document.getElementById("mySearch").value;
+    
+   $.ajax({
+       type:'post',
+       url:'/product/StoreAll.controler',
+       //url:'/product/StoreByName.controler',
+       dataType:'JSON',
+       contentType:'application/json',
+       success: function(data){
+           console.log(data);
+           console.log(SearchText);
+           //console.log(flag);
+           
+
+           $('#divData').empty("");
+    	   $('#flexiselDemo3').empty("");
+           
+           if(data==null){
+        	   $('#divData').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+        	   $('#flexiselDemo3').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+           }else{
+        		
+        	   $.each(data, function(i,n){
+            	if ((SearchText == "") || (n.storeName.search(SearchText) != -1 )) {
+            		var div =
+						"<div class='col-6 col-md-3'>"
+	            		+ "<div class='recipe-thumb'>"
+						+ "<img src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg' alt='Recipe Image'>"
+						+ "<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"
+						+ "<a href='#' class='view-recipe'>VIEW RECIPE</a>"
+						+ "</div>"
+						+ "<div class='recipe-desc'>"
+						+ "<h2 class='recipe-title'>"
+						+ "<a href='#'>" + n.storeName + "</a>"
+						+ "</h2>"
+						+ "<p>"
+						+ "<em>" + n.storePhone + "</em>"
+						+ "</p>"
+						+ "<span><i class='fas fa-clock'></i>&nbsp;" + n.storeID + "</span>"
+						+ "</div>"
+						+ "</div>"
+					$('#divData').append(div);
+            	}
+        	   });      
+        	   
+        	   //data: jsonArray n:jsonOnject
+        	   
+        	   
+        	   $.each(data, function(i,n){
+				var src ="/images/store";
+     			if (n.preview === null){
+               	   n.preview = "";
+               	   src="";
+                      }
+     			var fileDir = n.preview;
+     			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
+
+        		var div =
 	            		"<li>"
 	           			+"<div class='team1' align='center' valign='center' >"
 	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
@@ -110,15 +134,15 @@ function login(){
 						+ "<p style='color:red'>　 " + n.storePhone + "</p>"
 						+ "</div>"
 						+ "</li>";
+					
+					$('#flexiselDemo3').append(div);
+               });
+   			
+           }
+       }
+   });
+}
 
-
-						
-						$('#flexiselDemo3').append(div);
-	                   });    	   
-	               }
-	           }
-	       });
-	    }
 
 		$(window).on('load', function() {
 				
@@ -150,63 +174,7 @@ function login(){
 		});		   
 
 /////////////////////////////////////////////
-///////////////////////////////
 
-		function StoreAll(){
-
-			var SearchText = document.getElementById("mySearch").value;
-	       $.ajax({
-	           type:'post',
-	           url:'/product/StoreAll.controler',
-	           //url:'/product/StoreByName.controler',
-	           dataType:'JSON',
-	           contentType:'application/json',
-	           success: function(data){
-	               console.log(data);
-	               console.log(SearchText);
-	               //console.log(flag);
-	               
-
-	               $('#divData').empty("");
-//             	   $('#flexiselDemo3').empty("");
-	               
-	               if(data==null){
-	            	   $('#divData').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-	            	   $('#flexiselDemo3').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-	               }else{
-	            		
-	            	   $.each(data, function(i,n){
-		            	if ((SearchText == "") || (n.storeName.search(SearchText) != -1 )) {
-		            		var div =
-								"<div class='col-6 col-md-3'>"
-			            		+ "<div class='recipe-thumb'>"
-								+ "<img src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg' alt='Recipe Image'>"
-								+ "<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"
-								+ "<a href='/product/testtest2?sid="+ n.storeID +"' class='view-recipe'>進入店家</a>"
-								+ "</div>"
-								+ "<div class='recipe-desc'>"
-								+ "<h2 class='recipe-title'>"
-								+ "<a href='#'>" + n.storeName + "</a>"
-								+ "</h2>"
-								+ "<p>"
-								+ "<em>" + n.storePhone + "</em>"
-								+ "</p>"
-								+ "<span><i class='fas fa-clock'></i>&nbsp;" + n.storeID + "</span>"
-								+ "</div>"
-								+ "</div>"
-							$('#divData').append(div);
-		            	}
-	            	   });      
-	            	   
-				 
-      			
-	               }
-	           }
-	       });
-	    }
-
-
-///////////////////////////////
 
 
 
@@ -297,7 +265,7 @@ function login(){
 											</div>
 										</li> -->
 									
-									<!--	<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>-->
+										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
 										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
 
 									</ul>
@@ -322,7 +290,7 @@ function login(){
 
 		<!-- 刪除搜尋列 -->
 		
-		<!-- 幻燈片 輪播圖 SLIDER SECTION /////////////////////////////////////////////////////////////////////-->
+		
 		<div class="owl-carousel owl-theme">
 			<div class="item">
 				<img src="/images/content/slide-13.png" alt="slide 1">
@@ -352,18 +320,68 @@ function login(){
 		<!-- end owl-carousel -->
 
 
-		<div class="choice-section">
-			<div class="container">
-				<div class="section-title">
-					<!-- 刪除12張圖片組 -->
+					<div class="recipes-section">
+						<div class="container">
+							<div class="section-title">
+								<h3>餐廳列表</h3>
+							</div>
+							  <div class="item">
+							  <h3>
+							    <input type="search" style="outline: none;" id = "mySearch" placeholder="搜尋想訂購餐點的餐廳" size="50">
+							    <button type="submit" style="outline: none;" onclick="StoreAll()">搜尋</button>
+							  </h3>
+							  </div>
+							<h3></h3>	
+							<h3></h3>
+							<!-- end section-title -->
+							<div id="divData" class="row">
+							
+<!-- 								<div class="col-6 col-md-3"> -->
+<!-- 									<div class="recipe-thumb"> -->
+<!-- 										<img src="/images/content/thumb-1.png" alt="Recipe Image"> -->
+<!-- 										<a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a> -->
+<!-- 										<a href="#" class="view-recipe">VIEW RECIPE</a> -->
+<!-- 									</div> -->
+<!-- 									<div class="recipe-desc"> -->
+<!-- 										<h2 class="recipe-title"> -->
+<!-- 											<a href="#">Salad Nicoise</a> -->
+<!-- 										</h2> -->
+<!-- 										<p> -->
+<!-- 											<em>By Lina Sukowati</em> -->
+<!-- 										</p> -->
+<!-- 										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span> -->
+<!-- 									</div> -->
+<!-- 									end recipe-desc -->
+<!-- 								</div> -->
+<!-- 								end col -->
 
-					<!-- 刪除中間大圖1 -->
+							</div>
+							<!-- end row -->
+							<div class="row">
+								<div class="centered">
+									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
+								</div>
+								<!-- end centered -->
+							</div>
+							<!-- end row -->
+
+						</div>
+						<!-- end container -->
+					</div>
+					<!-- end recipes -->
+
+					<!-- 刪除作者群介紹 -->
+
+					<!-- 刪除中間大圖2 -->
+
+					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->	
+	<!-- 幻燈片 輪播圖 SLIDER SECTION /////////////////////////////////////////////////////////////////////-->			
 	<!--  ////////////////////////////推薦餐廳////////////////////-->				
 
 				<div class="blog-section">
+						<div align="center">
 
-
-													<div margin:auto><h3 >推薦餐廳</h3></div>
+								<h3 >推薦餐廳</h3>
 									<div class="ourteam">
 												<div class="container" >
 													<div class="team" >
@@ -385,10 +403,8 @@ function login(){
 													</div>
 											</div>
 										</div>
-
-
-
-
+										
+						</div>
 
 					</div>
 					<!-- end blog-section -->
@@ -396,44 +412,6 @@ function login(){
 					<!-- 刪除社群分享 -->
 
 	<!--  ////////////////////////////推薦餐廳////////////////////-->		
-					<!-- 產品圖 /////////////////////////////////////////////////////////////////////-->
-					<div class="recipes-section">
-						<div class="container">
-							<div class="section-title">
-								<h3>餐廳列表</h3>
-							</div>
-							 <div class="item">
-							  <h3>
-							    <input type="search" style="outline: none;" id = "mySearch" placeholder="搜尋想訂購餐點的餐廳" size="50">
-							    <button type="submit" style="outline: none;" onclick="StoreAll()">搜尋</button>
-							  </h3>
-							  </div>
-							<!-- end section-title -->
-							<div id="divData" class="row">
-							<!-- end row -->
-							<div class="row">
-								<div class="centered">
-									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
-								</div>
-								<!-- end centered -->
-							</div>
-							<!-- end row -->
-
-						</div>
-						<!-- end container -->
-					</div>
-					<!-- end recipes -->
-
-					<!-- 刪除作者群介紹 -->
-
-					<!-- 刪除中間大圖2 -->
-
-					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->				
-
-
-				</div>
-			</div>
-		</div>
 					<div class="bottom">
 						<div class="container">
 
@@ -466,6 +444,10 @@ function login(){
 						<!-- end container -->
 					</div>
 					<!-- end bottom -->
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 	<!-- end #page hfeed site -->

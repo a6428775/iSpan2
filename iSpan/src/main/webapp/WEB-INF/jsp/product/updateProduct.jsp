@@ -47,6 +47,7 @@ function sendProductUpdate(){
 	  var price = $("#ProductUnitPrice").val();
 	  var pid = $('#pid').val();
 
+	  var contactForm=document.getElementById('contactForm');
 //    var amount = parseInt(orderQuantity)*parseInt(price);
 
     if($.trim(name)==''){
@@ -89,7 +90,36 @@ function sendProductUpdate(){
  	      console.log("error");
         }
     });
+    contactForm.submit();
 }
+///////////////////////////////////////////////////////////////
+$(function () {            
+    //當選檔變更時，立即預覽之前被選擇的照片
+    $("#uploadFile").change(function () { 
+        previewImg(this.files);
+    });
+});
+function previewImg(files) {
+    if (files.length == 0)
+        return;
+    var file = files[0];
+    var fr = new FileReader();
+    //註冊當選檔被讀取完成後之事件處理器
+    fr.readAsDataURL(file);
+    fr.onload =
+        function () {
+            $("#img-preview").attr({ src: fr.result});
+            /*  fr.result: The file's contents. 內容如下:
+                data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA ...
+            */
+        };
+}
+$(function () {
+    //當使用者上傳一個檔案後將進入Web Server回應的新頁面。
+    //又當使用者「返回前頁」時，需要「重新預覽」前回點選擬上傳的圖片。
+    previewImg($("#uploadFile")[0].files);
+});
+
 </script>
 
     <head>
@@ -205,7 +235,7 @@ function sendProductUpdate(){
 					                        <!-- To make this form functional, sign up at-->
 					                        <!-- https://startbootstrap.com/solution/contact-forms-->
 					                        <!-- to get an API token!-->
-					                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/test2">
+					                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/product/insertProduct2.controller">
 					                            <!-- Name input-->
 					                            <div class="form-floating mb-3">
 					                                <input class="form-control" id="ProductName" name="ProductName" type="text" placeholder="Enter your productname..." data-sb-validations="required" />
