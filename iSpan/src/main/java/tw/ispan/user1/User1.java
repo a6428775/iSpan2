@@ -51,7 +51,7 @@ public class User1 {
 //		
 //	}
 //
-	public User1 (Integer userid, String useremailaddress, String nickname, String birthday, String phone ,String address) {
+	public User1 (String useremailaddress, String nickname, String birthday, String phone ,String address) {
 		
 	}
 

@@ -100,7 +100,7 @@ public class AccountController {
 			return "registerResult";
 		} else {
 			errors.put("account", "!!帳號已存在，請更換其他帳號信箱!!");	
-			return "register";
+			return "registerUser";
 		}
 	}
 
@@ -127,7 +127,6 @@ public class AccountController {
 			m.addAttribute("Phone", findUser1.get().getPhone());
 			m.addAttribute("Address", findUser1.get().getAddress());
 			m.addAttribute("Birthday", findUser1.get().getBirthday());
-			m.addAttribute("UserID", findUser1.get().getUserid());
 		}
 		
 		return "memberCenter";
@@ -196,8 +195,6 @@ public class AccountController {
 				m.addAttribute("Birthday", findUser1.get().getBirthday());
 				m.addAttribute("UserID", findUser1.get().getUserid());
 			}			
-			System.out.println(findUser1.get().getUserid());	
-
 			return "memberCenter";
 			
 		}else {

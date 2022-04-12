@@ -3,6 +3,8 @@ package tw.ispan;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ecpay.payment.integration.AllInOne;
 import tw.ispan.orderInformation.OrderInformation;
 import tw.ispan.orderInformation.OrderInformationRepository;
 import tw.ispan.product.Product;
@@ -23,6 +26,8 @@ import tw.ispan.store.StoreService;
 @Controller
 //@RequestMapping("/Store")
 public class Hellocontroller {
+	
+
 	
 	@Autowired
 	private StoreRepository s;
@@ -73,7 +78,12 @@ public class Hellocontroller {
 	}
 	@GetMapping("/test5")
 	public String processAction7() {
-		return "checkout";
+		return "ECPay";
 	}
 	
+	@PostMapping("/test8")
+	public String processAction8() {
+		return "welcome";
+	}
+
 }

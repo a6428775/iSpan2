@@ -59,10 +59,10 @@ System.out.println(userrole);
 		String encode = new BCryptPasswordEncoder().encode(pwd);
 		
 		Optional<Account> op1 = arp.findByUserAccount(user);
-
+//     04/12---------------
 		if(op1.isPresent()) {
-				errors.put("account", "Account already exists");	
-				return "register";
+				errors.put("account", " !! Account already exists !!");	
+				return "registerUser";
 		}	  
 		account.setUserAccount(user);
 		account.setUserPassword(encode);
@@ -126,6 +126,32 @@ System.out.println(userrole);
 
 	}
 	
-
+	//重設會員密碼
+//	@PostMapping("/user1/membercenterupdatepwd.controller")
+//	public String UserProfileUpdatePwd(@ModelAttribute("user1") User1 User1, Model m) {
+//
+//		// 取得登入帳號
+//		String SecurityName = SecurityContextHolder.getContext().getAuthentication().getName();
+//		// findByName()取得一筆會員Bean
+//		User1 findByName1 = User1Service.findByUseremailaddress(SecurityName);
+//		
+//		//編碼、修改後更新、print
+//		String encode = new BCryptPasswordEncoder().encode(User1.getUserpassword());
+// 		findByName1.setUserpassword(encode);
+//		User1 update1 = User1Service.update(findByName1);
+//
+//		System.out.println(update1.getPhone() + "," + update1.getNickname() + "," + update1.getAddress() + "," + update1.getUseremailaddress() +
+//				"," + update1.getUserpassword() + ","+ update1.getUserid()+ ","+ update1.getBirthday() );	
+//		
+//		m.addAttribute("User1", findByName1);
+//		m.addAttribute("Useremailaddress", findByName1.getUseremailaddress());
+//		m.addAttribute("Userpassword", findByName1.getUserpassword());
+//		m.addAttribute("Nickname", findByName1.getNickname());
+//		m.addAttribute("Phone", findByName1.getPhone());
+//		m.addAttribute("Address", findByName1.getAddress());
+//		m.addAttribute("Birthday", findByName1.getBirthday());
+//
+//		return "memberCenter";
+//	}
 	
 }

@@ -90,6 +90,7 @@
 			         $.each(jsonArray, function(i,n){
 
 			         var tdd = "餐點 : " + n.productName + "     數量 :  " + n.number + "    價格 :  " + n.productPrice + "   </br>"
+			         
 			        	 $('#orderid'+oid).prepend(tdd);
 		        	 
 			         });
@@ -228,9 +229,9 @@
 							         </c:forEach>下一頁
 							      </td>
 								</tr>
+							</table>
 				 -->			
 					
-							</table>
 						</div>
 							<div id ="creat"></div>
 

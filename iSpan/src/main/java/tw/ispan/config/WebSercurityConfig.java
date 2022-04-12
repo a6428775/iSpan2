@@ -43,6 +43,7 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/user1/**").authenticated()
 			.antMatchers(HttpMethod.POST).permitAll()
 			
+
             .anyRequest().authenticated() 
 		.and()
 			.rememberMe().tokenValiditySeconds(86400).key("rememberMe-key")              

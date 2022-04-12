@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +56,26 @@ public class OrderController {
 	@Autowired
 	private User1Service uService;
 	
-//	----該用戶的所有訂單
+//	-----
+	@Autowired
+	private StoreService StoreService;
+	
+//	-----取得orderid進入回饋頁面
+	@GetMapping("/orderquerybyid.controller")
+	public String processQueryByIdAction1(@RequestParam("oid") int oid, Model m) {
+		
+		m.addAttribute("oid", oid);
+		
+		ProductOrder ProductOrder = pService.findByOrderID(oid);
+		m.addAttribute("StoreID", ProductOrder.getStoreid());
+		
+		Store Store = StoreService.findById(oid);
+		m.addAttribute("StoreName", Store.getStoreName());
+		
+		return "feedback";
+	}
+	
+//	該用戶的所有訂單
 	@PostMapping("/queryUserIDByPage/{pageNo}")	
 	@ResponseBody
 	public List<ProductOrder> processQueryUserIDByPage(@SessionAttribute("UserID") int UserID, @PathVariable("pageNo") int pageNo , Model m){
@@ -71,11 +91,15 @@ public class OrderController {
 		//取得所取得的該頁資料內容
 		return page.getContent();
 	}
-//	-----歷史訂單
-	@GetMapping("/queryUserIDByPage.controller")
-	public String processQueryUserIDByPageAction(){ 
-		return "Order/memberCenter01";  
-	}
+	
+//	-----訂單回饋
+//	@GetMapping("/feedback.controller")
+//	public String processfeedbackAction(){ 
+//		
+//		return "feedback";  
+//	}
+	
+	
 	
 	@GetMapping("/Store.controller")
 	public String processAction(){ 
@@ -199,7 +223,8 @@ public class OrderController {
 	
 	//儲存成 ProductOrder
 	@PostMapping("/saveorder.controller")
-	public String saveorder(@RequestBody ProductOrder productorder){
+	@ResponseBody
+	public ProductOrder saveorder(@RequestBody ProductOrder productorder){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User1> us1 = uService.findByUseremailaddress2(username);
         int us1id = us1.get().getUserid();
@@ -209,9 +234,11 @@ public class OrderController {
         productorder.setOrderdate(date);
         productorder.setStoreid(productorder.getStoreid());
         productorder.setUserid(us1id);
+        
 		pService.insert(productorder);
 		
-		return null;
+
+		return productorder;
 	}
 	
 	//儲存成 OrderInformation
@@ -219,10 +246,10 @@ public class OrderController {
 	public String saveorder(@RequestBody OrderInformation orderInformation){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User1> us1 = uService.findByUseremailaddress2(username);
-        int us1id = us1.get().getUserid();
-        
-        Date date = new Date();
-        
+
+ 
+    
+        oService.save(orderInformation);
 
 		return null;
 	}

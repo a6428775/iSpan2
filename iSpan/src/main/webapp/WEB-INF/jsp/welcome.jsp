@@ -7,63 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>home</title>
 <!-- STYLE CSS -->
-<script type="text/javascript">
-///////////////////////////////////////////////////////////////////
-	$(document).ready(function(){
-		var indexPage = 1;
-	      loadPage(indexPage);    
-	});
-
-    function loadPage(indexPage){
-        $.ajax({
-            type:'post',
-            url:'/Store/queryUserIDByPage/' + indexPage, // OrderController => processQueryUserIDByPage 前往的網頁
-            dataType:'JSON',
-            contentType:'application/json',
-            success: function(data){  //server送回來的訂單資料
-                
-                console.log(data);
-                //顯示之前把Table標籤資料清空
-                //清空這段<table id="showorder" border="1"></table>
-                $('#showorder').empty("");
-                
-                if(data==null){
-             	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-                }else{
-             	   var table = $('#showorder'); 
-             	   table.append("<thead><tr id='ptitle'><th>評論</th><th>No.</th><th>訂單日期</th><th>訂單狀態</th><th>詳細</th></tr></thead>");
-
-             	   //data:jsonArray n:jsonObject
-             	   $.each(data, function(i,n){
-             		   var tr ="<tbody>" + 
-                 		   			"<tr align='center'>" + 
-	        		   				"<td><a href='#' >" + "回饋" + "</a></td>" +
-			   						"<td>" + n.orderid + "</td>" +
-	   		            		   	"<td>" + n.orderdate + "</td>" + 
-	   		            		   	"<td>" + n.orderstatus + "</td>" +
-	            		   			"<td><a href='/users/orders/ordersproduct.controller?oid=" + n.orderid + "' class='btn btn-sm btn-success'>" + "MORE" + "</a></td>" +
-		           					"</tr>" + 
-	           					"</tbody>";
-	           					
-					   table.append(tr);
-								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
-			   					// loadorder(n.orderid);
-                    });           	   
-                }
-            }
-        });
-        //load 訂單詳細資訊的 function
-     }
-
-     function change(page){
-     	indexPage = page;
-     	loadPage(indexPage);
-	 	} 
-	 	
-
-
-///////////////////////////---------------------------------------
-</script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
@@ -102,12 +45,11 @@ function login(){
         dataType:'JSON',
         contentType:'application/json',
         success: function(data){
-        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller'>會員中心</a></li>"
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller' >會員中心</a></li>"
             var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
                 
         	$('#loginlogout').append(member);
         	$('#loginlogout').append(logout);
-			
 
             },
    		error : function(){
@@ -117,6 +59,8 @@ function login(){
    	   		}
     });
 }
+
+
 
 //推薦餐廳//////////////////////////////////////
 	    function StoreAll(){
@@ -200,10 +144,8 @@ function login(){
 /////////////////////////////////////////////
 
 
-
-
-
 </script> 
+
 </head>
 <body>
 
@@ -243,7 +185,7 @@ function login(){
 										<li class="nav-item active"><a class="nav-link"
 											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
-										<li class="nav-item"><a class="nav-link" href="/about">關於我們</a>
+										<li class="nav-item"><a class="nav-link" href="about.html">關於我們</a>
 										</li>
 										<li class="nav-item"><a class="nav-link" href="typography.html">最新消息</a>
 										</li>
@@ -372,7 +314,7 @@ function login(){
 										<p>
 											<em>By Lina Sukowati</em>
 										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;9 Minutes</span>
+										<span><i class="fas fa-clock"></i>&nbsp;15 Minutes</span>
 									</div>
 									<!-- end recipe-desc -->
 								</div>
