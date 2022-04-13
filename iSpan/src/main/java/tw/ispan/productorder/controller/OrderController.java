@@ -80,6 +80,22 @@ public class OrderController {
 		return page.getContent();
 	}
 	
+//	-----取得orderid進入回饋頁面
+	@GetMapping("/orderquerybyid.controller")
+	public String processQueryByIdAction1(@RequestParam("oid") int oid, Model m) {
+		
+		m.addAttribute("oid", oid);
+		
+		ProductOrder ProductOrder = pService.findByOrderID(oid);
+		m.addAttribute("StoreID", ProductOrder.getStoreid());
+		
+		Store Store = sService.findById(oid);
+		m.addAttribute("StoreName", Store.getStoreName());
+		
+		return "feedback";
+	}	
+	
+	
 	@GetMapping("/Store.controller")
 	public String processAction(){ 
 		return "Order/OrderAll";  

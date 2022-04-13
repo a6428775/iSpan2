@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
 
 
 @Service
+@Transactional
 public class OrderInformationService {
 	
 	@Autowired
@@ -40,4 +42,11 @@ public class OrderInformationService {
 	public OrderInformation save(OrderInformation o) {	
 		return orp.save(o);
 	}
+	
+//	04/12-----findByOrderId1
+	public OrderInformation findByOrderId1(int orderID){
+		OrderInformation op = orp.findByOrderId1(orderID);
+		return op;
+	}	
+	
 }

@@ -66,7 +66,7 @@ System.out.println(userrole);
 
 		if(op1.isPresent()) {
 				errors.put("account", "Account already exists");	
-				return "register";
+				return "registerUser";
 		}	  
 		account.setUserAccount(user);
 		account.setUserPassword(encode);

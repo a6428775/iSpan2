@@ -17,5 +17,9 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Inte
 //	--查詢該用戶訂單
 	@Query(value = "select * from ProductOrder where UserID = ?", nativeQuery = true)
 	public Page<ProductOrder> findAllByUserId(int UserID, Pageable pageable);
+	
+//  -----OrderID取得訂單StoreID
+	@Query(value = "select * from ProductOrder where OrderID = ?", nativeQuery = true)
+	public ProductOrder findByOrderID(int OrderID);	
 
 }

@@ -20,6 +20,10 @@ public class ProductOrderService {
 	public Page<ProductOrder> findUserIDByPage(int UserID, Pageable pageable){
 		return prp.findAllByUserId(UserID, pageable);
 	}
+//	-----OrderID取得訂單StoreID
+	public ProductOrder findByOrderID(int OrderID){
+		return prp.findByOrderID(OrderID);
+	}	
 	
 	@Autowired
 	private ProductOrderRepository prp;

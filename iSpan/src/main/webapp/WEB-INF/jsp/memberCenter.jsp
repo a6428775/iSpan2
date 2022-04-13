@@ -10,115 +10,75 @@
 <title>會員中心</title>
 <!-- STYLE CSS -->
 
+<!-- Tabs分頁 -->
 <style>
 a:hover, a:focus {
-	text-decoration: none;
-	outline: none;
+	text-decoration: none;outline: none;
 }
-
 .tab .nav-tabs {
-	border: none;
-	margin: 20px 0 20px 0;
+	border: none;margin: 20px 0 20px 0;
 }
-
 .tab .nav-tabs li a {
-	padding: 10px 20px;
-	margin-right: 10px;
-	font-size: 17px;
-	font-weight: 600;
-	color: #293241;
-	text-transform: uppercase;
-	border: none;
-	border-radius: 0;
-	background: transparent;
-	z-index: 1;
-	position: relative;
-	transition: all 0.3s ease 0s;
+	padding: 10px 20px;margin-right: 10px;font-size: 17px;font-weight: 600;color: #293241;text-transform: uppercase;border: none;
+	border-radius: 0;background: transparent;z-index: 1;position: relative;transition: all 0.3s ease 0s;
 }
-
 .tab .nav-tabs li a:hover, .tab .nav-tabs li.active a {
-	border: none;
-	color: #fff;
+	border: none;color: #fff;
 }
-
 .tab .nav-tabs li a:before {
-	content: "";
-	width: 20%;
-	height: 100%;
-	background: #ed5551;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: -1;
-	transition: all 0.3s ease 0s;
+	content: "";width: 20%;height: 100%;background: #ed5551;position: absolute;top: 0;left: 0;z-index: -1;transition: all 0.3s ease 0s;
 }
-
 .tab .nav-tabs li.active a:before, .tab .nav-tabs li a:hover:before {
 	width: 100%;
 }
-
 .tab .tab-content {
-	padding: 30px;
-	background: #fff;
-	outline: 3px solid #eb482d;
-	outline-offset: -8px;
-	font-size: 17px;
-	color:;
-	letter-spacing: 1px;
-	line-height: 30px;
-	position: relative;
-	height:600px;
+	padding: 30px;background: #fff;outline: 3px solid #eb482d;outline-offset: 0px;font-size: 17px;color:;letter-spacing: 1px;
+	line-height: 30px;position: relative;margin-bottom:15px;height:650px;
 }
-
 .tab .tab-content h3 {
 	margin-top: 0;
 }
 
 @media only screen and (max-width: 479px) {
 	.tab .nav-tabs li {
-		width: 100%;
-		text-align: center;
-		margin-bottom: 15px;
+		width: 100%;text-align: center;margin-bottom: 15px;
 	}
 }
 </style>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Yellowtail"
-	rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/reset.css">
-
-
 
 <!-- 歷史訂單table -->
 <script type="text/javascript">
 ///////////////////////////////////////////////////////////////////
 	$(document).ready(function(){
 		var indexPage = 1;
-	      loadPage(indexPage);    
+	      loadPage(indexPage);   
+	      
+	    if(document.URL.indexOf("#")==-1){  //第一次載入網頁時會重整一次，解決換頁顯示問題
+	          // Set the URL to whatever it was plus "#".
+	          url = document.URL+"#";
+	          location = "#";
+
+	          //Reload the page
+	          location.reload(true);
+	      } 
 	});
 
     function loadPage(indexPage){
         $.ajax({
             type:'post',
-            url:'/Store/queryUserIDByPage/' + indexPage, // OrderController => processQueryUserIDByPage 前往的網頁
+            url:'/Store/queryUserIDByPage/' + indexPage, // OrderController => QueryUserIDByPage 前往的網頁
             dataType:'JSON',
             contentType:'application/json',
             success: function(data){  //server送回來的訂單資料
@@ -133,28 +93,32 @@ a:hover, a:focus {
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<thead><tr id='ptitle' align='center'><th>評論</th><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>詳細</th></tr></thead>");
+             	   table.append("<thead><tr id='ptitle' align='center'><th>評論</th><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>訂單總價</th><th>詳細</th></tr></thead>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
-             		   var tr ="<tbody>" + 
+             		   var tr =
                  		   			"<tr align='center'>" + 
-	        		   				"<td><a href='#' >" + "回饋" + "</a></td>" +
+	        		   				"<td><a href='/Store/orderquerybyid.controller?oid=" + n.orderid + " '>" + "回饋" + "</a></td>" +
 			   						"<td>" + n.orderid + "</td>" +
 	   		            		   	"<td>" + n.orderdate + "</td>" + 
 	   		            		   	"<td>" + n.orderstatus + "</td>" +
-	            		   			"<td><a href='/users/orders/ordersproduct.controller?oid=" + n.orderid + "' class='btn btn-sm btn-success'>" + "MORE" + "</a></td>" +
+	   		            		    "<td>" + n.price + "</td>" +
+	   		            		 	"<td class='collapsed btn btn-sm btn-success' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts" + n.orderid + "' aria-expanded='false' aria-controls='collapseLayouts'>" + "MORE" + "</td>" +
 		           					"</tr>" + 
-	           					"</tbody>";
-	           					
+
+		           					"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
+	                 		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+									"</tr>";
 					   table.append(tr);
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
-			   					// loadorder(n.orderid);
+			   					 loadorder(n.orderid);
                     });           	   
                 }
+                
             }
         });
-        //load 訂單詳細資訊的 function
+        
      }
 
      function change(page){
@@ -162,8 +126,8 @@ a:hover, a:focus {
      	loadPage(indexPage);
 	 	} 
 	 	
-//    尚未完成
-	 /* function loadorder(oid){
+//	 load 訂單詳細資訊的 function
+     function loadorder(oid){
 		   $.ajax({
 			     type:'post',
 			     //透過訂單id 查詢訂單詳細資訊
@@ -176,195 +140,105 @@ a:hover, a:focus {
 			         console.log('success:' + json);
 			         var jsonArray = JSON.parse(json);
 
-			         if(data==null){ 
+			         if(data==null){
 			         }
 			         $.each(jsonArray, function(i,n){
-			         var tdd = "餐點 : " + n.productName + "     數量 :  " + n.number + "    價格 :  " + n.productPrice + "   </br>"
-			        	 $('#orderid'+oid).prepend(tdd);
+			         var tdd = "餐點 : " + n.productName + " 數量 : " + n.number + " 價格 : " + n.productPrice +"</br>" 
+			        
+			       	$('#orderid'+oid).prepend(tdd);
+
+				    
 			         });
-			     	}
+
+			     }
 				   });
-		 } */
+		}
 
 ///////////////////////////---------------------------------------
 </script>
 <style>
 .panel {
-	font-family: 'Raleway', sans-serif;
-	padding: 0;
-	border: none;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+	font-family: 'Raleway', sans-serif;padding: 0;border: none;box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
 }
-
 .panel .panel-heading {
-	background: #535353;
-	padding: 5px;
-	border-radius: 0;
+	background: #535353;padding: 5px;border-radius: 0;
 }
-
 .panel .panel-heading .btn {
-	color: #fff;
-	background-color: #000;
-	font-size: 14px;
-	font-weight: 600;
-	padding: 7px 15px;
-	border: none;
-	border-radius: 0;
-	transition: all 0.3s ease 0s;
+	color: #fff;background-color: #000;font-size: 14px;font-weight: 600;padding: 7px 15px;border: none;border-radius: 0;transition: all 0.3s ease 0s;
 }
-
 .panel .panel-heading .btn:hover {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .panel .panel-heading .form-horizontal .form-group {
 	margin: 0;
 }
-
 .panel .panel-heading .form-horizontal label {
-	color: #fff;
-	margin-right: 10px;
+	color: #fff;margin-right: 10px;
 }
-
 .panel .panel-heading .form-horizontal .form-control {
-	display: inline-block;
-	width: 60px;
-	border: none;
-	border-radius: 0;
+	display: inline-block;width: 60px;border: none;border-radius: 0;
 }
-
 .panel .panel-heading .form-horizontal .form-control:focus {
-	box-shadow: none;
-	border: none;
+	box-shadow: none;border: none;
 }
-
 .panel .panel-body {
-	padding: 0;
-	border-radius: 0;
+	padding: 0;border-radius: 0;
 }
-
 .panel .panel-body .table thead tr th {
-	color: #fff;
-	background: #8D8D8D;
-	font-size: 17px;
-	font-weight: 700;
-	padding: 12px;
-	border-bottom: none;
+	color: #fff;background: #8D8D8D;font-size: 17px;font-weight: 700;padding: 12px;border-bottom: none;
 }
-
 .panel .panel-body .table thead tr th:nth-of-type(1) {
-	width: 120px;
+	width: ;
 }
-
 .panel .panel-body .table thead tr th:nth-of-type(3) {
 	width: 50%;
 }
-
 .panel .panel-body .table tbody tr td {
-	color: #555;
-	background: #fff;
-	font-size: 15px;
-	font-weight: 500;
-	padding: 13px;
-	vertical-align: middle;
-	border-color: #e7e7e7;
+	color: #555;background: #fff;font-size: 15px;font-weight: 500;padding: 13px;vertical-align: middle;border-color: #e7e7e7;
 }
-
 .panel .panel-body .table tbody tr:nth-child(odd) td {
 	background: #f5f5f5;
 }
-
 .panel .panel-body .table tbody .action-list {
-	padding: 0;
-	margin: 0;
-	list-style: none;
+	padding: 0;margin: 0;list-style: none;
 }
-
 .panel .panel-body .table tbody .action-list li {
 	display: inline-block;
 }
-
 .panel .panel-body .table tbody .action-list li a {
-	color: #fff;
-	font-size: 13px;
-	line-height: 28px;
-	height: 28px;
-	width: 33px;
-	padding: 0;
-	border-radius: 0;
-	transition: all 0.3s ease 0s;
+	color: #fff;font-size: 13px;line-height: 28px;height: 28px;width: 33px;padding: 0;border-radius: 0;transition: all 0.3s ease 0s;
 }
-
 .panel .panel-body .table tbody .action-list li a:hover {
 	box-shadow: 0 0 5px #ddd;
 }
-
 .panel .panel-footer {
-	color: #fff;
-	background: #535353;
-	font-size: 16px;
-	line-height: 33px;
-	padding: 25px 15px;
-	border-radius: 0;
+	color: #fff;background: #535353;font-size: 16px;line-height: 33px;padding: 25px 15px;border-radius: 0;
 }
-
 .pagination {
 	margin: 0;
 }
-
 .pagination li a {
-	color: #fff;
-	background-color: rgba(0, 0, 0, 0.3);
-	font-size: 15px;
-	font-weight: 700;
-	margin: 0 2px;
-	border: none;
-	border-radius: 0;
-	transition: all 0.3s ease 0s;
+	color: #fff;background-color: rgba(0, 0, 0, 0.3);font-size: 15px;font-weight: 700;margin: 0 2px;border: none;border-radius: 0;transition: all 0.3s ease 0s;
 }
-
-.pagination li a:hover, .pagination li a:focus, .pagination li.active a
-	{
-	color: #fff;
-	background-color: #000;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+.pagination li a:hover, .pagination li a:focus, .pagination li.active a{
+	color: #fff;background-color: #000;box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 </style>
 
 <!-- 回到最上方鈕 -->
 <style type="text/css">
 .toTop-arrow {
-	width: 2.5rem;
-	height: 2.5rem;
-	border-radius: 33%;
-	opacity: 0.6;
-	background: #000;
-	cursor: pointer;
-	position: fixed;
-	right: 1rem;
-	bottom: 1rem;
-	display: none;
+	width: 2.5rem;height: 2.5rem;border-radius: 33%;opacity: 0.6;background: #000;cursor: pointer;position: fixed;right: 1rem;bottom: 1rem;display: none;
 }
-
 .toTop-arrow::before, .toTop-arrow::after {
-	width: 18px;
-	height: 5px;
-	border-radius: 3px;
-	background: #f90;
-	position: absolute;
-	content: "";
+	width: 18px;height: 5px;border-radius: 3px;background: #f90;position: absolute;content: "";
 }
-
 .toTop-arrow::before {
-	transform: rotate(-45deg) translate(0, -50%);
-	left: 0.5rem;
+	transform: rotate(-45deg) translate(0, -50%);left: 0.5rem;
 }
-
 .toTop-arrow::after {
-	transform: rotate(45deg) translate(0, -50%);
-	right: 0.5rem;
+	transform: rotate(45deg) translate(0, -50%);right: 0.5rem;
 }
-
 .toTop-arrow:focus {
 	outline: none;
 }
@@ -489,21 +363,21 @@ a:hover, a:focus {
 	<!-- end #page hfeed site -->
 	<!-- ====================================================自由發揮區==================================================== -->
 
-
-
 	<div class="container">
 		<div class="row">
 			<div class="offset-sm-1 col-md-10">
 				<div class="tab" role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#Section1"
+						<li role="presentation" class="active"><a href="#Section1" onclick=gototab()
 							aria-controls="home" role="tab" data-toggle="tab">基本資料</a></li>
 						<li role="presentation"><a href="#Section2"
 							aria-controls="profile" role="tab" data-toggle="tab">修改密碼</a></li>
-						<li role="presentation"><a href="#Section3"
-							aria-controls="messages" role="tab" data-toggle="tab">歷史訂單</a></li>
-					</ul>
+						<li role="presentation"><a href="#Section3" 
+							aria-controls="messages" role="tab" data-toggle="tab" >歷史訂單</a></li>
+					</ul>	
+<!-- 					<script>function gototab(reload) {window.location.reload(true);}</script> //點擊"基本資料"會重整頁面-->
+										
 					<!-- Tab panes -->
 					<div class="tab-content tabs">
 						<div role="tabpanel" class="tab-pane in active" id="Section1">
@@ -511,10 +385,8 @@ a:hover, a:focus {
 								<div class="row">
 									<div class="offset-sm-1 col-md-10">
 
-
-
 										<h3 class="title">基本資料</h3>
-										<form id="form-userinfo"
+										<form id="form-userinfo" onsubmit="return submitFormA(this);"
 											action="/Account/User1/membercenterupdate.controller"
 											method="post">
 											<div class="mb-3">
@@ -555,23 +427,31 @@ a:hover, a:focus {
 								</script>-->
 
 											<div align="center">
-												<button value="submit" id="submit" class="btn btn-primary"
-													onclick="processFormData()">送出修改</button>
+												<button type="submit" class="btn btn-primary">送出修改</button>
 											</div>
 										</form>
 
 										<script type="text/javascript">
-								function processFormData() {
-									var nickname = $('#Nickname').val();
-									var phone = $('#Phone').val();
-									var address = $('#Address').val();
-									var birthday = $('#Birthday').val();
-
-									alert("您的基本資料已修改\n暱稱：" + nickname + "\n電話："
-											+ phone + "\n地址：" + address
-											+ "\n生日：" + birthday);
-								}
-							</script>
+										function submitFormA(form) {
+											
+											var nickname = $('#Nickname').val();
+											var phone = $('#Phone').val();
+											var address = $('#Address').val();
+											var birthday = $('#Birthday').val();
+									        swal({
+									            title: "資料已修改成功",
+									            text: "暱稱：" + nickname + "\n電話："+ phone + "\n地址：" + address+ "\n生日：" + birthday,
+									            icon: "success",
+									        })
+										        .then(function (isOkay) {
+										            if (isOkay) {
+										                form.submit();
+										            }
+										        });
+									        return false;
+									    }
+											
+										</script>
 
 									</div>
 								</div>
@@ -584,7 +464,7 @@ a:hover, a:focus {
 									<div class="offset-sm-1 col-md-10">
 
 										<h3 class="title">修改密碼</h3>
-										<form id="form-userinfo"
+										<form id="form-userinfo" onsubmit="return submitForm(this);"
 											action="/Account/User1/membercenterupdatepwd.controller"
 											method="post">
 
@@ -608,29 +488,41 @@ a:hover, a:focus {
 										</form>
 
 										<script type="text/javascript">
-								function processFormDataPwd() {
-									alert("您的密碼已修改！");
-								}
-							</script>
+											
+											function submitForm(form) {
+												
+										        swal({
+										            title: "您的密碼已修改！",
+										            text: "",
+										            icon: "warning",
+										        })
+										        .then(function (isOkay) {
+										            if (isOkay) {
+										                form.submit();
+										            }
+										        });
+										        return false;
+											}
+										</script>
 
 										<script>
-								function KeyUp() {
-									var a = $('#userpassword').val();
-									// alert(a); 
-									var b = $('#userpassword-new').val();
-									// alert(b); 
-									if (a == b && a != "") {
-										$('#submit1').removeAttr('disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "";
-									} else {
-										$('#submit1').attr('disabled',
-												'disabled');
-										document
-												.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
-									}
-								}
-							</script>
+											function KeyUp() {
+												var a = $('#userpassword').val();
+												// alert(a); 
+												var b = $('#userpassword-new').val();
+												// alert(b); 
+												if (a == b && a != "") {
+													$('#submit1').removeAttr('disabled');
+													document
+															.getElementById("different-pwd").innerHTML = "";
+												} else {
+													$('#submit1').attr('disabled',
+															'disabled');
+													document
+															.getElementById("different-pwd").innerHTML = "<h5 style='color:red;padding-top:10px;'>兩次密碼不相同，請重新輸入。</h5>";
+												}
+											}
+										</script>
 									</div>
 								</div>
 							</div>
@@ -645,26 +537,27 @@ a:hover, a:focus {
 										<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /> -->
 										<div class="panel">
 											<div class="panel-body table-responsive">
-												<table id="showorder" class="table"></table>
+											
+											<!-- Ajax呈現歷史訂單table -->
+													<table id="showorder" class="table"></table>										
 											</div>
 											<div class="panel-footer">
 												<div class="row">
 													<div class="col-sm-12 col-xs-12">
-														<ul class="pagination hidden-xs pull-right">
-															<li style="padding-right: 20px">Total
-																Pages:${totalPages}</li>
-															<li style="padding-right: 20px">Total
-																Records:${totalElements}</li>
-															<li style="padding-right: 20px">Previous《 <c:forEach
+														<ul class="pagination hidden-xs pull-right" style="float:right">
+															<li style="padding-right: 20px;">總頁數:${totalPages}</li>
+															<li style="padding-right: 20px;">總筆數:${totalElements}</li>
+															<li style="padding-right: 20px">《 <c:forEach
 																	var="i" begin="1" end="${totalPages}" step="1">
 																	<button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-																</c:forEach> 》Next
+																</c:forEach> 》
 															</li>
 														</ul>
 													</div>
 												</div>
 											</div>
 										</div>
+										
 
 									</div>
 								</div>
@@ -677,7 +570,7 @@ a:hover, a:focus {
 	</div>
 
 
-	<!-- =================回到頂端=================== -->
+	<!-- =================回到頂端鈕=================== -->
 
 	<button type="button" id="BackTop" class="toTop-arrow"></button>
 	<script>
@@ -688,7 +581,7 @@ a:hover, a:focus {
 				}, 333);
 			});
 			$(window).scroll(function() {
-				if ($(this).scrollTop() > 300) {
+				if ($(this).scrollTop() > 100) {
 					$('#BackTop').fadeIn(222);
 				} else {
 					$('#BackTop').stop().fadeOut(222);
@@ -741,6 +634,7 @@ a:hover, a:focus {
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
 
-
+	<!-- SweetAlert CDN -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
