@@ -36,7 +36,7 @@ public class Store {
 	private String storeBusinessHours;
 	
 	@Column(name = "PREVIEW")
-	private File preview;
+	private String preview;
 	
 	@Column(name = "STOREACCOUNT")
 	private String account;
@@ -95,11 +95,11 @@ public class Store {
 		this.storeBusinessHours = storeBusinessHours;
 	}
 
-	public File getPreview() {
+	public String getPreview() {
 		return preview;
 	}
 
-	public void setPreview(File preview) {
+	public void setPreview(String preview) {
 		this.preview = preview;
 	}
 

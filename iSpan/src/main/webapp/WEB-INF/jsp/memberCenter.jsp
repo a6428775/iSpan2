@@ -93,25 +93,36 @@ a:hover, a:focus {
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<thead><tr id='ptitle' align='center'><th>評論</th><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>詳細</th></tr></thead>");
+             	   table.append("<thead><tr id='ptitle' align='center'><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>訂單總價</th><th>訂單明細</th><th>顧客回饋</th><th>評論</th></tr></thead>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
              		   var tr =
                  		   			"<tr align='center'>" + 
-	        		   				"<td><a href='/Store/orderquerybyid.controller?oid=" + n.orderid + " '>" + "回饋" + "</a></td>" +
 			   						"<td>" + n.orderid + "</td>" +
 	   		            		   	"<td>" + n.orderdate + "</td>" + 
 	   		            		   	"<td>" + n.orderstatus + "</td>" +
-	   		            		 	"<td class='collapsed btn btn-sm btn-success' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts" + n.orderid + "' aria-expanded='false' aria-controls='collapseLayouts'>" + "MORE" + "</td>" +
+	   		            		    "<td>" + n.price + "</td>" +
+	   		            		 	"<td><a class='collapsed btn btn-sm btn-info' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts" + n.orderid + "' aria-expanded='false' aria-controls='collapseLayouts'>" + "MORE" + "</a></td>" +
+									"<td><a class='collapsed btn btn-success' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts" + n.remark + "' aria-expanded='false' aria-controls='collapseLayouts'>" + "MORE" + "</a></td>" +
+	        		   				"<td><a class='btn btn-primary' href='/Store/orderquerybyid.controller?oid=" + n.orderid + " '>" + "REMARK" + "</a></td>" +
 		           					"</tr>" + 
 
+		           					/* "<td>" + n.remark + "</td>" + */
+									
 		           					"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
 	                 		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+									"</tr>"+
+
+									"<tr align='center' class='collapse' id='collapseLayouts"+n.remark+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
+	                 		   		"<td colspan='5' id = 'remark"+ n.orderid +"'></td>" +
 									"</tr>";
+									
 					   table.append(tr);
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
 			   					 loadorder(n.orderid);
+			   					 
+			   					 loadorderRemark(n.orderid);
                     });           	   
                 }
                 
@@ -142,16 +153,38 @@ a:hover, a:focus {
 			         if(data==null){
 			         }
 			         $.each(jsonArray, function(i,n){
-			         var tdd = "餐點 : " + n.productName + " 數量 : " + n.number + " 價格 : " + n.productPrice +"</br>" 
-			        
-			       	$('#orderid'+oid).prepend(tdd);
-
-				    
+			        	var tdd = "餐點 : " + n.productName + " 數量 : " + n.number + " 價格 : " + n.productPrice +"</br>" 
+			       		$('#orderid'+oid).prepend(tdd);
 			         });
-
 			     }
-				   });
+			});
 		}
+
+//	 load 訂單資訊的 function
+     function loadorderRemark(oid){
+		   $.ajax({
+			     type:'post',
+			     //透過訂單id 查詢訂單回饋資訊
+			     url:'/Store/orderquerybyidremark.controller?oid=' + oid,
+			     dataType:'JSON',
+			     contentType:'application/json',
+			     success: function(data){
+	
+			         var json = JSON.stringify(data, null, 4);
+			         console.log('success:' + json);
+			         var jsonArray = JSON.parse(json);
+
+			         if(jsonArray.remark==null){
+			        	 var tdd = " 尚未收到您的回饋 "+"</br>" 
+			        	 $('#remark'+oid).prepend(tdd);
+			         }else {
+			        	var tdd = " 我的回饋 : " + jsonArray.remark +"</br>" 
+			        	$('#remark'+oid).prepend(tdd);
+				      }
+			     }
+		   });
+		}
+
 
 ///////////////////////////---------------------------------------
 </script>
@@ -190,7 +223,7 @@ a:hover, a:focus {
 	width: ;
 }
 .panel .panel-body .table thead tr th:nth-of-type(3) {
-	width: 50%;
+	width: ;
 }
 .panel .panel-body .table tbody tr td {
 	color: #555;background: #fff;font-size: 15px;font-weight: 500;padding: 13px;vertical-align: middle;border-color: #e7e7e7;
@@ -426,13 +459,13 @@ a:hover, a:focus {
 								</script>-->
 
 											<div align="center">
-												<button value="submit" id="submit" class="btn btn-primary"
-													onclick="processFormData()">送出修改</button>
+												<button type="submit" class="btn btn-primary">送出修改</button>
 											</div>
 										</form>
 
 										<script type="text/javascript">
 										function submitFormA(form) {
+											
 											var nickname = $('#Nickname').val();
 											var phone = $('#Phone').val();
 											var address = $('#Address').val();
@@ -442,11 +475,11 @@ a:hover, a:focus {
 									            text: "暱稱：" + nickname + "\n電話："+ phone + "\n地址：" + address+ "\n生日：" + birthday,
 									            icon: "success",
 									        })
-									        .then(function (isOkay) {
-									            if (isOkay) {
-									                form.submit();
-									            }
-									        });
+										        .then(function (isOkay) {
+										            if (isOkay) {
+										                form.submit();
+										            }
+										        });
 									        return false;
 									    }
 											
@@ -489,6 +522,7 @@ a:hover, a:focus {
 										<script type="text/javascript">
 											
 											function submitForm(form) {
+												
 										        swal({
 										            title: "您的密碼已修改！",
 										            text: "",
@@ -529,7 +563,7 @@ a:hover, a:focus {
 
 							<div class="container">
 								<div class="row">
-									<div class="offset-sm-1 col-md-10">
+									<div class=" col-md-12">
 
 										<h3 class="title">歷史訂單</h3>
 										<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /> -->

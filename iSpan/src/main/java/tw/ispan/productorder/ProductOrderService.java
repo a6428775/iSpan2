@@ -16,16 +16,14 @@ import tw.ispan.orderInformation.OrderInformation;
 @Service
 public class ProductOrderService {
 	
-//	-----OrderID取得訂單StoreID
-	public ProductOrder findByOrderID(int OrderID){
-		return prp.findByOrderID(OrderID);
-	}
-
-//	查詢該用戶訂單
+//	--查詢該用戶訂單
 	public Page<ProductOrder> findUserIDByPage(int UserID, Pageable pageable){
 		return prp.findAllByUserId(UserID, pageable);
 	}
-	
+//	-----OrderID取得訂單StoreID
+	public ProductOrder findByOrderID(int OrderID){
+		return prp.findByOrderID(OrderID);
+	}	
 	
 	@Autowired
 	private ProductOrderRepository prp;

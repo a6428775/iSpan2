@@ -144,7 +144,7 @@
 					<form action="/login/page" method="post">
 						<div class="mb-3">
 							<label for="useremailaddress" class="form-label">帳號：</label> <input
-								class="form-control" type="text" name="username" id="useremailaddress"
+								class="form-control" type="test" name="username" id="useremailaddress"
 								placeholder="請輸入信箱" value="@gmail.com"/>
 						</div>
 						<div class="mb-3">

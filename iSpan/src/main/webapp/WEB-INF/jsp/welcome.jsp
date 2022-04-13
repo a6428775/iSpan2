@@ -17,7 +17,7 @@
 
 <link href="/css/fronts/component.css" rel="stylesheet" type="text/css"  />
 
-	
+<link href="/css/fronts/welcome.css" rel="stylesheet" type="text/css"  />	
 
 <!-- 123 -->
 
@@ -33,6 +33,7 @@
 
 $(document).ready(function(){
     login();
+    StoreAll2();
     StoreAll();
 });
 
@@ -45,11 +46,12 @@ function login(){
         dataType:'JSON',
         contentType:'application/json',
         success: function(data){
-        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller' >會員中心</a></li>"
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller'>會員中心</a></li>"
             var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
                 
         	$('#loginlogout').append(member);
         	$('#loginlogout').append(logout);
+			
 
             },
    		error : function(){
@@ -60,10 +62,8 @@ function login(){
     });
 }
 
-
-
 //推薦餐廳//////////////////////////////////////
-	    function StoreAll(){
+	    function StoreAll2(){
 	       $.ajax({
 	           type:'post',
 	           url:'/product/StoreAll.controler',
@@ -87,15 +87,23 @@ function login(){
 // 	            		            "<td>" + n.price + "</td>" + n.quantity + "</td>" +"</tr>";
 // 	            		   table.append(tr);
 // 	                   });      
-
 	            	   //data: jsonArray n:jsonOnject
 	            	   $.each(data, function(i,n){
 
+		            	   
+						var src ="/images/store";
+              			if (n.preview === null){
+                        	   n.preview = "";
+                        	   src="";
+                               }
+              			var fileDir = n.preview;
+              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
 	            		var div =
 	            		"<li>"
 	           			+"<div class='team1' align='center' valign='center' >"
 	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
-						+ "<a href='http://localhost:8081/test2'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
+		//				+ "<a href='http://localhost:8081/test2'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
+						+ "<a href='http://localhost:8081/test2'><img class='img-responsive' src= " + src + suffix + " /></a>"
 	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
 						+ "<h6>　 " + n.storeName + "</h6>"
 						+ "<p style='color:red'>　 " + n.storeCategory + "</p>"
@@ -115,10 +123,10 @@ function login(){
 		$(window).on('load', function() {
 				
 			$("#flexiselDemo3").flexisel({
-				visibleItems: 4,
+				visibleItems: 5,
 				animationSpeed: 1000,
 				autoPlay: true,
-				autoPlaySpeed: 3000,    		
+				autoPlaySpeed: 2500,    		
 				pauseOnHover: true,
 				enableResponsiveBreakpoints: true,
 				responsiveBreakpoints: { 
@@ -142,10 +150,78 @@ function login(){
 		});		   
 
 /////////////////////////////////////////////
+///////////////////////////////
+
+		function StoreAll(){
+
+			var SearchText = document.getElementById("mySearch").value;
+	       $.ajax({
+	           type:'post',
+	           url:'/product/StoreAll.controler',
+	           //url:'/product/StoreByName.controler',
+	           dataType:'JSON',
+	           contentType:'application/json',
+	           success: function(data){
+	               console.log(data);
+	               console.log(SearchText);
+	               //console.log(flag);
+	               
+
+	               $('#divData').empty("");
+//             	   $('#flexiselDemo3').empty("");
+	               
+	               if(data==null){
+	            	   $('#divData').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	            	   $('#flexiselDemo3').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	               }else{
+	            		
+	            	   $.each(data, function(i,n){
+
+							var src ="/images/store";
+	              			if (n.preview === null){
+	                        	   n.preview = "";
+	                        	   src="";
+	                               }
+	              			var fileDir = n.preview;
+	              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
+
+		            	   
+		            	if ((SearchText == "") || (n.storeName.search(SearchText) != -1 )) {
+		            		var div =
+								"<div class='col-6 col-md-3'>"
+			            		+ "<div class='recipe-thumb'>"
+								+ "<img class='img-responsive' src= " + src + suffix + " />"
+								+ "<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"
+								+ "<a href='/product/testtest2?sid="+ n.storeID +"' class='view-recipe'>進入店家</a>"
+								+ "</div>"
+								+ "<div class='recipe-desc'>"
+								+ "<h2 class='recipe-title'>"
+								+ "<a href='#'>" + n.storeName + "</a>"
+								+ "</h2>"
+								+ "<p>"
+								+ "<em>" + n.storePhone + "</em>"
+								+ "</p>"
+								+ "<span><i class='fas fa-clock'></i>&nbsp;" + n.storeID + "</span>"
+								+ "</div>"
+								+ "</div>"
+							$('#divData').append(div);
+		            	}
+	            	   });      
+	            	   
+				 
+      			
+	               }
+	           }
+	       });
+	    }
+
+
+///////////////////////////////
+
+
 
 
 </script> 
-
 </head>
 <body>
 
@@ -231,7 +307,7 @@ function login(){
 											</div>
 										</li> -->
 									
-										<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>
+									<!--	<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>-->
 										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
 
 									</ul>
@@ -292,193 +368,13 @@ function login(){
 					<!-- 刪除12張圖片組 -->
 
 					<!-- 刪除中間大圖1 -->
-
-					<!-- 產品圖 /////////////////////////////////////////////////////////////////////-->
-					<div class="recipes-section">
-						<div class="container">
-							<div class="section-title">
-								<h3>餐點展示</h3>
-							</div>
-							<!-- end section-title -->
-							<div class="row">
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-1.png" alt="Recipe Image">
-										<a href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a>
-										<a href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Salad Nicoise</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;15 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-2.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Grilled Beef Steak</a>
-										</h2>
-										<p>
-											<em>By Eka Nurwasilah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-3.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Tiger Prawns Roasted</a>
-										</h2>
-										<p>
-											<em>By Nurjanah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-4.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Korean Soup</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-5.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Roast Aubergine</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;1 Hour</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-6.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Indian Mixed Rice</a>
-										</h2>
-										<p>
-											<em>By Eka Nurwasilah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;26 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-7.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Black Red Cake</a>
-										</h2>
-										<p>
-											<em>By Nurjanah</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;27 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-
-								<div class="col-6 col-md-3">
-									<div class="recipe-thumb">
-										<img src="/images/content/thumb-8.png" alt="Recipe Image"><a
-											href="#" class="bookmarker"><i class="fas fa-bookmark"></i></a><a
-											href="#" class="view-recipe">VIEW RECIPE</a>
-									</div>
-									<div class="recipe-desc">
-										<h2 class="recipe-title">
-											<a href="#">Fresh Spaghetti with Tuna</a>
-										</h2>
-										<p>
-											<em>By Lina Sukowati</em>
-										</p>
-										<span><i class="fas fa-clock"></i>&nbsp;45 Minutes</span>
-									</div>
-									<!-- end recipe-desc -->
-								</div>
-								<!-- end col -->
-							</div>
-							<!-- end row -->
-							<div class="row">
-								<div class="centered">
-									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
-								</div>
-								<!-- end centered -->
-							</div>
-							<!-- end row -->
-
-						</div>
-						<!-- end container -->
-					</div>
-					<!-- end recipes -->
-
-					<!-- 刪除作者群介紹 -->
-
-					<!-- 刪除中間大圖2 -->
-
-					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->				
 	<!--  ////////////////////////////推薦餐廳////////////////////-->				
 
 				<div class="blog-section">
 
 
 													<div margin:auto><h3 >推薦餐廳</h3></div>
-									<div class="ourteam">
+									<div class="ourteam" >
 												<div class="container" >
 													<div class="team" >
 														  <ul id="flexiselDemo3" >
@@ -510,6 +406,44 @@ function login(){
 					<!-- 刪除社群分享 -->
 
 	<!--  ////////////////////////////推薦餐廳////////////////////-->		
+					<!-- 產品圖 /////////////////////////////////////////////////////////////////////-->
+					<div class="recipes-section">
+						<div class="container">
+							<div class="section-title">
+								<h3>餐廳列表</h3>
+							</div>
+							 <div class="item">
+							  <h3>
+							    <input type="search" style="outline: none;" id = "mySearch" placeholder="搜尋想訂購餐點的餐廳" size="50">
+							    <button type="submit" style="outline: none;" onclick="StoreAll()">搜尋</button>
+							  </h3>
+							  </div>
+							<!-- end section-title -->
+							<div id="divData" class="row">
+							<!-- end row -->
+							<div class="row">
+								<div class="centered">
+									<a href="#" class="btn btn-line">VIEW ALL RECIPES</a>
+								</div>
+								<!-- end centered -->
+							</div>
+							<!-- end row -->
+
+						</div>
+						<!-- end container -->
+					</div>
+					<!-- end recipes -->
+
+					<!-- 刪除作者群介紹 -->
+
+					<!-- 刪除中間大圖2 -->
+
+					<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->				
+
+
+				</div>
+			</div>
+		</div>
 					<div class="bottom">
 						<div class="container">
 
@@ -542,10 +476,6 @@ function login(){
 						<!-- end container -->
 					</div>
 					<!-- end bottom -->
-				</div>
-			</div>
-		</div>
-
 
 	</div>
 	<!-- end #page hfeed site -->

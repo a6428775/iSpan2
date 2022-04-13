@@ -34,6 +34,24 @@ public class ProductOrder {
 	
 	@Column(name = "ORDERSTATUS")
 	private String orderstatus;
+	
+	@Column(name = "Price")
+	private int price;
+	
+	@Column(name = "REMARK")
+	private String remark;
+	
+	@Column(name = "REMARK2")
+	private String remark2;
+	
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	public int getOrderid() {
 		return orderid;
@@ -74,4 +92,20 @@ public class ProductOrder {
 	public void setOrderstatus(String orderstatus) {
 		this.orderstatus = orderstatus;
 	} 
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String opinion) {
+		this.remark = opinion;
+	}
+
+	public String getRemark2() {
+		return remark2;
+	}
+
+	public void setRemark2(String remark2) {
+		this.remark2 = remark2;
+	}
 }

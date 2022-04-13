@@ -1,8 +1,13 @@
 package tw.ispan.productorder.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import tw.ispan.orderInformation.OrderInformation;
 import tw.ispan.orderInformation.OrderInformationRepository;
@@ -56,26 +62,20 @@ public class OrderController {
 	@Autowired
 	private User1Service uService;
 	
-//	-----
-	@Autowired
-	private StoreService StoreService;
 	
-//	-----取得orderid進入回饋頁面
-	@GetMapping("/orderquerybyid.controller")
-	public String processQueryByIdAction1(@RequestParam("oid") int oid, Model m) {
+//	04/13-----取得orderid抓取該筆回饋資料
+	@PostMapping("/orderquerybyidremark.controller")
+	@ResponseBody
+	public ProductOrder processQueryByIdAction2(@RequestParam("oid") int oid, Model m) {
 		
 		m.addAttribute("oid", oid);
-		
+
 		ProductOrder ProductOrder = pService.findByOrderID(oid);
-		m.addAttribute("StoreID", ProductOrder.getStoreid());
 		
-		Store Store = StoreService.findById(oid);
-		m.addAttribute("StoreName", Store.getStoreName());
-		
-		return "feedback";
+		return ProductOrder;
 	}
 	
-//	該用戶的所有訂單
+//	----該用戶的所有訂單
 	@PostMapping("/queryUserIDByPage/{pageNo}")	
 	@ResponseBody
 	public List<ProductOrder> processQueryUserIDByPage(@SessionAttribute("UserID") int UserID, @PathVariable("pageNo") int pageNo , Model m){
@@ -92,13 +92,20 @@ public class OrderController {
 		return page.getContent();
 	}
 	
-//	-----訂單回饋
-//	@GetMapping("/feedback.controller")
-//	public String processfeedbackAction(){ 
-//		
-//		return "feedback";  
-//	}
-	
+//	-----取得orderid進入回饋頁面
+	@GetMapping("/orderquerybyid.controller")
+	public String processQueryByIdAction1(@RequestParam("oid") int oid, Model m) {
+		
+		m.addAttribute("oid", oid);
+		
+		ProductOrder ProductOrder = pService.findByOrderID(oid);
+		m.addAttribute("StoreID", ProductOrder.getStoreid());
+		
+		Store Store = sService.findById(oid);
+		m.addAttribute("StoreName", Store.getStoreName());
+		
+		return "feedback";
+	}	
 	
 	
 	@GetMapping("/Store.controller")
@@ -253,5 +260,42 @@ public class OrderController {
 
 		return null;
 	}
+	
+	
+	//抓取餐點上傳的圖片
+	@PostMapping("/insertStoreProduct2.controller")
+	public String uplaod(HttpServletRequest req,@RequestParam("uploadFile") MultipartFile file,@RequestParam("storeId") int storeid,Model m) {
+		
+		File dest;
+		Store store =sService.findById(storeid);
+		try {
+			String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+			
+			File path = new File(ResourceUtils.getURL("src").getPath());
+			if(!path.exists()) path = new File("");
+			System.out.println("path:"+path.getAbsolutePath());
+			
+			File upload = new File(path.getAbsolutePath(),"main/webapp/WEB-INF/resources/images/store");
+			if(!upload.exists()) upload.mkdirs();
+			System.out.println("upload url:"+upload.getAbsolutePath());
+			
+			 dest = new File(upload + File.separator + fileName); 
+			 file.transferTo(dest);
+			 System.out.println(dest.toString());
+			
+			 
+			 
+			 m.addAttribute("fileName",fileName);
+			 store.setPreview(dest.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			 e.printStackTrace();
+			 return null;
+		 }
+		sService.update(store);
+		 return "/Order/updateStore";
+	} 
 }
 

@@ -9,9 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+
+
+
 @Service
 @Transactional
 public class OrderInformationService {
+	
 	@Autowired
 	private OrderInformationRepository orp;
 	
@@ -20,10 +25,13 @@ public class OrderInformationService {
 	}
 	
 	public OrderInformation findById(int id) {
+		
 		Optional<OrderInformation> op = orp.findById(id);
+		
 		if(op.isPresent()) {
 			return op.get();
 		}
+		
 		return null;
 	}
 	
@@ -34,11 +42,11 @@ public class OrderInformationService {
 	public OrderInformation save(OrderInformation o) {	
 		return orp.save(o);
 	}
-
+	
 //	04/12-----findByOrderId1
 	public OrderInformation findByOrderId1(int orderID){
 		OrderInformation op = orp.findByOrderId1(orderID);
 		return op;
-	}
-
+	}	
+	
 }

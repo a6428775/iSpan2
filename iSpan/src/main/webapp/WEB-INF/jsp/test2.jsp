@@ -22,15 +22,16 @@
 
 
 	$(document).ready(function(){
-		var indexPage = 1;
-	      loadPage(indexPage);
+		var sid = $('#sid').val();
+		loadPage(sid);
+		console.log(sid)
 	});
 
-function loadPage(indexPage){
+function loadPage(sid){
 	
     $.ajax({
         type:'post',
-        url:'/product/testtest',
+        url:'/product/testtest3?sid='+sid,
             //queryByPage/' + indexPage,
         dataType:'JSON',
         contentType:'application/json',
@@ -43,38 +44,31 @@ function loadPage(indexPage){
 
             
             if(data==null){
-         	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+         	 
             }else{
-         	   var table = $('#showorder'); 
-         	   table.append("<tr id='ptitle' align='center'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> </tr>");
+         	 
+         	 
 	
          	   //data:jsonArray n:jsonObject
          	   $.each(data, function(i,n){
 
       
 					//如果 餐點沒有圖片  不顯示 圖片的圖示
+					var src ="/images/product";
           			if (n.preview === null){
                     	   n.preview = "";
+                    	   src=""
                            }
 
-							
-                   
-         		   var tr = 
-             		   		"<tr align='center'>" + 
-         		   			"<td>" + n.productid + "</td>" +
-         		            "<td>" + n.productname + "</td>" + 
-         		            "<td>" + n.productcategory + "</td>" +
-         		            "<td>" + n.productunitprice + "</td>" + 
-         		            "<td>" + "<img id='img-preview' src=" + n.preview + ">" + "</td>" + 
-         		         	"<td><a href='/product/updateproduct.controller?pid="+ n.productid +"'>修改餐點</a></td>"+
-         		            "</tr>";
 
-         		   table.append(tr);
+         			var fileDir = n.preview;
+          			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
 
+         		   
 					var dr =
 										"<div class='col-6 col-md-3'>"+
 										"<div class='recipe-thumb'>"+
-											"<img src='/images/content/thumb-8.png' alt='Recipe Image'>"+
+											"<img width='50%' height='50%' src="+ src + suffix + " alt='Recipe Image'>"+
 											"<a href='#' class='bookmarker'><i class='fas fa-bookmark'></i></a>"+
 											"<div class='view-recipe' >"  +
 											"<a href='#' class='add-to-cart' style='color:white'>加入購物車</a>" +
@@ -278,6 +272,7 @@ function loadPage(indexPage){
 							<div class="section-title">
 								<h3>餐點展示</h3>
 							</div>
+							<input id="sid" type="hidden" value="${sid}">
 							<!-- end section-title -->
 							<div class="row" id="test2">
 							

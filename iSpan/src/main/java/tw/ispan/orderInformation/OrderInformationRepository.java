@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 
+
+
+
 public interface OrderInformationRepository extends JpaRepository<OrderInformation, Integer> {
 	
 	@Query(value = "select * from OrderInformation", nativeQuery = true)
@@ -17,5 +20,5 @@ public interface OrderInformationRepository extends JpaRepository<OrderInformati
 //	04/12-----findByOrderId1
 	@Query(value = "select top 1 * from OrderInformation where OrderID = ?", nativeQuery = true)
 	public OrderInformation findByOrderId1(int orderID);
-
+	
 }

@@ -138,7 +138,7 @@
 
 						<div class="mb-3">
 							<label class="form-label">帳號(請輸入正確信箱)：</label>
-							<input class="form-control" type="text" 
+							<input class="form-control" type="email" 
 								id="useremailaddress" name="useremailaddress" placeholder="" value="@gmail.com" required />
 						</div>
 						<div class="mb-3">

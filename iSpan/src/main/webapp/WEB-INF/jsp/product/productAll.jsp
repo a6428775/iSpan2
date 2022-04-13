@@ -6,13 +6,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 
-	var indexPage = 1;
+
 	
 	$(document).ready(function(){
-	      loadPage(indexPage);
+	      loadPage();
 	});
 
-    function loadPage(indexPage){
+    function loadPage(){
+
+    	var SearchText = document.getElementById("mySearch").value;
+     	  console.log(SearchText);
         $.ajax({
             type:'post',
             url:'/product/testtest',
@@ -31,31 +34,37 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle' align='center'> <th>餐點ID</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> </tr>");
-		
+             	   table.append("<tr id='ptitle' height='50'> <th>餐點編號</th> <th>餐點名稱</th> <th>餐點種類</th> <th>餐點單價</th> <th>餐點圖片</th> <th> </th> <th> </th> </tr>");
+  
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
 
           
 						//如果 餐點沒有圖片  不顯示 圖片的圖示
+						var src ="/images/product";
               			if (n.preview === null){
                         	   n.preview = "";
+                        	   src="";
                                }
+              			var fileDir = n.preview;
+              			var suffix = fileDir.substr(fileDir.lastIndexOf("\\"));
 
-								
-                       
+              			if ((SearchText == "") || (n.productname.search(SearchText) != -1 ) || (n.productcategory.search(SearchText) != -1 ) || (n.productunitprice.search(SearchText) != -1 ) || (SearchText.search(n.productid) != -1 ) ) {
              		   var tr = 
-                 		   		"<tr align='center'>" + 
+                 		   		"<tr>" + 
              		   			"<td>" + n.productid + "</td>" +
              		            "<td>" + n.productname + "</td>" + 
              		            "<td>" + n.productcategory + "</td>" +
-             		            "<td>" + n.productunitprice + "</td>" + 
-             		            "<td>" + "<img id='img-preview' src=" + n.preview + ">" + "</td>" + 
+             		            "<td text-align:center>" + n.productunitprice + "</td>" + 
+             		//           <img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  />
+             		            "<td width='80' height='80'>" + "<img id='img-preview' width='80' height='80' src="+ src + suffix + ">" + "</td>" + 
+             		 //           "<td>" + src + suffix + "</td>" + 
              		         	"<td><a href='/product/updateproduct.controller?pid="+ n.productid +"'>修改餐點</a></td>"+
+             		         	"<td><a href='/product/deleteProduct.controller?pid="+ n.productid +"'>刪除餐點</a></td>"+
              		            "</tr>";
 
              		   table.append(tr);
-
+              			}
                            
              	
                     });       
@@ -71,6 +80,11 @@
 
 
 </script>
+<style>
+img[src=""]{
+opacity: 0;
+}
+</style>
 
     <head>
         <meta charset="utf-8" />
@@ -164,36 +178,34 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">儀錶板</h1>
+                        <h2 class="mt-4">店家商品資訊</h2>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">產品資訊</li>
                         </ol>
+                
+                <div class="input-group">
+                    <input id = "mySearch" type="search" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" size="20" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="submit" onclick="loadPage()"><i class="fas fa-search" ></i></button>
+                </div>
+
+							   
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                餐點
                             </div>
-                        <div class="card-body">
+                        <div class="card-body" style="text-align:center;line-height:80px;font-size: 20px">
                         
 							<table  class="dataTable-table">
 								<tbody id="showorder">
 								
 								
 								</tbody>
-							
+						
 							</table>
 							
 							
 							
-							<table id="showpage">
-								<tr>
-									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
-							      <td colspan="3" align="right">上一頁
-							         <c:forEach var="i" begin="1" end="${totalPages}" step="1">
-							             <button id="myPage" value="${i}" onclick="change(${i})">${i}</button>
-							         </c:forEach>下一頁
-							      </td>
-								</tr>
-							</table>
+						
 						</div>
 							<div id ="creat"></div>
 

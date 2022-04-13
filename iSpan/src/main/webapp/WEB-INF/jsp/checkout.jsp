@@ -105,7 +105,7 @@ $(function getCartItemPrices(){
 		}
 		var totalMarkUp = "Total: " + total;
 
-		var a = "<input type='hidden' name='TotalAmount' value='" + total + "' class='form-control'  />"+
+		var a = "<input type='hidden' id='TotalAmount2' name='TotalAmount' value='" + total + "' class='form-control'  />"+
 		"<input type='hidden' name='TradeDesc' value='嗨' class='form-control' />";
 		$('#idFormAioCheckOut').append(a);
 		document.getElementById("total").innerHTML = totalMarkUp;
@@ -120,14 +120,18 @@ function sendOrderSave(){
 
 	  var idFormAioCheckOut=document.getElementById('idFormAioCheckOut');
 	    
-	        setTimeout("mooy()",1000);
+	        setTimeout("mooy()",500);
 	    
 
 	 
 	  var storeid = document.getElementById("storeid").innerHTML;
+	  var price =  $("#TotalAmount2").val();
+	  console.log(price);
 
+		  
 var params = {    
         "storeid":storeid,
+        "price":price,
 }
 
 console.log("SUCCESS : ", JSON.stringify(params));
@@ -417,5 +421,6 @@ function sendOrderInformationSave(){
 	<!-- Include all compiled plugins(below),or include individual files as needed -->
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
+	
 </body>
 </html>

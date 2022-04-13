@@ -36,7 +36,6 @@ public class MyController3 {
 	//當消費者付款完成後，綠界會將付款結果參數以幕前(Client POST)回傳到該網址。			
 	//若與[ClientBackURL]同時設定，將會以此參數為主。
 	@PostMapping(value="/ECPayServer3",  produces="text/html;charset=utf-8") //預設response的字元編碼為ISO-8859-1
-	@ResponseBody
 	public String processPaymentResult2(HttpServletRequest request) {		
 		
 		Hashtable<String, String> dict = new Hashtable<String, String>();
@@ -49,6 +48,7 @@ public class MyController3 {
 		System.out.printf("【ECPayServer3.java】用戶端付款成功後回傳「付款結果」通知給伺服端的參數們：\n%s\n", dict.toString());
 		System.out.println("區格");
 		System.out.println(request.getParameter("CustomField1"));
+		
 		
 		Integer oderid = Integer.parseInt(request.getParameter("CustomField1"));
 		//輸出範例：
@@ -73,7 +73,7 @@ public class MyController3 {
 			poService.insert(productOrder);
 			
 			
-			return "<h1>伺服端已接收到從用戶端(付款者)送出的「付款成功」通知。</h1>";			
+			return "paysuccess";			
 
 		}
 		else

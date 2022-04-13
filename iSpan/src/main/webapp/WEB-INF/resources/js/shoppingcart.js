@@ -137,61 +137,72 @@ function displayCartTotal() {
 
 
 function saveProduct(clickedBtn) {
-	// save selected product in local storage and display it in the cart together
+    // 將所選商品加入本地資料並展示於購物車
 
-	// vars
-	let isProductInCart = false;
-	let isSameStore = false;
-	
-	var productId = clickedBtn.closest('div').querySelector('#pid').innerText
-	var productName = clickedBtn.closest('div').querySelector('#name').innerText
-	var productPrice = clickedBtn.closest('div').querySelector('#price').innerText
-	var storeid = clickedBtn.closest('div').querySelector("#sid").innerText
+    // vars
+    let isProductInCart = false;
+    let isSameStore = true;
 
-
+    var productId = clickedBtn.closest('div').querySelector('#pid').innerText
+    var productName = clickedBtn.closest('div').querySelector('#name').innerText
+    var productPrice = clickedBtn.closest('div').querySelector('#price').innerText
+    var storeid = clickedBtn.closest('div').querySelector("#sid").innerText
 
 
-	// get local storage array
-	const lsContent = getLSContent();
 
-	lsContent.forEach(function(product) {
-		if(!(product.storeid === storeid)){
-			alert("不同店家的商品需分開結帳!請先清空購物車!")
-			isSameStore = true;
-		} 
-		
-	})
 
-	// to avoid user adds the same course twice, check
-	// the product is not in LS already before adding it
-	lsContent.forEach(function(product) {
-		if (product.id === productId) {
-			alert("此項商品已在購物車內!");
-			isProductInCart = true;
-		}
-	});
-	
+    // 取得本地資料
+    const lsContent = getLSContent();
 
-	// only if the product is not already in the cart,
-	// create an object representing selected product info
-	// and push it into local storage array
-	if (!isProductInCart && !isSameStore) {
-		lsContent.push({
-			id: productId,
-			name: productName,
-			price: productPrice,
-			quantity : 1,
-			storeid: storeid
-		});
+    // 取得本地資料中的商家ID
 
-		
+    var lsStoreid;
+    lsContent.forEach(function(product){
+        lsStoreid = product.storeid;
+    });
 
-		// add product into into local storage
-		setLSContent(lsContent);
-		// update the display of courses in the shopping cart
-		displayProducts();
-		displayCartTotal();
-	}
+    // 若已有本地資料，就確認想加入的商品ID和本地端商品ID是否一致，需一致才可加入購物車
+
+    if("products" in localStorage){
+        if(storeid === lsStoreid){
+            isSameStore = true;
+        } else {
+            alert("不同店家的商品需分開結帳!請先清空購物車!");
+            isSameStore = false;
+        }
+    };
+
+
+
+    // 為避免重複加入相同商品，加入購物車前先確認該產品是否已在本地端資料
+    lsContent.forEach(function(product) {
+        if (product.id === productId) {
+            alert("此項商品已在購物車內!");
+            isProductInCart = true;
+        }
+    });
+
+
+    // 須滿足"商品不在購物車中"和"storeid相同"兩條件才允許加入購物車
+    // 創建一物件以代表此商品並用push方法中將資料推進本地端資料陣列
+    if (!isProductInCart && isSameStore) {
+        lsContent.push({
+            id: productId,
+            name: productName,
+            price: productPrice,
+            quantity : 1,
+            storeid: storeid
+        });
+
+
+
+        // 將商品加入本地端
+        setLSContent(lsContent);
+        // 更新商品展示、價格，並提示使用者已成功將該項商品加入購物車
+        displayProducts();
+        displayCartTotal();
+        alert(productName + "已加入購物車!");
+    }
 }
 
 function removeProduct(productId) {
@@ -232,6 +243,7 @@ function clearCart() {
 	// display cart content again
 	displayProducts();
 	displayCartTotal();
+	localStorage.removeItem("products");
 }
 
 function checkout() {

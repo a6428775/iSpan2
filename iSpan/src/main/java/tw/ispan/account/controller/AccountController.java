@@ -100,7 +100,7 @@ public class AccountController {
 			return "registerResult";
 		} else {
 			errors.put("account", "!!帳號已存在，請更換其他帳號信箱!!");	
-			return "registerUser";
+			return "register";
 		}
 	}
 
@@ -171,6 +171,8 @@ public class AccountController {
 		String SecurityName2 = SecurityAuth.toString();
 		System.out.println(SecurityName2);
 		String a = "[ROLE_USER]";
+		String b = "[ROLE_STORE]";
+		
 		System.out.println(a);
 		if (SecurityName2.equals(a)) {
 			// 取得登入帳號
@@ -197,10 +199,14 @@ public class AccountController {
 			}			
 			return "memberCenter";
 			
-		}else {
+		}else if(SecurityName2.equals(b)){
 			
 			return "Background_Home";
+			
+		}else {
+			return "welcome";
 		}
+		
 		
 	}
 	

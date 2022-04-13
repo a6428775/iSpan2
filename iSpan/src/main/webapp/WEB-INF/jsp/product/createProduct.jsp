@@ -7,9 +7,18 @@
 
 <script type="text/javascript">
 
-//頁面載入完成時執行
 
 function sendOrder(){
+
+	var contactForm=document.getElementById('contactForm');
+	
+
+ 
+	
+	var file = "${fileName}";
+
+
+	
   var name = $("#ProductName").val();
   var category = $("#ProductCategory").val();
   var price = $("#ProductUnitPrice").val();
@@ -30,7 +39,7 @@ function sendOrder(){
           "productname":name,
           "productcategory":category,
           "productunitprice":price,
-          "preview":frr,
+          "preview":file,
   }
   
   console.log("SUCCESS : ", JSON.stringify(params));
@@ -54,7 +63,9 @@ function sendOrder(){
 	   error: function() {
 	      console.log("error");
       }
+	  
   });
+  contactForm.submit();
 }
 ///////////////////////////////////////////////////////////////
 $(function () {            
@@ -199,7 +210,7 @@ $(function () {
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/test2">
+                        <form id="contactForm"  method="post" enctype="multipart/form-data" action="/product/insertProduct2.controller">
                             <!-- Name input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="ProductName" name="ProductName" type="text" placeholder="Enter your productname..." data-sb-validations="required" />
@@ -236,6 +247,8 @@ $(function () {
 
                             <!-- Submit Button-->
                             <button class="btn btn-primary " id="submitButton" type="button" onclick='sendOrder()'>新增</button>
+                             <img id="hello" style=display:none src='/images/product/${fileName}' />
+           
                         </form>
                     </div>
                 </div>

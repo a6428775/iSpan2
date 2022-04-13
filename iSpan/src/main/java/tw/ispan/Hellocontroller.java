@@ -81,9 +81,9 @@ public class Hellocontroller {
 		return "ECPay";
 	}
 	
-	@PostMapping("/test8")
+	@GetMapping("/test8")
 	public String processAction8() {
-		return "welcome";
+		return "paysuccess";
 	}
 
 }
