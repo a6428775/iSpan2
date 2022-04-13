@@ -46,8 +46,8 @@ function login(){
         dataType:'JSON',
         contentType:'application/json',
         success: function(data){
-        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller'>會員中心</a></li>"
-            var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout'>登出</a></li>"
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller' style='font-size:18px;'>會員中心</a></li>"
+            var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout' style='font-size:18px;'>登出</a></li>"
                 
         	$('#loginlogout').append(member);
         	$('#loginlogout').append(logout);
@@ -56,7 +56,7 @@ function login(){
             },
    		error : function(){
 
-   	   		var login = "<li class='nav-item'><a class='nav-link' href='/login/page' id='login'>登入</a></li>"
+   	   		var login = "<li class='nav-item'><a class='nav-link' href='/login/page' id='login'  style='font-size:18px;'>登入</a></li>"
    			$('#loginlogout').append(login);
    	   		}
     });
@@ -254,47 +254,18 @@ function login(){
 									<span class="navbar-toggler-icon"></span>
 								</button>
 
-								<div class="collapse navbar-collapse"
-									id="navbarSupportedContent">
+								<div class="collapse navbar-collapse" id="navbarSupportedContent" >
 									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
-									<ul class="navbar-nav" id="loginlogout">
-										<li class="nav-item active"><a class="nav-link"
+									<ul class="navbar-nav" id="loginlogout" >
+<!--  										<li class="nav-item active"><a class="nav-link"
 											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="about.html">關於我們</a>
-										</li>
-										<li class="nav-item"><a class="nav-link" href="typography.html">最新消息</a>
-										</li>
-										<li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">餐點資訊</a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
-                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
-                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
-                                            </div>
-                                        </li>
-										<li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" 
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">店家資訊</a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                                                <a class="dropdown-item" href="recipes.html">Recipe List</a>
-                                                <a class="dropdown-item" href="recipe-single.html">Recipe Single</a>
-                                                <a class="dropdown-item" href="recipe-index.html">Recipe Index</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="submit-recipe.html">Submit Recipe</a>
-                                            </div>
-                                        </li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarDropdown4" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">服務資源</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="contact.html">聯絡我們</a> 
-												<a class="dropdown-item" href="faq.html">FAQ</a> 
-											</div></li>
+										</li>-->	
+										<li class="nav-item" ><a class="nav-link" href="/aboutus" style="font-size:18px;">關於我們</a></li>
+										<li class="nav-item"><a class="nav-link" href="/events" style="font-size:18px;">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="welcome" style="font-size:18px;">餐廳列表</a></li>						
+										<li class="nav-item"><a class="nav-link" href="/faq" style="font-size:18px;">常見問題</a></li>
+										
+
 										
 										<!-- <li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
@@ -308,7 +279,7 @@ function login(){
 										</li> -->
 									
 									<!--	<li class="nav-item"><a class="nav-link" href="/test2">餐點測試頁面</a></li>-->
-										<li class="nav-item"><a class="nav-link" href="typography.html" >購物車</a></li>
+
 
 									</ul>
 								</div>
@@ -337,7 +308,7 @@ function login(){
 			<div class="item">
 				<img src="/images/content/slide-13.png" alt="slide 1">
 				<div class="caption">
-					<h2 class="animated bounce">Our 10 Most Popular Recipes</h2>
+					<h2 class="animated bounce">Reasonable Prices and Choices</h2>
 					<!-- <button class="btn btn-primary">EXPLORE NOW</button> -->
 				</div>
 			</div>
@@ -345,7 +316,7 @@ function login(){
 			<div class="item">
 				<img src="/images/content/slide-14.png" alt="slide 2">
 				<div class="caption">
-					<h2 class="animated bounce">Best Review Recipe 2019</h2>
+					<h2 class="animated bounce">Quality Service</h2>
 					<!-- <button class="btn btn-primary">READ MORE</button> -->
 				</div>
 			</div>
@@ -353,7 +324,7 @@ function login(){
 			<div class="item">
 				<img src="/images/content/slide-15.png" alt="slide 3">
 				<div class="caption">
-					<h2 class="animated bounce">Most Popular Homemade Recipes</h2>
+					<h2 class="animated bounce">Best Dishes in Town</h2>
 					<!-- <button class="btn btn-primary">EXPLORE NOW</button> -->
 				</div>
 			</div>
@@ -465,7 +436,7 @@ function login(){
 									<ul class="bottom-nav">
 										<li><a href="http://www.bootstrapmb.com/">Home</a></li>
 										<li><a href="#">Contact Us</a></li>
-										<li><a href="#">Privacy Policy</a></li>
+										<li><a href="/privates">隱私權政策</a></li>
 										<li><a href="#">Terms and Conditions</a></li>
 									</ul>
 								</div>

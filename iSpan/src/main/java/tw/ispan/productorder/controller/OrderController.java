@@ -62,6 +62,18 @@ public class OrderController {
 	@Autowired
 	private User1Service uService;
 	
+//	04/13-----取得orderid抓取該筆回饋資料
+	@PostMapping("/orderquerybyidremark.controller")
+	@ResponseBody
+	public ProductOrder processQueryByIdAction2(@RequestParam("oid") int oid, Model m) {
+		
+		m.addAttribute("oid", oid);
+
+		ProductOrder ProductOrder = pService.findByOrderID(oid);
+		
+		return ProductOrder;
+	}
+
 	
 //	----該用戶的所有訂單
 	@PostMapping("/queryUserIDByPage/{pageNo}")	
@@ -285,5 +297,19 @@ public class OrderController {
 		sService.update(store);
 		 return "/Order/updateStore";
 	} 
+	
+	@PostMapping("/updateorderstatus.controller")
+	@ResponseBody
+	public ProductOrder updatestatus(@RequestParam("oid2") int oid2,@RequestBody ProductOrder productorder){	
+		
+		ProductOrder pod = pService.findById(oid2);
+
+	//	pod.setOrderstatus("準備中");
+		pod.setOrderstatus(productorder.getOrderstatus());
+
+		return pService.insert(pod);
+		
+	}
+	
 }
 

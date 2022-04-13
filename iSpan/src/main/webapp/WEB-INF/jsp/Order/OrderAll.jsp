@@ -11,13 +11,20 @@
 
 	
 	$(document).ready(function(){
-		var indexPage = 1;
-	      loadPage(indexPage);
+	
+	      loadPage();
+	 	 $("#mySearch").change(function(){
+			 loadPage();
+			});	 
 
 	      
 	});
 
-    function loadPage(indexPage){
+    function loadPage(){
+
+    	var SearchText = document.getElementById("mySearch").value;
+		
+   
         $.ajax({
             type:'post',
             url:'/Store/QueryAllByStoreID.controller',
@@ -35,10 +42,31 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>訂單編號</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>訂單編號</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  <th></th> </tr>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
+
+             		  if ((SearchText == "全部") || (n.orderstatus.search(SearchText) != -1 ) ) {
+
+             			  
+                 		  var testtest= "<td><button onclick='changeOrderstatus("+n.orderid+")'>接受訂單</button><a>　</a><button onclick='changeOrderstatus2("+n.orderid+")'>取消訂單</button></td>" 
+                 		  
+							if(n.orderstatus=="已完成"){
+								testtest = "<td>訂單已完成</td>";
+									};
+                 		 	if(n.orderstatus=="已取消"){
+								testtest = "<td>訂單已取消</td>";
+									};
+		                 	if(n.orderstatus=="準備中"){
+								testtest = "<td><button onclick='changeOrderstatus3("+n.orderid+")'>已完成</button><a>　</a><button onclick='changeOrderstatus2("+n.orderid+")'>取消訂單</button></td>";
+									};									
+                 		 	if(n.orderstatus=="未付款"){
+								testtest = "<td>等待訂單付款完成</td>";
+									};
+
+									
+                        	   
              		   var tr = 
                  		   		"<tr align='center' >" + 
                  		   		"<td class='nav-link collapsed' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayouts"+n.orderid+"' aria-expanded='false' aria-controls='collapseLayouts'>" + n.orderid + "</td>" +
@@ -47,29 +75,83 @@
              		            "<td>" + n.orderdate + "</td>" + 
              		           "<td>" + n.price + "</td>" + 
              		            "<td>" + n.orderstatus + "</td>" +
-             		            "</tr>"+
-             		          
+
+             		            testtest +
+             		         //   "<td>" + "<button onclick=''>接受訂單</button><a>　</a><button>取消訂單</button>" + "</td>" +
+
+
+
+
+
+             		            
+             		            "</tr>"+		          
                 		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
-                 		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
+                 		   		"<td colspan='7' id = 'orderid"+ n.orderid +"'></td>" +
 								"</tr>" ;
 
              		            
 					   table.append(tr);
+             		  
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
 			   					loadorder(n.orderid);
-			   				
+             		  }
                     });           	   
                 }
             }
         });
         //load 訂單詳細資訊的 function
      }
+    
 
-     function change(page){
-     	indexPage = page;
-     	loadPage(indexPage);
-	 	} 
-
+    
+//已付款
+     function changeOrderstatus(oid2){
+ 
+    	    var params = {
+    	    	    "orderstatus":"準備中",
+    	    }  
+			$.ajax({
+				   type:'post',
+				   url:'/Store/updateorderstatus.controller?oid2='+oid2,
+				   dataType:'JSON',
+				   contentType:'application/json',
+				   data: JSON.stringify(params),
+				   success: function(data) {},		
+			});
+		   setTimeout("loadPage()",100);
+     }
+   //已取消
+     function changeOrderstatus2(oid2){
+ 
+    	    var params = {
+    	    	    "orderstatus":"已取消",
+    	    }  
+			$.ajax({
+				   type:'post',
+				   url:'/Store/updateorderstatus.controller?oid2='+oid2,
+				   dataType:'JSON',
+				   contentType:'application/json',
+				   data: JSON.stringify(params),
+				   success: function(data) {},		
+			});
+		   setTimeout("loadPage()",100);
+     }
+     //已完成
+     function changeOrderstatus3(oid2){
+ 
+    	    var params = {
+    	    	    "orderstatus":"已完成",
+    	    }  
+			$.ajax({
+				   type:'post',
+				   url:'/Store/updateorderstatus.controller?oid2='+oid2,
+				   dataType:'JSON',
+				   contentType:'application/json',
+				   data: JSON.stringify(params),
+				   success: function(data) {},		
+			});
+		   setTimeout("loadPage()",100);
+     }            
 	 function loadorder(oid){
 		   $.ajax({
 			     type:'post',
@@ -100,6 +182,8 @@
 				   });
 
 		 }
+
+
 
 ///////////////////////////---------------------------------------
 </script>
@@ -206,16 +290,19 @@
                                 <i class="fas fa-table me-1"></i>
                                訂單資訊
                             </div>
-                        <div class="card-body">
+                        <div class="card-body" >
                         
-                        <div>
-                        <button>已付款</button>
-                        <a>  　　 </a>
-                        <button>準備中</button>
-                        <a>  　　 </a>
-                        <button>已完成</button>
-                        <a>  　　 </a>
-                        <button>全部</button>
+                        <div>       
+						<select id = "mySearch" name="mySearch">
+						    <option value="全部">全部</option>
+						    <option value="已付款">已付款</option>
+						    <option value="未付款">未付款</option>
+						    <option value="已完成">已完成</option>
+						    <option value="準備中">準備中</option>
+						    <option value="已取消">已取消</option>
+
+						</select>
+   
                         </div>
                         <div><p></p></div>
 
@@ -231,7 +318,7 @@
 							</table>
 							
 							
-				<!-- 
+			<!-- 	
 							<table id="showpage">
 								<tr>
 									<td>全部頁數 : ${totalPages}  全部筆數:${totalElements} </td>
@@ -241,7 +328,7 @@
 							         </c:forEach>下一頁
 							      </td>
 								</tr>
-				 -->			
+							 -->
 					
 							</table>
 						</div>

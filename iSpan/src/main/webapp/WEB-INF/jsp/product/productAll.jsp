@@ -15,7 +15,7 @@
     function loadPage(){
 
     	var SearchText = document.getElementById("mySearch").value;
-     	  console.log(SearchText);
+
         $.ajax({
             type:'post',
             url:'/product/testtest',

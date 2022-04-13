@@ -88,6 +88,11 @@ function loadstore(){
         	 $('#storePhone').append(jsonArray.storePhone);
         	 $('#storeAddress').append(jsonArray.storeAddress);
         	 $('#storeBusinessHours').append(jsonArray.storeBusinessHours);
+        	 var map1 = "https:////maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q="+jsonArray.storeAddress+"&z=16&output=embed&t=";
+			 var map = "<iframe  width='500' height='400' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='"+map1+"'></iframe>"
+
+        	 $('#map').append(map);
+        	 
          }
      }
 	   });
@@ -198,8 +203,7 @@ function loadstore(){
                                         <i class="fas fa-chart-area me-1"></i>
                                         商家地圖
                                     </div>
-                                    <div align="center">
-                                    <iframe width="500" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=800高雄市新興區中山一路14-26號RF樓&z=16&output=embed&t=></iframe>
+                                    <div align="center" id="map">
                                     </div>
                                 </div>
                             </div>

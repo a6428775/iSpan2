@@ -40,6 +40,7 @@ $(function test() {
 		      
 				  	<td id="itemTotalPrice">\${product['price']*product['quantity']}</td>
 				   	<td id="storeid" style="display: none">\${product['storeid']}</td>
+				   	
 		          </tr>
 		        `;
 				productMarkup2 = productMarkup2 + product['name'] + '$' + product['price'] + ' x ' + product['quantity'] + '#'
@@ -66,7 +67,7 @@ $(function displayProductDetail() {
 	const lsContent = getLSContent();
 	let productMarkup = "";
 		if (lsContent !== null) {
-			
+			var n = 1
 			for (let product of lsContent) {
 				productMarkup += `
 		         <tr>
@@ -77,9 +78,10 @@ $(function displayProductDetail() {
 		      
 				  	<td id="itemTotalPrice">\${product['price']*product['quantity']}</td>
 				   	<td id="storeid" style="display: none">\${product['storeid']}</td>
+				   	<td><input id="remark\${n}"></input></td>
 		          </tr>
 		        `;
-			
+			n=n+1
 				}
 			} else {
 				productMarkup = "Your cart is empty.";
@@ -132,6 +134,7 @@ function sendOrderSave(){
 var params = {    
         "storeid":storeid,
         "price":price,
+        "orderstatus":"未付款"
 }
 
 console.log("SUCCESS : ", JSON.stringify(params));
@@ -153,19 +156,22 @@ $.ajax({
 
 	      <!---->
 	  	const lsContent2 = getLSContent();
-
+		var c = 1
 		  console.log(lsContent2) ;
 		  $.each(lsContent2, function(i,n){
-			
-		  
+
+		
+			var id = "remark" + c
+
 					var params = {  
 							"orderID":data.orderid,
 							"productName":n.name,
 							"number":n.quantity,
 							"productUnitPrice":n.price,
 							"productPrice":n.quantity*n.price,
+							"remark":document.getElementById(id).value,
 					}
-					
+				c=c+1
 					console.log("SUCCESS : ", JSON.stringify(params));
 					$.ajax({
 						   type:'post',
@@ -208,6 +214,7 @@ function sendOrderInformationSave(){
 							"number":n.quantity,
 							"productUnitPrice":n.price,
 							"productPrice":n.quantity*n.price,
+							
 					}
 					
 					console.log("SUCCESS : ", JSON.stringify(params));
@@ -351,6 +358,7 @@ function sendOrderInformationSave(){
 						<th scope="col">單價</th>
 						<th scope="col">數量</th>
 						<th scope="col">總價</th>
+						<th scope="col">餐點註記</th>
 					</tr>
 				</thead>
 				<tbody id="cartItem"></tbody>

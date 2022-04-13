@@ -37,6 +37,28 @@ public class ProductOrder {
 	
 	@Column(name = "Price")
 	private int price;
+	
+	@Column(name = "REMARK")
+	private String remark;
+	
+	@Column(name = "REMARK2")
+	private String remark2;
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getRemark2() {
+		return remark2;
+	}
+
+	public void setRemark2(String remark2) {
+		this.remark2 = remark2;
+	}
 
 	public int getPrice() {
 		return price;

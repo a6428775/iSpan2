@@ -83,7 +83,23 @@ public class Hellocontroller {
 	
 	@GetMapping("/test8")
 	public String processAction8() {
-		return "paysuccess";
+		return "/faq/faq1";
+	}
+	@GetMapping("/aboutus")
+	public String processAction9() {
+		return "/faq/aboutus";
+	}
+	@GetMapping("/events")
+	public String processAction10() {
+		return "/faq/event";
+	}
+	@GetMapping("/privates")
+	public String processAction11() {
+		return "/faq/private";
+	}
+	@GetMapping("/faq")
+	public String processAction12() {
+		return "/faq/faq";
 	}
 
 }
