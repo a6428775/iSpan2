@@ -91,4 +91,8 @@ public class Hellocontroller {
 	public String processAction11() {
 		return "private";
 	}
+	@GetMapping("/contact")
+	public String processAction12() {
+		return "contact";
+	}
 }

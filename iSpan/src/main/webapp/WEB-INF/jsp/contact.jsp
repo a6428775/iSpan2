@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>關於我們</title>
+<title>home</title>
 <!-- STYLE CSS -->
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700"
 	rel="stylesheet">
@@ -170,7 +170,8 @@ function loadPage(indexPage){
 										</li>
 										<li class="nav-item"><a class="nav-link" href="/aboutus">關於我們</a>
 										</li>
-										<li class="nav-item"><a class="nav-link" href="/event">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="typography.html">最新消息</a></li>
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown1" role="button" data-toggle="dropdown"
@@ -203,7 +204,7 @@ function loadPage(indexPage){
 											aria-haspopup="true" aria-expanded="false">服務資源</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
 												<a class="dropdown-item" href="contact.html">聯絡我們</a> <a
-													class="dropdown-item" href="/faq">FAQ</a>
+													class="dropdown-item" href="faq.html">FAQ</a>
 											</div></li>
 
 										<!-- <li class="nav-item dropdown"><a
@@ -244,196 +245,125 @@ function loadPage(indexPage){
 
 		<!-- 幻燈片 輪播圖 SLIDER SECTION /////////////////////////////////////////////////////////////////////-->
 
-		<!-- end owl-carousel -->
 
-
-
-		<!-- 刪除12張圖片組 -->
 
 		<!-- 刪除中間大圖1 -->
 
 		<!-- 產品圖 /////////////////////////////////////////////////////////////////////-->
+
+
+		<!-- 刪除作者群介紹 -->
+
+		<!-- 刪除中間大圖2 -->
+
+		<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->
+
+		<!-- end blog-section -->
+
+		<!-- 刪除社群分享 -->
 		<div class="head-title">
 			<div class="container">
-				<h2 class="page-title">關於我們</h2>
+				<h2 class="page-title">聯繫我們</h2>
 			</div>
 			<!-- end container -->
 		</div>
 		<!-- end head-title -->
 
-		<div id="main">
-			<div class="container">
 
-				<div id="primary" class="content-area fullwidth">
-					<div id="content" class="site-content">
-						<div class="row justify-content-center">
-							<div class="col-md-8">
-								<div class="about-desc">
-									<p>
-										<strong>關於美好食程</strong>
-									</p>
-									<p>美好時程中有數百家餐廳可供選擇。開啟網頁後，可以捲動頁面尋找靈感，或搜尋特定餐廳或美食。<br/>
-										找到想吃的餐點後，點選餐點即可新增至訂單。<br/>現代，科技越來越方便，甚至不需要出門只需要動動手指就能吃到美味的飯菜，
-										提供更多餐廳選項，再也不必煩惱今天要吃什麼。<br/>現在目前也使用過多家的訂購系統訂過餐點，
-										不禁讓人思考也許在某方面的功能可以更加完善更加符合使用者操作且人性化的網頁介面，目前只有網頁功能，
-										之後如果有追加更多功能可以往手機APP發展。</p>
-
-									<p>
-										<strong>訂購</strong>
-									</p>
-
-									<p>準備結帳時，畫面會出現您的訂單價格 (含稅金)。如果正確無誤，只要點選「結帳」即可。可使用多種的付款方式。</p>
-								</div>
-								<!-- end team desc -->
-							</div>
-							<!-- end col -->
+		<div class="col-md-15">
+			<div class="contact-form">
+				<h3>請在這裡留言問題</h3>
+				<p>請填寫下面的表格，我們會盡快與您聯繫</p>
+				<form>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inputAddress">地址</label><input type="text"
+								class="form-control" id="inputAddress"
+								placeholder="xx市xx區xx里xx路xx號">
 						</div>
-						<!-- end row -->
-						<div class="row">
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">陳彥廷</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">活動資訊.常見問題.關於我們</p>
-
-								</div>
-								<!-- end team col -->
-							</div>
-							<!-- end col -->
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">莊智豪</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">首頁 會員系統</p>
-
-								</div>
-								<!-- end team col -->
-							</div>
-							<!-- end col -->
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">劉庭綸</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">菜單(餐廳資訊)</p>
-
-								</div>
-								<!-- end team col -->
-							</div>
-							<!-- end col -->
+						<div class="form-group col-md-6">
+							<label for="inputEmail">Email</label><input type="email"
+								class="form-control" id="inputEmail" placeholder="Email">
 						</div>
-						<!-- end row -->
-
-						<div class="row">
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">陳柏穎</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">後台管理(兩個登入身分:顧客.廠商)</p>
-
-								</div>
-								<!-- end team col -->
-							</div>
-							<!-- end col -->
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">洪耀臨</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">購物車</p>
-
-								</div>
-								<!-- end team col -->
-							</div>
-							<!-- end col -->
-							<div class="col-md-4">
-								<div class="team-col">
-									<figure>
-										<img src="images/content/team-06.png" alt="">
-									</figure>
-									<p class="team-name">王展宏</p>
-									<span class="team-tag">設計項目</span>
-									<p class="team-desc">訂單(地圖定位.金流)</p>
-
-								</div>
-							</div>
-						</div>
-
-
-						<!-- end recipes -->
-
-						<!-- 刪除作者群介紹 -->
-
-						<!-- 刪除中間大圖2 -->
-
-						<!-- 文章分享(可改為餐廳簡介) /////////////////////////////////////////////////////////////////////-->
-
-						<!-- end blog-section -->
-
-						<!-- 刪除社群分享 -->
-
-
-						<div class="bottom">
-							<div class="container">
-
-								<!-- 刪除關於我們 -->
-
-								<!-- 頁尾 /////////////////////////////////////////////////////////////////////-->
-								<div class="row no-gutters">
-									<div class="col-md-6">
-										<div class="copy">
-											<p>
-												&copy; copyright 2022 by iii-Java-123-group1 <i
-													class="fas fa-heart"></i>
-											</p>
-										</div>
-										<!-- end copy -->
-									</div>
-									<!-- end col -->
-									<div class="col-md-6">
-										<ul class="bottom-nav">
-											<li><a href="/login/welcome">Home</a></li>
-											<li><a href="#">Contact Us</a></li>
-											<li><a href="/private">隱私權政策</a></li>
-											<li><a href="#">Terms and Conditions</a></li>
-										</ul>
-									</div>
-									<!-- end col -->
-								</div>
-								<!-- end row -->
-							</div>
-							<!-- end container -->
-						</div>
-						<!-- end bottom -->
 					</div>
-				</div>
+					<div class="form-row">
+						<label for="messageTextarea">訊息</label>
+						<textarea class="form-control" id="messageTextarea" rows="6"></textarea>
+					</div>
+					<!-- end form-row -->
+					<div class="form-button">
+						<button type="submit" class="btn btn-primary">發送訊息</button>
+					</div>
+				</form>
 			</div>
-
-
+			<!-- end contact-form -->
 		</div>
-		<!-- end #page hfeed site -->
+		<!-- end col -->
+	</div>
+	<!-- end row -->
+	
+		<div class="col-md-10">
+			<p>
+				<strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp美好食程位置</strong>
+			</p>
+			<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp線上平台,無實體地址</p>
+			<p>
+				<strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp專人服務時間</strong>
+			</p>
+			<p>
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp週一~週五:9:00 am - 6:00 pm<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp週六~週日:休息
+			</p>
+		</div>
+	</div>
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
-		<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+	<div class="bottom">
+		<div class="container">
 
-		<!-- Include all compiled plugins(below),or include individual files as needed -->
-		<script src="/js/fonts/bootstrap.bundle.min.js"></script>
-		<script src="/js/fonts/plugin.js"></script>
-		<script src="/js/fonts/main.js"></script>
-		<script src="/js/shoppingcart.js"></script>
+			<!-- 刪除關於我們 -->
+
+			<!-- 頁尾 /////////////////////////////////////////////////////////////////////-->
+			<div class="row no-gutters">
+				<div class="col-md-6">
+					<div class="copy">
+						<p>
+							&copy; copyright 2022 by iii-Java-123-group1 <i
+								class="fas fa-heart"></i>
+						</p>
+					</div>
+					<!-- end copy -->
+				</div>
+				<!-- end col -->
+				<div class="col-md-6">
+					<ul class="bottom-nav">
+						<li><a href="http://www.bootstrapmb.com/">Home</a></li>
+						<li><a href="#">Contact Us</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Terms and Conditions</a></li>
+					</ul>
+				</div>
+				<!-- end col -->
+			</div>
+			<!-- end row -->
+		</div>
+		<!-- end container -->
+	</div>
+	<!-- end bottom -->
+	</div>
+	</div>
+	</div>
+
+
+	</div>
+	<!-- end #page hfeed site -->
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="/js/fonts/modernizr-3.7.1.min.js"></script>
+	<script src="/js/fonts/jquery-3.4.1.min.js"></script>
+
+	<!-- Include all compiled plugins(below),or include individual files as needed -->
+	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
+	<script src="/js/fonts/plugin.js"></script>
+	<script src="/js/fonts/main.js"></script>
+	<script src="/js/shoppingcart.js"></script>
 </body>
 </html>

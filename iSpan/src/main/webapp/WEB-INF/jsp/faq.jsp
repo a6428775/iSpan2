@@ -361,7 +361,7 @@ function loadPage(indexPage){
 
 								<div id="collapseOne" class="collapse show"
 									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">可以使用本網站內的信箱,會有專人在最短的時間內提供您服務!!</div>
+									<div class="card-body">可以使用本網站內的聯繫我們,會有專人在最短的時間內提供您服務!!</div>
 								</div>
 							</div>
 							<!-- end card -->

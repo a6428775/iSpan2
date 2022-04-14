@@ -10,10 +10,6 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <link href="/css/fonts/styles.css" rel="stylesheet">
-<link rel='stylesheet'
-	href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <!-- 123 -->
 
@@ -221,7 +217,7 @@ function login(){
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">服務資源</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="contact.html">聯絡我們</a> 
+												<a class="dropdown-item" href="/contact">聯繫我們</a> 
 												<a class="dropdown-item" href="/faq">FAQ</a> 
 											</div></li>
 										
@@ -535,7 +531,7 @@ function login(){
 								<div class="col-md-6">
 									<ul class="bottom-nav">
 										<li><a href="/login/welcome">Home</a></li>
-										<li><a href="#">Contact Us</a></li>
+										<li><a href="/contact">聯繫我們</a></li>
 										<li><a href="/private">隱私政策</a></li>
 										<li><a href="#">Terms and Conditions</a></li>
 									</ul>
