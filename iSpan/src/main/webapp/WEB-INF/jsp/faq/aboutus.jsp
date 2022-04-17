@@ -168,8 +168,7 @@ function loadPage(indexPage){
 										</li>
 										<li class="nav-item"><a class="nav-link" href="/aboutus">關於我們</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
-											href="/event">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="/event">最新消息</a></li>
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown1" role="button" data-toggle="dropdown"
@@ -271,13 +270,17 @@ function loadPage(indexPage){
 									<p>
 										<strong>關於美好食程</strong>
 									</p>
-									<p>美好時程中有數百家餐廳可供選擇。開啟網頁後，可以捲動頁面尋找靈感，或搜尋特定餐廳或美食。找到想吃的餐點後，點選餐點即可新增至訂單。</p>
+									<p>美好時程中有數百家餐廳可供選擇。開啟網頁後，可以捲動頁面尋找靈感，或搜尋特定餐廳或美食。<br/>
+										找到想吃的餐點後，點選餐點即可新增至訂單。<br/>現代，科技越來越方便，甚至不需要出門只需要動動手指就能吃到美味的飯菜，
+										提供更多餐廳選項，再也不必煩惱今天要吃什麼。<br/>現在目前也使用過多家的訂購系統訂過餐點，
+										不禁讓人思考也許在某方面的功能可以更加完善更加符合使用者操作且人性化的網頁介面，目前只有網頁功能，
+										之後如果有追加更多功能可以往手機APP發展。</p>
 
 									<p>
 										<strong>訂購</strong>
 									</p>
 
-									<p>準備結帳時，畫面會出現您的訂單價格 (含稅金)。如果正確無誤，只要點選「確定訂單」即可。可使用多種的付款方式。</p>
+									<p>準備結帳時，畫面會出現您的訂單價格 (含稅金)。如果正確無誤，只要點選「結帳」即可。可使用多種的付款方式。</p>
 								</div>
 								<!-- end team desc -->
 							</div>

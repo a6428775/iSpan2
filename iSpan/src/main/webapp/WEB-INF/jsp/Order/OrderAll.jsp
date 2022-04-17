@@ -20,10 +20,11 @@
 	$(document).ready(function(){
 		 loadPage(indexPage);
 	 	 $("#mySearch").change(function(){
+	 		indexPage = 1;
 			 loadPage(indexPage);
 			});	
 	 	 $("#mySearch3").change(function(){
-		 	 
+	 		indexPage = 1;
 		 	 loadPage(indexPage);
 			});		 
 
@@ -120,7 +121,7 @@
              		            "<td>" + n.orderdate + "</td>" + 
              		            "<td>" + n.ordersuccessdate + "</td>" + 
              		            "<td> $" + n.price + "</td>" + 
-             		            "<td width='8%'>" + "<input type='button' class='btn btn-outline-primary' data-bs-toggle='collapse' data-bs-target='#collapseLayouts"+n.orderid+"' aria-expanded='false' aria-controls='collapseLayouts' value='訂單明細' style='font-size:9px;color:black;'></input>" + "</td>" +
+             		            "<td width='8%'>" + "<input type='button' class='btn btn-outline-primary' data-bs-toggle='collapse' data-bs-target='#collapseLayoutss"+n.orderid+"' aria-expanded='false' aria-controls='collapseLayouts' value='訂單明細' style='font-size:9px;color:black;'></input>" + "</td>" +
              		   //        "<td><a class='collapsed btn btn-success' href='#' data-bs-toggle='collapse' data-bs-target='#collapseLayoutsremark" + n.orderid + "' aria-expanded='false' aria-controls='collapseLayouts'>" + "MORE" + "</a></td>" +
              		            "<td width='8%'>" + "<input type='button' class='btn btn-outline-info' data-bs-toggle='collapse' data-bs-target='#collapseLayoutsremark"+n.orderid+"' aria-expanded='false' aria-controls='collapseLayouts' value='顧客回饋'  style='font-size:9px;color:black;'></input>" + "</td>" + 
              		            "<td width='8%'>" + n.orderstatus + "</td>" +
@@ -134,7 +135,7 @@
 
              		            
              		            "</tr>"+		          
-                		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
+                		   		"<tr align='center' class='collapse' id='collapseLayoutss"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
                  		   		"<td colspan='9' id = 'orderid"+ n.orderid +"'></td>" +
 								"</tr>" +
 

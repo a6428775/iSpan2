@@ -15,6 +15,56 @@
 <style type="text/css">
 </style>
 <title>註冊</title>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	login()
+});
+
+function login(){
+
+
+    $.ajax({
+        type:'post',
+        url:'/Auth.controller',
+        dataType:'JSON',
+        contentType:'application/json',
+        success: function(data){
+        	var member = "<li class='nav-item'><a class='nav-link' href='/verifyIdentity.controller' style='font-size:18px;'>會員中心</a></li>"
+            var logout = "<li class='nav-item'><a class='nav-link' href='/logout' id='logout' style='font-size:18px;'>登出</a></li>"
+                
+        	$('#loginlogout').append(member);
+        	$('#loginlogout').append(logout);
+			
+
+            },
+   		error : function(){
+
+   	   		var login = "<li class='nav-item'><a class='nav-link' href='/login/page' id='login'  style='font-size:18px;'>登入</a></li>"
+   			$('#loginlogout').append(login);
+   	   		}
+    });
+}	
+
+async function sendmail(){
+	const { value: email } = await Swal.fire({
+		  title: '請輸入您的信箱',
+		  input: 'email',
+		  inputLabel: 'Your email address',
+		  inputPlaceholder: 'Enter your email address'
+		})
+
+		if (email) {
+			
+		  	   $.ajax({
+	           type:'post',
+	           url:'/sendmail.controller?email='+email,
+		  	 }); 
+		  
+		  Swal.fire(`訂閱成功!`)
+		}
+};     
+</script>
 </head>
 <body>
 
@@ -30,7 +80,7 @@
 						<div class="col col-md-2">
 							<div class="site-branding navbar-brand">
 								<!-- 左上logo圖片 //////////////////////////////////////////////////////////////////////////-->
-								<a href="#"><img src="/images/logo-2.png"
+								<a href="/login/welcome"><img src="/images/logo-2.png"
 									alt="Food Recipe Web Template" title="Taplak"></a>
 							</div>
 							<!-- end logo -->
@@ -49,61 +99,16 @@
 
 								<div class="collapse navbar-collapse"
 									id="navbarSupportedContent">
-									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
-									<ul class="navbar-nav">
-										<li class="nav-item active"><a class="nav-link"
+									<!-- header 標題列///////////////////////////////////////////////////////////////////// -->
+									<ul class="navbar-nav" id="loginlogout" >
+<!--  										<li class="nav-item active"><a class="nav-link"
 											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
-										</li>
-										<li class="nav-item"><a class="nav-link"
-											href="about.html">關於我們</a></li>
-										<li class="nav-item"><a class="nav-link"
-											href="typography.html">最新消息</a></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarDropdown1" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">餐點資訊</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-												<a class="dropdown-item" href="recipes.html">Recipe List</a>
-												<a class="dropdown-item" href="recipe-single.html">Recipe
-													Single</a> <a class="dropdown-item" href="recipe-index.html">Recipe
-													Index</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="submit-recipe.html">Submit
-													Recipe</a>
-											</div></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarDropdown1" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">店家資訊</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-												<a class="dropdown-item" href="recipes.html">Recipe List</a>
-												<a class="dropdown-item" href="recipe-single.html">Recipe
-													Single</a> <a class="dropdown-item" href="recipe-index.html">Recipe
-													Index</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="submit-recipe.html">Submit
-													Recipe</a>
-											</div></li>
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarDropdown4" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">服務資源</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="contact.html">聯絡我們</a> <a
-													class="dropdown-item" href="faq.html">FAQ</a>
-											</div></li>
-
-										<li class="nav-item dropdown"><a
-											class="nav-link dropdown-toggle" href="#"
-											id="navbarDropdown4" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">會員中心</a>
-											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="/login/page">登入</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="/user1main.controller">註冊</a>
-											</div></li>
-										<li class="nav-item"><a class="nav-link"
-											href="typography.html">購物車</a></li>
+										</li>-->	
+										<li class="nav-item" ><a class="nav-link" href="/aboutus" style="font-size:18px;">關於我們</a></li>
+										<li class="nav-item"><a class="nav-link" href="/events" style="font-size:18px;">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="welcome" style="font-size:18px;">餐廳列表</a></li>						
+										<li class="nav-item"><a class="nav-link" href="/faq" style="font-size:18px;">常見問題</a></li>
+										<li class="nav-item"><a class="nav-link" href="javascript:sendmail()" style="font-size:18px;">訂閱我們</a></li>
 									</ul>
 								</div>
 								<!-- end navbar-collapse -->
@@ -236,5 +241,6 @@
 	<script src="/js/fonts/bootstrap.bundle.min.js"></script>
 	<script src="/js/fonts/plugin.js"></script>
 	<script src="/js/fonts/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>	
 </body>
 </html>

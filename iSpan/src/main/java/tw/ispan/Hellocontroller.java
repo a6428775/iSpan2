@@ -79,7 +79,7 @@ public class Hellocontroller {
 	}
 	@GetMapping("/test5")
 	public String processAction7() {
-		return "ECPay";
+		return "/faq/contact";
 	}
 	
 	@GetMapping("/test8")
