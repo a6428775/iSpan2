@@ -28,8 +28,8 @@ public class ProductOrderService {
 	@Autowired
 	private ProductOrderRepository prp;
 	
-	public Page<ProductOrder> findAllByPage(Pageable pageable){
-		return prp.findAll(pageable);
+	public Page<ProductOrder> findAllByStoreId(int StoreID ,String OrderStatus,Pageable pageable){
+		return prp.findAllByStoreId(StoreID,OrderStatus, pageable);
 	}
 	
 	public List<ProductOrder> findAll(){

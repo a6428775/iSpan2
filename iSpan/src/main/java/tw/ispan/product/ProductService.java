@@ -29,9 +29,9 @@ public class ProductService {
 		return prpo.save(p);
 	}
 	
-	public Page<Product> findAllByPage2(Pageable pageable){
+	public Page<Product> findAllByPage2(int storeid,String ProductName,String ProductCategory,String ProductUnitPrice,String ProductID, Pageable pageable){
 		
-		return prpo.findAll(pageable);
+		return prpo.findAllBystoreID(storeid,ProductName,ProductCategory,ProductUnitPrice,ProductID, pageable);
 	}
 	
 

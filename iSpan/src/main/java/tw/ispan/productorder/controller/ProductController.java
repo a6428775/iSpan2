@@ -79,9 +79,12 @@ public class ProductController {
 	@PostMapping("/insertProduct2.controller")
 	public String uplaod(HttpServletRequest req,@RequestParam("uploadFile") MultipartFile file,@RequestParam("ProductName") String productname,Model m) {
 		
+		if(!file.isEmpty()) {
+		
 		File dest;
 		Product product =pService.findByName(productname);
 		try {
+			
 			String fileName = System.currentTimeMillis() + file.getOriginalFilename();
 			
 			File path = new File(ResourceUtils.getURL("src").getPath());
@@ -108,7 +111,8 @@ public class ProductController {
 			 return null;
 		 }
 		pService.insert(product);
-		 return "/product/createProduct";
+		}
+		 return "/product/productAll";
 	} 
 	
 	
@@ -127,9 +131,9 @@ public class ProductController {
 	
 		//取得登產品ID 透過ID 更新資料
 		Integer p = pro.getProductid();
-
+		Product pro2 = pService.findById(p);
 		pro.setProductid(p);
-		
+		pro.setPreview(pro2.getPreview());
 
 		return pService.insert(pro);
 	}	
@@ -143,22 +147,56 @@ public class ProductController {
 	}
 	
 	
-	@PostMapping("/queryByPage/{pageNo}")	
+	@PostMapping("/queryByPage/{pageNo}/{SearchText}/{SearchText2}")	
 	@ResponseBody
-	public List<Product> processQueryAllByPage(@PathVariable("pageNo") int pageNo , Model m){
+	public List<Product> processQueryAllByPage(@PathVariable("pageNo") int pageNo,@PathVariable("SearchText") String SearchText,@PathVariable("SearchText2") String SearchText2 , Model m){
+		
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+        Optional<Store> op1 = s.findByAccount(username);
+        Integer ss = op1.get().getStoreID();
 		//每頁顯示的筆數
-		int pageSize = 10;
+		int pageSize = Integer.parseInt(SearchText2);
 		//設定顯示頁碼與每頁筆數
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<Product> page =pService.findAllByPage2(pageable);
+		System.out.println(pageNo);
+		if (SearchText.equals("全部")) {
+			SearchText="%";
+		}
+
+		Page<Product> page =pService.findAllByPage2(ss,"%"+SearchText+"%","%"+SearchText+"%","%"+SearchText+"%","%"+SearchText+"%",pageable);
 		System.out.println(page);
 		//取得資料總頁數
-		m.addAttribute("totalPages", page.getTotalPages());
+	//	m.addAttribute("totalPages", page.getTotalPages());
 		//取得全部資料筆數
-		m.addAttribute("totalElements", page.getTotalElements());
+	//	m.addAttribute("totalElements", page.getTotalElements());
 		//取得所取得的該頁資料內容
 		return page.getContent();
 	}
+	@PostMapping("/queryByPage3/{pageNo}/{SearchText}/{SearchText2}")	
+	@ResponseBody
+	public long processQueryAllByPage2(@PathVariable("pageNo") int pageNo,@PathVariable("SearchText") String SearchText ,@PathVariable("SearchText2") String SearchText2 , Model m){
+		
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+        Optional<Store> op1 = s.findByAccount(username);
+        Integer ss = op1.get().getStoreID();
+		//每頁顯示的筆數
+		int pageSize = Integer.parseInt(SearchText2);
+		//設定顯示頁碼與每頁筆數
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		System.out.println(pageNo);
+		if (SearchText.equals("全部")) {
+			SearchText="%";
+		}
+
+		Page<Product> page =pService.findAllByPage2(ss,"%"+SearchText+"%","%"+SearchText+"%","%"+SearchText+"%","%"+SearchText+"%",pageable);
+		
+		long pagelong = page.getTotalElements();
+
+		return pagelong;
+	}	
+	
 	
 	//新增餐點 
 	@GetMapping("/storeCreateProduct.controller")

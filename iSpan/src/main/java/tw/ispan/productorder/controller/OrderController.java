@@ -3,6 +3,9 @@ package tw.ispan.productorder.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -124,21 +127,49 @@ public class OrderController {
 		return pService.findAll();
 	}
 	
-	@PostMapping("/queryByPage/{pageNo}")	
+	@PostMapping("/QueryAllByStoreIDByPage/{pageNo}/{SearchText2}/{OrderStatus}")	
 	@ResponseBody
-	public List<ProductOrder> processQueryAllByPage(@PathVariable("pageNo") int pageNo , Model m){
+	public List<ProductOrder> processQueryAllByPage(@PathVariable("pageNo") int pageNo,@PathVariable("SearchText2") String SearchText2 ,@PathVariable("OrderStatus") String OrderStatus , Model m){
+		
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+
+        Optional<Store> op1 = s.findByAccount(username);
+		int storeid = op1.get().getStoreID();		
 		//每頁顯示的筆數
-		int pageSize = 2;
+		int pageSize = Integer.parseInt(SearchText2);
 		//設定顯示頁碼與每頁筆數
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		Page<ProductOrder> page =pService.findAllByPage(pageable);
-		//取得資料總頁數
-		m.addAttribute("totalPages", page.getTotalPages());
-		//取得全部資料筆數
-		m.addAttribute("totalElements", page.getTotalElements());
-		//取得所取得的該頁資料內容
+		if (OrderStatus.equals("全部")) {
+			OrderStatus = "%";
+		}
+		Page<ProductOrder> page =pService.findAllByStoreId(storeid,"%"+OrderStatus+"%",pageable);
+
 		return page.getContent();
 	}
+	
+	@PostMapping("/QueryAllByStoreIDByPage2/{pageNo}/{SearchText2}/{OrderStatus}")	
+	@ResponseBody
+	public long processQueryAllByPage2(@PathVariable("pageNo") int pageNo ,@PathVariable("SearchText2") String SearchText2 ,@PathVariable("OrderStatus") String OrderStatus , Model m){
+		
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username); // user  
+
+        Optional<Store> op1 = s.findByAccount(username);
+		int storeid = op1.get().getStoreID();		
+		//每頁顯示的筆數
+		int pageSize = Integer.parseInt(SearchText2);
+		//設定顯示頁碼與每頁筆數
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		if (OrderStatus.equals("全部")) {
+			OrderStatus = "%";
+		}
+		
+		
+		Page<ProductOrder> page =pService.findAllByStoreId(storeid,"%"+OrderStatus+"%",pageable);
+		long pagelong = page.getTotalElements();
+		return pagelong;
+	}	
         
 	//商家資訊修改網頁
 	@GetMapping("/updateStore.controller")
@@ -149,8 +180,6 @@ public class OrderController {
 	//接收資料更新商家資訊
 	@PostMapping("/updateStore2.controller")
 	public Store processProductupdateAction(@RequestBody Store store) {
-		
-		
 		//取得登入廠商的ID 才能新增廠申自己的餐點進資料庫  還沒寫防呆
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         System.out.println(username); // user  
@@ -170,6 +199,7 @@ public class OrderController {
         	 Integer ss = op1.get().getStoreID();
         	 store.setStoreID(ss);
         	 store.setStoreAccount(op1.get().getStoreAccount());
+        	 store.setPreview(op1.get().getPreview());
         	
         }
       
@@ -177,7 +207,7 @@ public class OrderController {
  //       store.setStorePassword(op1.get().getStorePassword());
 		//取得登產品ID 透過ID 更新資料
 
-		
+				
 
 		return sService.update(store);
 	}	
@@ -237,10 +267,13 @@ public class OrderController {
         int us1id = us1.get().getUserid();
         
         Date date = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+
         
-        productorder.setOrderdate(date);
+        productorder.setOrderdate(ft.format(date));
         productorder.setStoreid(productorder.getStoreid());
         productorder.setUserid(us1id);
+        productorder.setOrdersuccessdate("訂單未完成");
         
 		pService.insert(productorder);
 		
@@ -266,6 +299,8 @@ public class OrderController {
 	@PostMapping("/insertStoreProduct2.controller")
 	public String uplaod(HttpServletRequest req,@RequestParam("uploadFile") MultipartFile file,@RequestParam("storeId") int storeid,Model m) {
 		
+		if(!file.isEmpty()) {
+			
 		File dest;
 		Store store =sService.findById(storeid);
 		try {
@@ -295,17 +330,34 @@ public class OrderController {
 			 return null;
 		 }
 		sService.update(store);
+		}
+		
 		 return "/Order/updateStore";
 	} 
 	
 	@PostMapping("/updateorderstatus.controller")
 	@ResponseBody
 	public ProductOrder updatestatus(@RequestParam("oid2") int oid2,@RequestBody ProductOrder productorder){	
-		
 		ProductOrder pod = pService.findById(oid2);
-
+        Date date = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 	//	pod.setOrderstatus("準備中");
+
 		pod.setOrderstatus(productorder.getOrderstatus());
+		
+		if (productorder.getOrderstatus().equals("已完成")) {	
+			
+		pod.setOrdersuccessdate(ft.format(date));
+		System.out.println(oid2);
+		System.out.println(date);
+		System.out.println(ft);
+		
+		}else if(productorder.getOrderstatus().equals("已取消")){
+			
+			pod.setOrdersuccessdate(ft.format(date)+"(取消)");
+			pod.setRemark2(productorder.getRemark2());
+			
+		}
 
 		return pService.insert(pod);
 		

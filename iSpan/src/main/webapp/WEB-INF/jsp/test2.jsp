@@ -23,9 +23,43 @@
 
 	$(document).ready(function(){
 		var sid = $('#sid').val();
+		StoreAll();
 		loadPage(sid);
 		console.log(sid)
 	});
+
+    function StoreAll(){
+	       $.ajax({
+	           type:'post',
+	           url:'/product/StoreAll.controler',
+	           dataType:'JSON',
+	           contentType:'application/json',
+	           success: function(data){
+	               
+	               console.log(data);
+	               $('#showproduct').empty("");
+
+//              	var h3 = data[0];
+	               
+	             	if(data==null){
+	            	  	 	$('#showproduct').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
+	               	}else{
+	               		$.each(data, function(i,n){
+		               		
+		               		if(parseInt(n.storeID) == sid.value){
+			              		var h3 = 
+									"<h3>"+ n.storeName +"</h3>"
+									+"<h3>營業時間</h3>"
+									+"<h3>"+ n.storeBusinessHours +"</h3>";
+			          			$('#showproduct').append(h3);
+				            }
+		               	
+	               		});
+	            	}
+	       		}
+	     });
+	}
+	    
 
 function loadPage(sid){
 	
@@ -270,7 +304,9 @@ function loadPage(sid){
 					<div class="recipes-section">
 						<div class="container">
 							<div class="section-title">
-								<h3>餐點展示</h3>
+								<h3 id="showproduct">
+								
+								</h3>
 							</div>
 							<input id="sid" type="hidden" value="${sid}">
 							<!-- end section-title -->

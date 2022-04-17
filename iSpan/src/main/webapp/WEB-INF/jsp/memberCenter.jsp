@@ -123,6 +123,8 @@ a:hover, a:focus {
 			   					 loadorder(n.orderid);
 			   					 
 			   					 loadorderRemark(n.orderid);
+
+			   					 
                     });           	   
                 }
                 

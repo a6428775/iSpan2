@@ -15,6 +15,9 @@
 	});
 
     function loadPage(indexPage){
+
+    	var SearchText = "已付款";
+        
         $.ajax({
             type:'post',
             url:'/Store/QueryAllByStoreID.controller',
@@ -32,17 +35,19 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>訂單邊號</th> <th>商店ID</th> <th>會員ID</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>訂單編號</th>  <th>會員編號</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  </tr>");
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
+
+             		  if ((SearchText == "全部") || (n.orderstatus.search(SearchText) != -1 ) ) {
+                 	   
              		   var tr = 
                  		   		"<tr align='center' >" + 
                  		   		"<td>" + n.orderid + "</td>" +
-             		            "<td>" + n.storeid + "</td>" + 
              		            "<td>" + n.userid + "</td>" +
              		            "<td>" + n.orderdate + "</td>" + 
-             		            "<td>" + n.price + "</td>" + 	            
+             		            "<td> $ " + n.price + "</td>" + 	            
              		            "<td>" + n.orderstatus + "</td>" +
              		            "</tr>";
              		          
@@ -54,7 +59,7 @@
 					   table.append(tr);
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
 			   		//			loadorder(n.orderid);
-			   				
+             		  }	
                     });           	   
                 }
             }
@@ -115,24 +120,24 @@ function loadstore(){
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
+            <a class="navbar-brand ps-3">商家後台管理</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
+<!--             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"> -->
+<!--                 <div class="input-group"> -->
+<!--                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" /> -->
+<!--                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+<!--                 </div> -->
+<!--             </form> -->
             <!-- 右上角導航欄-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">設定</a></li>
-                        <li><a class="dropdown-item" href="#!">廠商資料</a></li>
-                        <li><hr class="dropdown-divider" /></li>
+<!--                         <li><a class="dropdown-item" href="#!">設定</a></li> -->
+<!--                         <li><a class="dropdown-item" href="#!">廠商資料</a></li> -->
+<!--                         <li><hr class="dropdown-divider" /></li> -->
                         <li><a class="dropdown-item" href="/logout">登出</a></li>
                     </ul>
                 </li>
@@ -144,6 +149,10 @@ function loadstore(){
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="/login/welcome">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                美好食程
+                            </a>
                             <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 後台主頁
@@ -175,15 +184,15 @@ function loadstore(){
                                 </nav>
                             </div>                            
                             
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                歷史訂單
-                            </a>
+<!--                             <div class="sb-sidenav-menu-heading">Addons</div> -->
+<!--                             <a class="nav-link" href="charts.html"> -->
+<!--                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> -->
+<!--                                 Charts -->
+<!--                             </a> -->
+<!--                             <a class="nav-link" href="tables.html"> -->
+<!--                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> -->
+<!--                                 歷史訂單 -->
+<!--                             </a> -->
                         </div>
                     </div>
 

@@ -151,8 +151,9 @@ public class AccountController {
 		m.addAttribute("Account", update1);
 		m.addAttribute("Useraccount", update1.getUserAccount());
 		m.addAttribute("Userpassword", update1.getUserPassword());
-
-		return "welcome";
+		
+		
+		return "login";
 	}
 	
 //	權限限制：僅允許store使用者登入此方法

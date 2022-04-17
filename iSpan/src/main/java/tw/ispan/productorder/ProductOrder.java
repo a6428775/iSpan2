@@ -30,7 +30,7 @@ public class ProductOrder {
 	
 	@Column(name = "ORDERDATE")
 	@JsonFormat(pattern = "yyyy-MM-dd" ,timezone = "GMT+8")
-	private Date orderdate;
+	private String orderdate;
 	
 	@Column(name = "ORDERSTATUS")
 	private String orderstatus;
@@ -43,6 +43,17 @@ public class ProductOrder {
 	
 	@Column(name = "REMARK2")
 	private String remark2;
+	
+	@Column(name = "ORDERSUCCESSDATE")
+	private String ordersuccessdate;
+
+	public String getOrdersuccessdate() {
+		return ordersuccessdate;
+	}
+
+	public void setOrdersuccessdate(String ordersuccessdate) {
+		this.ordersuccessdate = ordersuccessdate;
+	}
 
 	public String getRemark() {
 		return remark;
@@ -92,12 +103,12 @@ public class ProductOrder {
 		this.userid = userid;
 	}
 
-	public Date getOrderdate() {
+	public String getOrderdate() {
 		return orderdate;
 	}
 
-	public void setOrderdate(Date orderdate) {
-		this.orderdate = orderdate;
+	public void setOrderdate(String string) {
+		this.orderdate = string;
 	}
 
 	public String getOrderstatus() {

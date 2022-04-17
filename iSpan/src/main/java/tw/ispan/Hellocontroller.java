@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ecpay.payment.integration.AllInOne;
+import tw.ispan.account.EmailSenderService;
 import tw.ispan.orderInformation.OrderInformation;
 import tw.ispan.orderInformation.OrderInformationRepository;
 import tw.ispan.product.Product;
@@ -83,7 +84,7 @@ public class Hellocontroller {
 	
 	@GetMapping("/test8")
 	public String processAction8() {
-		return "/faq/faq1";
+		return "/shoppingcart";
 	}
 	@GetMapping("/aboutus")
 	public String processAction9() {
@@ -101,5 +102,19 @@ public class Hellocontroller {
 	public String processAction12() {
 		return "/faq/faq";
 	}
+	
+	
+	@Autowired
+    private EmailSenderService senderService;
+	@PostMapping("/sendmail.controller")
+   public String sendMail(@RequestParam("email") String email){
+		
+		System.out.println(email);
+		
+       senderService.sendEmail(email, 
+               "This is a Subject",
+               "This is a Body of email");
+       return "welcome";
+   }
 
 }

@@ -161,7 +161,7 @@ $.ajax({
 		  $.each(lsContent2, function(i,n){
 
 		
-			var id = "remark" + c
+			  var id = "remark" + (i+1)
 
 					var params = {  
 							"orderID":data.orderid,
@@ -171,7 +171,7 @@ $.ajax({
 							"productPrice":n.quantity*n.price,
 							"remark":document.getElementById(id).value,
 					}
-				c=c+1
+				
 					console.log("SUCCESS : ", JSON.stringify(params));
 					$.ajax({
 						   type:'post',

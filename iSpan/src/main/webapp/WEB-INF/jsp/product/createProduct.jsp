@@ -6,7 +6,32 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script type="text/javascript">
+function alertTest() {
+	
+	  var name = $("#ProductName").val();
+	  var category = $("#ProductCategory").val();
+	  var price = $("#ProductUnitPrice").val();
+	  if($.trim(name)==''){
+		   alert('請輸入產品名稱');
+		   return;
+	  }
+	  if($.trim(price)==''){
+		   alert('請輸入產品價格');
+		   return;
+	   }
 
+	  
+  Swal.fire({
+      title: "新增餐點成功",
+      icon: "success",
+  })
+      .then(function (isOkay) {
+          if (isOkay) {
+          	sendOrder();
+          }
+      });
+  return false;
+}
 
 function sendOrder(){
 
@@ -15,7 +40,7 @@ function sendOrder(){
 
  
 	
-	var file = "${fileName}";
+
 
 
 	
@@ -39,7 +64,7 @@ function sendOrder(){
           "productname":name,
           "productcategory":category,
           "productunitprice":price,
-          "preview":file,
+ 
   }
   
   console.log("SUCCESS : ", JSON.stringify(params));
@@ -111,25 +136,25 @@ $(function () {
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- 導航欄品牌-->
-            <a class="navbar-brand ps-3" href="/login/welcome">回主頁</a>
+            <a class="navbar-brand ps-3">商家後台管理</a>
             <!-- 側邊欄切換-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- 導航欄搜索-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
+<!--             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"> -->
+<!--                 <div class="input-group"> -->
+<!--                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" /> -->
+<!--                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+<!--                 </div> -->
+<!--             </form> -->
             <!-- 右上角導航欄-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">設定</a></li>
-                        <li><a class="dropdown-item" href="#!">廠商資料</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">登出</a></li>
+<!--                         <li><a class="dropdown-item" href="#!">設定</a></li> -->
+<!--                         <li><a class="dropdown-item" href="#!">廠商資料</a></li> -->
+<!--                         <li><hr class="dropdown-divider" /></li> -->
+                        <li><a class="dropdown-item" href="/logout">登出</a></li>
                     </ul>
                 </li>
             </ul>
@@ -140,6 +165,10 @@ $(function () {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="/login/welcome">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                美好食程
+                            </a>
                             <a class="nav-link" href="/verifyIdentity.controller">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 後台主頁
@@ -171,15 +200,15 @@ $(function () {
                                 </nav>
                             </div>                             
                             
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                歷史訂單
-                            </a>
+<!--                             <div class="sb-sidenav-menu-heading">Addons</div> -->
+<!--                             <a class="nav-link" href="charts.html"> -->
+<!--                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> -->
+<!--                                 Charts -->
+<!--                             </a> -->
+<!--                             <a class="nav-link" href="tables.html"> -->
+<!--                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> -->
+<!--                                 歷史訂單 -->
+<!--                             </a> -->
                         </div>
                     </div>
 
@@ -189,10 +218,8 @@ $(function () {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">儀錶板</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">訂單資訊</li>
-                        </ol>
+                        <h1 class="mt-4"> 　</h1>
+					</div>
 
         <section class="page-section" id="contact">
             <div class="container">
@@ -246,13 +273,16 @@ $(function () {
 		                    </div>
 
                             <!-- Submit Button-->
-                            <button class="btn btn-primary " id="submitButton" type="button" onclick='sendOrder()'>新增</button>
+                            <button class="btn btn-primary " id="submitButton" type="button" onclick='alertTest()'>新增</button>
                              <img id="hello" style=display:none src='/images/product/${fileName}' />
            
+           
+          
                         </form>
                     </div>
                 </div>
             </div>
+
         </section>
 
 
@@ -279,5 +309,8 @@ $(function () {
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="/js/datatables-simple-demo.js"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        
     </body>
 </html>

@@ -217,7 +217,24 @@ function login(){
 
 
 ///////////////////////////////
+async function sendmail(){
+	const { value: email } = await Swal.fire({
+		  title: '請輸入您的信箱',
+		  input: 'email',
+		  inputLabel: 'Your email address',
+		  inputPlaceholder: 'Enter your email address'
+		})
 
+		if (email) {
+			
+		  	   $.ajax({
+	           type:'post',
+	           url:'/sendmail.controller?email='+email,
+		  	 }); 
+		  
+		  Swal.fire(`訂閱成功!`)
+		}
+};
 
 
 
@@ -264,6 +281,7 @@ function login(){
 										<li class="nav-item"><a class="nav-link" href="/events" style="font-size:18px;">最新消息</a></li>
 										<li class="nav-item"><a class="nav-link" href="welcome" style="font-size:18px;">餐廳列表</a></li>						
 										<li class="nav-item"><a class="nav-link" href="/faq" style="font-size:18px;">常見問題</a></li>
+										<li class="nav-item"><a class="nav-link" href="javascript:sendmail()" style="font-size:18px;">訂閱我們</a></li>
 										
 
 										
@@ -464,5 +482,6 @@ function login(){
 	<script src="/js/jss/jquery.flexisel.js"></script>
 	<script src="/js/jss/modernizr.custom.js"></script>
 	<script src="/js/jss/classie.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>	
 </body>
 </html>
