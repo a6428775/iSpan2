@@ -16,7 +16,7 @@
 
     function loadPage(indexPage){
 
-    	var SearchText = "已付款";
+  //  	var SearchText = "已付款";
         
         $.ajax({
             type:'post',
@@ -35,32 +35,55 @@
              	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
                 }else{
              	   var table = $('#showorder'); 
-             	   table.append("<tr id='ptitle'> <th>訂單編號</th>  <th>會員編號</th> <th>訂單日期</th> <th>訂單總價</th> <th>訂單狀態</th>  </tr>");
+             	   table.append("<tr id='ptitle'> <th>已完成訂單</th>  <th>待處理訂單</th> <th>已取消訂單</th>   </tr>");
 
+
+					var successescount = 0
+					var pendingcount = 0
+					var cancelcount = 0
+
+             	   
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
 
-             		  if ((SearchText == "全部") || (n.orderstatus.search(SearchText) != -1 ) ) {
+							if (n.orderstatus == "已完成"){
+
+								successescount = successescount +1
+								}else if (n.orderstatus == "已付款"){
+									pendingcount = pendingcount+1
+									}else if (n.orderstatus == "已取消"){
+										cancelcount = cancelcount +1
+										}
+
+
+
+             		   
+       //      		  if ((SearchText == "全部") || (n.orderstatus.search(SearchText) != -1 ) ) {
                  	   
-             		   var tr = 
-                 		   		"<tr align='center' >" + 
-                 		   		"<td>" + n.orderid + "</td>" +
-             		            "<td>" + n.userid + "</td>" +
-             		            "<td>" + n.orderdate + "</td>" + 
-             		            "<td> $ " + n.price + "</td>" + 	            
-             		            "<td>" + n.orderstatus + "</td>" +
-             		            "</tr>";
+ //            		   var tr = 
+//                  		   		"<tr align='center' >" + 
+//                  		   		"<td>" + n.orderid + "</td>" +
+//              		            "<td>" + n.userid + "</td>" +
+//              		            "<td>" + n.orderdate + "</td>" + 
+//              		            "<td> $ " + n.price + "</td>" + 	            
+//              		            "<td>" + n.orderstatus + "</td>" +
+//              		            "</tr>";
              		          
         //        		   		"<tr align='center' class='collapse' id='collapseLayouts"+n.orderid+"' aria-labelledby='headingOne' data-bs-parent='#sidenavAccordion'>" + 
        //          		   		"<td colspan='5' id = 'orderid"+ n.orderid +"'></td>" +
 		//						"</tr>" ;
 
              		            
-					   table.append(tr);
 								// 執行 loadorder(n.orderid); 根據ordrerid 查詢
 			   		//			loadorder(n.orderid);
-             		  }	
-                    });           	   
+       //      		  }	
+                    });       
+                    var tr =    "<tr align='center' >" +
+                    			"<td>" + successescount + "</td>" +
+                   				"<td>" + pendingcount + "</td>" +
+                   				"<td>" + cancelcount + "</td>" + 
+                   				"</tr>";
+					   table.append(tr);
                 }
             }
         });

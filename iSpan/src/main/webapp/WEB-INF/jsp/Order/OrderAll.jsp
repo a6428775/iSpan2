@@ -187,7 +187,7 @@
 			  inputAttributes: {
 			    'aria-label': 'Type your message here'
 			  },
-			  showCancelButton: true
+			  showCancelButton: false
 			})
 
 			if (text!="") {

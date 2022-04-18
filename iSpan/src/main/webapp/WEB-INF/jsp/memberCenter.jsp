@@ -10,6 +10,18 @@
 <title>會員中心</title>
 <!-- STYLE CSS -->
 
+<!-- 電話填寫驗證 X；V -->
+<style type="text/css">
+#telNo {
+  margin-bottom: 10px;position: relative;}
+#Phone + #validity {
+  padding-right: 30px;}
+#Phone:invalid+#validity:after {
+  position: absolute; content: '✖';padding-left: 5px;color: #8b0000;}
+#Phone:valid+#validity:after {
+  position: absolute;content: '✓';padding-left: 5px;color: #009000;}
+</style>
+
 <!-- Tabs分頁 -->
 <style>
 a:hover, a:focus {
@@ -38,7 +50,6 @@ a:hover, a:focus {
 .tab .tab-content h3 {
 	margin-top: 0;
 }
-
 @media only screen and (max-width: 479px) {
 	.tab .nav-tabs li {
 		width: 100%;text-align: center;margin-bottom: 15px;
@@ -64,6 +75,8 @@ a:hover, a:focus {
 	$(document).ready(function(){
 		var indexPage = 1;
 	      loadPage(indexPage);   
+
+	      FormInfo();
 	      
 	    if(document.URL.indexOf("#")==-1){  //第一次載入網頁時會重整一次，解決換頁顯示問題
 	          // Set the URL to whatever it was plus "#".
@@ -73,7 +86,20 @@ a:hover, a:focus {
 	          //Reload the page
 	          location.reload(true);
 	      } 
+	      
 	});
+/* 新註冊之帳號，提示先填寫基本資料 */
+	function FormInfo() {
+		var a = $('#Phone').val();
+		if ( a == "")
+	        swal({
+	            title: "欲進行訂購請先填寫基本資料！",
+	            text: "",
+	            icon: "warning",
+	        })
+        return false;
+	}
+	
 
     function loadPage(indexPage){
         $.ajax({
@@ -88,12 +114,12 @@ a:hover, a:focus {
                 //清空這段<table id="showorder" border="1"></table>
                 $('#showorder').empty("");
                 
-                
-                if(data==null){
-             	   $('table').prepend("<tr><td colspan='2'>暫無資料</td></tr>");
-                }else{
              	   var table = $('#showorder'); 
              	   table.append("<thead><tr id='ptitle' align='center'><th>訂單編號</th><th>訂單日期</th><th>訂單狀態</th><th>訂單總價</th><th>訂單明細</th><th>顧客回饋</th><th>評論</th></tr></thead>");
+                
+                if(data.length==0){
+             	   $('#showorder').append("<tr align='center'><td colspan='7'>暫無訂購紀錄</td></tr>");
+                }else{
 
              	   //data:jsonArray n:jsonObject
              	   $.each(data, function(i,n){
@@ -123,8 +149,6 @@ a:hover, a:focus {
 			   					 loadorder(n.orderid);
 			   					 
 			   					 loadorderRemark(n.orderid);
-
-			   					 
                     });           	   
                 }
                 
@@ -152,11 +176,13 @@ a:hover, a:focus {
 			         console.log('success:' + json);
 			         var jsonArray = JSON.parse(json);
 
-			         if(data==null){
+			         if(jsonArray==null){
+
 			         }
-			         $.each(jsonArray, function(i,n){
-			        	var tdd = "餐點 : " + n.productName + " 數量 : " + n.number + " 價格 : " + n.productPrice +"</br>" 
-			       		$('#orderid'+oid).prepend(tdd);
+				         $.each(jsonArray, function(i,n){
+				        	var tdd = "餐點 : " + n.productName + " 數量 : " + n.number + " 價格 : " + n.productPrice +"</br>" 
+				       		$('#orderid'+oid).prepend(tdd);
+			         	
 			         });
 			     }
 			});
@@ -187,7 +213,21 @@ a:hover, a:focus {
 		   });
 		}
 
+/*      if(jsonArray.remark==null){
+    	 var tdd = " 尚未收到您的回饋 "+"</br>" 
+    	 $('#remark'+oid).prepend(tdd);
+     }else {
+    	var tdd = " 我的回饋 : " + jsonArray.remark + "</br>" + " 店家回覆 : " 
+    	
+    	$('#remark'+oid).prepend(tdd);
 
+    	if(jsonArray.remark2==null){
+        	 
+         }else {
+        	 var tdd1 = jsonArray.remark2 + "</br>"
+        	 $('#remark'+oid).prepend(tdd1);
+	         }
+      } */
 ///////////////////////////---------------------------------------
 </script>
 <style>
@@ -320,7 +360,7 @@ a:hover, a:focus {
 											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
 										</li>
 										<!-- <li class="nav-item"><a class="nav-link"
-											href="about.html">關於我們</a></li> -->
+											href="about.html">關於我們</a></li> 
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">最新消息</a></li>
 										<li class="nav-item dropdown"><a
@@ -358,7 +398,7 @@ a:hover, a:focus {
 													class="dropdown-item" href="faq.html">FAQ</a>
 											</div></li>
 
-										<!-- <li class="nav-item dropdown"><a
+										 <li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">會員中心</a>
@@ -366,9 +406,14 @@ a:hover, a:focus {
 												<a class="dropdown-item" href="/login/page">登入</a>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item" href="#">註冊</a>
-											</div></li> -->
+											</div></li> 
 										<li class="nav-item"><a class="nav-link"
-											href="typography.html">購物車</a></li>
+											href="typography.html">購物車</a></li> -->
+
+										<li class="nav-item" ><a class="nav-link" href="/aboutus" >關於我們</a></li>
+										<li class="nav-item"><a class="nav-link" href="/events" >最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="welcome" >餐廳列表</a></li>						
+										<li class="nav-item"><a class="nav-link" href="/faq" >常見問題</a></li>
 
 										<li class="nav-item"><label class="nav-link">登入帳號：${Useraccount}</label>
 										</li>
@@ -420,6 +465,7 @@ a:hover, a:focus {
 									<div class="offset-sm-1 col-md-10">
 
 										<h3 class="title">基本資料</h3>
+										<h5 class="">(欲進行訂購請先填寫基本資料)</h5>
 										<form id="form-userinfo" onsubmit="return submitFormA(this);"
 											action="/Account/User1/membercenterupdate.controller"
 											method="post">
@@ -429,14 +475,15 @@ a:hover, a:focus {
 													id="Useremailaddress" value="${Useraccount}" disabled />
 											</div>
 											<div class="mb-3">
-												<label class="form-label">暱稱</label> <input name="Nickname"
+												<label class="form-label">姓名</label> <input name="Nickname"
 													type="text" class="form-control" id="Nickname"
 													value="${Nickname}" />
 											</div>
-											<div class="mb-3">
+											
+											<div class="mb-3" id="telNo">
 												<label class="form-label">電話 (09xxxxxxxx)</label> <input
-													name="Phone" type="text" class="form-control" id="Phone"
-													value="${Phone}" />
+													name="Phone" type="tel" class="form-control" id="Phone" minlength="10" maxlength="10" 
+													value="${Phone}" required/><span class="validity" id="validity"></span>
 											</div>
 											<div class="mb-3">
 												<label class="form-label">地址</label> <input name="Address"

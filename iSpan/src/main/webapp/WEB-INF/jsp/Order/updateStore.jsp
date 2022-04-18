@@ -13,6 +13,34 @@ $(document).ready(function(){
 
 
 function alertTest() {
+
+	  var name = $("#storeName").val();
+	  var category = $("#storeCategory").val();
+	  var phone = $("#storePhone").val();
+	  var address = $("#storeAddress").val();
+	  var businesshours = $("#storeBusinessHours").val();
+	  
+	  if($.trim(name)==''){
+		   alert('請輸入商家名稱');
+		   return;
+	  }
+	  if($.trim(phone)==''){
+		   alert('請輸入商家電話');
+		   return;
+	 }	
+	  if($.trim(address)==''){
+		   alert('請輸入商家地址');
+		   return;
+	 }	
+	  if($.trim(businesshours)==''){
+		   alert('請輸入商家營業時間');
+		   return;
+	 }	
+
+
+
+
+
 	
 Swal.fire({
     title: "資料已修改成功",
@@ -72,7 +100,13 @@ function sendStoreUpdate(){
 	   alert('請輸入商家名稱');
 	   return;
   }
+  if($.trim(phone)==''){
+	   alert('請輸入商家電話');
+	   return;
+ }
+  
 
+  
 
 
 

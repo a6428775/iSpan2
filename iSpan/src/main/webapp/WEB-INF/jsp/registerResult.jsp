@@ -53,9 +53,9 @@
 									<!-- header 標題列 //////////////////////////////////////////////////////////////////////////-->
 									<ul class="navbar-nav">
 										<li class="nav-item active"><a class="nav-link"
-											href="/login/welcome">Home <span class="sr-only">(current)</span></a>
+											href="/login/welcome" style="font-size:18px;">Home <span class="sr-only">(current)</span></a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<!-- <li class="nav-item"><a class="nav-link"
 											href="about.html">關於我們</a></li>
 										<li class="nav-item"><a class="nav-link"
 											href="typography.html">最新消息</a></li>
@@ -92,19 +92,24 @@
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
 												<a class="dropdown-item" href="contact.html">聯絡我們</a> <a
 													class="dropdown-item" href="faq.html">FAQ</a>
-											</div></li>
+											</div></li> 
+										<li class="nav-item"><a class="nav-link"
+											href="typography.html">購物車</a></li>-->
+
+										<li class="nav-item" ><a class="nav-link" href="/aboutus" style="font-size:18px;">關於我們</a></li>
+										<li class="nav-item"><a class="nav-link" href="/events" style="font-size:18px;">最新消息</a></li>
+										<li class="nav-item"><a class="nav-link" href="welcome" style="font-size:18px;">餐廳列表</a></li>						
+										<li class="nav-item"><a class="nav-link" href="/faq" style="font-size:18px;">常見問題</a></li>
 
 										<li class="nav-item dropdown"><a
 											class="nav-link dropdown-toggle" href="#"
 											id="navbarDropdown4" role="button" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false">會員中心</a>
+											aria-haspopup="true" aria-expanded="false" style="font-size:18px;">會員中心</a>
 											<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-												<a class="dropdown-item" href="/login/page">登入</a>
+												<a class="dropdown-item" href="/user1/membercenter.controller" style="font-size:18px;">登入</a>
 												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#">註冊</a>
+												<a class="dropdown-item" href="/createuser1main.controller" style="font-size:18px;">註冊</a>
 											</div></li>
-										<li class="nav-item"><a class="nav-link"
-											href="typography.html">購物車</a></li>
 									</ul>
 								</div>
 								<!-- end navbar-collapse -->
@@ -128,10 +133,10 @@
 		<!-- ====================================================自由發揮區==================================================== -->
 
 		<div class="container">
-			<div class="row">
-				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow">
-					<h3>註冊成功，返回登入頁面以登入!</h3>
-					<a href="/login/page">登入</a>
+			<div class="row" style="height:500px">
+				<div class="offset-sm-3 col-sm-6 my-5 p-5 border shadow" >
+					<h3>註冊成功，返回<a href="/login/page"> 登入頁面 </a>以登入!</h3>
+					
 				</div>
 			</div>
 		</div>

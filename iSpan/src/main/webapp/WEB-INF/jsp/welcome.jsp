@@ -103,7 +103,7 @@ function login(){
 	           			+"<div class='team1' align='center' valign='center' >"
 	    //       			+ "<img src='images/t2.jpg' class='img-responsive' alt='' />"
 		//				+ "<a href='http://localhost:8081/test2'><img  src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  class='img-responsive' alt=''/></a>"
-						+ "<a href='http://localhost:8081/test2'><img class='img-responsive' src= " + src + suffix + " /></a>"
+						+ "<a href='/product/testtest2?sid="+ n.storeID +"'><img class='img-responsive' src= " + src + suffix + " /></a>"
 	//					+ "<input  type='image'  name='submit_Btn'  id='submit_Btn' src='${pageContext.request.contextPath }/images/" + n.storeID + ".jpg'  onClick='document.form1.submit()' >"
 						+ "<h6>　 " + n.storeName + "</h6>"
 						+ "<p style='color:red'>　 " + n.storeCategory + "</p>"

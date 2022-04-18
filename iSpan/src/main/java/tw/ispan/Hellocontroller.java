@@ -112,8 +112,8 @@ public class Hellocontroller {
 		System.out.println(email);
 		
        senderService.sendEmail(email, 
-               "This is a Subject",
-               "This is a Body of email");
+               "感謝您訂閱美好食程",
+               "親愛的會員，感謝您訂閱美好食程，美好食程將會不定期提供最新資訊及餐廳優惠給您，美好食程祝您順心愉快");
        return "welcome";
    }
 
